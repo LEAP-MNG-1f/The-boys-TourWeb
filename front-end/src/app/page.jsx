@@ -1,8 +1,9 @@
+import { HomePage } from "@/components/pages/Home";
+
 export default function Home() {
   return (
     <div>
-      <div>nsadnasjkdbkjasbdkjbsa</div>
-      <div>dnjasd askd </div>
+      <HomePage />
     </div>
   );
 }
