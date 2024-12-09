@@ -59,7 +59,7 @@ export const Carousel = () => {
           </div>
         </div>
       </div>
-      <div className="relative"></div>
+      <div className="relative">asdhvasjhdvajshvdhjasv</div>
     </div>
   );
 };
