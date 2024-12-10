@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <div>
       <HeaderPart />
-      <Specail />
+      <div className="pt-[40px] pb-[100px]">
+        <Specail />
+      </div>
       <Footer />
     </div>
   );
