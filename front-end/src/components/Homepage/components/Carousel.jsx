@@ -47,7 +47,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh]">
+    <div className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh] ">
       <div
         className="w-full h-full bg-cover bg-center"
         style={{ backgroundImage: `url(${slides[currentIndex].imageUrl})` }}

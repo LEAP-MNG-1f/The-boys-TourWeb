@@ -16,15 +16,17 @@ const WalkDifference = () => {
   }, [carouselImages.length]);
 
   return (
-    <div className="container mx-auto px-6 py-12">
+    <div className="container mx-auto  py-12 ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 ">
         <div className="h-64 md:h-80 lg:h-[450px] rounded-[20px] overflow-hidden ">
-          <div className="h-[490px] w-[500px] bg-orange-500 absolute rounded-[20px] ml-[80px]"></div>
-          <img
-            src={carouselImages[currentImage]}
-            alt="Carousel Image"
-            className="w-full h-full object-cover relative pt-[30px] rounded-[20px]"
-          />
+          <div className="h-[490px] w-[500px] bg-orange-500 absolute rounded-[20px] ml-[80px] "></div>
+          <div className="pt-[30px]">
+            <img
+              src={carouselImages[currentImage]}
+              alt="Carousel Image"
+              className="w-full h-full object-cover relative  rounded-[20px]"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col justify-center">

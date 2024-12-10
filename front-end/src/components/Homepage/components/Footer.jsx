@@ -1,4 +1,5 @@
 import React from "react";
+import { ClickIcon } from "../icons/Click";
 
 const Footer = () => {
   return (
@@ -58,26 +59,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex justify-center gap-6 mb-6">
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            {/* <FaFacebook size={24} /> */}
-          </a>
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            {/* <FaTwitter size={24} /> */}
-          </a>
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            {/* <FaLinkedin size={24} /> */}
-          </a>
-        </div>
+        <div className="flex justify-center gap-6 mb-6"></div>
 
         <div className="text-center">
           <p className="text-gray-400 text-sm">
