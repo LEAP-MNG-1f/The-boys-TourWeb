@@ -5,7 +5,7 @@ import { Hero } from "./components/Hero";
 import WorkingProcess from "./components/Process";
 import WalkDifference from "./components/Walk";
 
-export const HomePage = () => {
+export default function Homepage() {
   return (
     <div>
       <HeaderPart />
@@ -16,4 +16,4 @@ export const HomePage = () => {
       <Footer />
     </div>
   );
-};
+}
