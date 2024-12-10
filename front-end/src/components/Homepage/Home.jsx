@@ -9,7 +9,9 @@ export default function Homepage() {
   return (
     <div>
       <HeaderPart />
-      <Carousel />
+      <div className="pt-[120px]">
+        <Carousel />
+      </div>
       <Hero />
       <WalkDifference />
       <WorkingProcess />
