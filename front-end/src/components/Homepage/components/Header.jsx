@@ -40,6 +40,7 @@ export const HeaderPart = () => {
             >
               ☰
             </button>
+            <div></div>
           </div>
         </div>
       </header>
