@@ -1,7 +1,6 @@
+import Footer from "../Homepage/components/Footer";
+import { HeaderPart } from "../Homepage/components/Header";
 import AboutUsText from "./AboutUsText";
-
-const { default: Footer } = require("../Homepage/components/Footer");
-const { HeaderPart } = require("../Homepage/components/Header");
 
 const AboutUs = () => {
   return (
