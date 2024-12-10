@@ -5,7 +5,6 @@ const getAllTours = async (request, response) => {
   const result = await Itinerary.find();
   response.json({ success: true, data: result });
 };
-
 const createTour = async (request, response) => {
   try {
     const {
@@ -18,29 +17,36 @@ const createTour = async (request, response) => {
       dailyPlans,
     } = request.body;
 
-    const file = request.file;
+    // Parse stringified JSON fields
+    const parsedDailyPlans = JSON.parse(dailyPlans);
 
-    if (!file) {
+    const files = request.files;
+
+    if (!files || files.length === 0) {
       return response
         .status(400)
-        .json({ success: false, message: "Image is required" });
+        .json({ success: false, message: "Images are required" });
     }
 
-    // Upload the file to Cloudinary
-    const uploadResult = await cloudinary.uploader.upload(file.path, {
-      folder: "tours",
-    });
+    // Upload images to Cloudinary
+    const uploadResults = await Promise.all(
+      files.map((file) =>
+        cloudinary.uploader.upload(file.path, { folder: "tours" })
+      )
+    );
 
-    // Create a new tour document in the database
+    const imageUrls = uploadResults.map((result) => result.url);
+
+    // Save data to MongoDB
     const result = await Itinerary.create({
       title,
-      image: uploadResult.url, // Save Cloudinary URL in database
       description,
-      price,
+      images: imageUrls,
       startDate,
       endDate,
+      price,
       location,
-      dailyPlans,
+      dailyPlans: parsedDailyPlans,
     });
 
     response.status(201).json({
@@ -52,7 +58,7 @@ const createTour = async (request, response) => {
     console.error(error);
     response
       .status(500)
-      .json({ success: false, message: "Error creating tour" });
+      .json({ success: false, message: "Error creating tour", error });
   }
 };
 
@@ -107,4 +113,4 @@ const deleteFood = async (request, response) => {
   response.json({ success: true, data: result });
 };
 
-export { createTour, getAllTours, updateFood, deleteFood };
+export { createTour, getAllTours };

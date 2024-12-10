@@ -11,10 +11,11 @@ const itinerarySchema = new Schema(
       type: String,
       default: "No description provided.",
     },
-    image: {
-      type: String,
-      default: "https://via.placeholder.com/150", // Placeholder image
-    },
+    images: [
+      {
+        type: String,
+      },
+    ],
     startDate: {
       type: Date,
       required: [true, "Start date is required."],
@@ -41,7 +42,6 @@ const itinerarySchema = new Schema(
       {
         day: {
           type: String,
-          required: [true, "Day is required."],
         },
         periodOfTime: [
           {
