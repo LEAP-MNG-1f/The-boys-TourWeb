@@ -1,5 +1,6 @@
 import React from "react";
 import { ClickIcon } from "../icons/Click";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -44,18 +45,18 @@ const Footer = () => {
 
         <div className="flex flex-wrap justify-center md:justify-between mb-8">
           <div className="flex flex-col md:flex-row gap-6">
-            <a href="#" className="text-gray-400 hover:text-white">
-              Home
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              About
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              Services
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              Contact
-            </a>
+            <Link href={"/"}>
+              <h1 className="text-gray-400 hover:text-white">Home</h1>
+            </Link>
+            <Link href={"about-us"}>
+              <h1 className="text-gray-400 hover:text-white">About</h1>
+            </Link>
+            <Link href={"/"}>
+              <h1 className="text-gray-400 hover:text-white">Services</h1>
+            </Link>
+            <Link href={"/"}>
+              <h1 className="text-gray-400 hover:text-white">Contact</h1>
+            </Link>
           </div>
         </div>
 

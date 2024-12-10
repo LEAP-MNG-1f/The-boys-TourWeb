@@ -9,7 +9,7 @@ export default function Homepage() {
   return (
     <div>
       <HeaderPart />
-      <div className="pt-[120px]">
+      <div className="pt-[100px]">
         <Carousel />
       </div>
       <Hero />
