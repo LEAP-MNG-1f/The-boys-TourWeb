@@ -4,7 +4,7 @@ import Navbar from "../ui/dashboard/navbar/navbar";
 
 const Layout = ({ children }) => {
   return (
-    <div className="w-full flex justify-center text-white h-[100vh] bg-[#151c2c] ">
+    <div className="w-full flex justify-center text-white min-h-[100vh] bg-[#151c2c] ">
       <div className="flex">
         <div className="w-[20vw] bg-[#182237] ">
           <Sidebar />

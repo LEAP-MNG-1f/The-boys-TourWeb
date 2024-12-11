@@ -1,14 +1,23 @@
+"use client";
+
 import React from "react";
 import {
   Binoculars,
   CircleDollarSign,
+  CirclePlus,
   LayoutDashboard,
   LogOut,
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
+  const pathname = usePathname();
+
+  // Function to determine if a link is active
+  const isActive = (href) => pathname === href;
+
   return (
     <div className="bg-[#182237] flex flex-col p-5 ">
       <div className="flex flex-col gap-5">
@@ -30,25 +39,59 @@ const Sidebar = () => {
             <h2 className="text-[#b7bac1] text-xs font-bold">Pages</h2>
             <div className="flex flex-col gap-2">
               <Link href="/dashboard">
-                <button className="btn btn-ghost w-full justify-start font-normal hover:bg-slate-700">
+                <button
+                  className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${
+                    isActive("/dashboard") ? "bg-slate-700 text-white" : ""
+                  }`}
+                >
                   <LayoutDashboard width={22} />
                   Dashboard
                 </button>
               </Link>
               <Link href="/dashboard/users">
-                <button className="btn btn-ghost w-full justify-start font-normal hover:bg-slate-700">
+                <button
+                  className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${
+                    isActive("/dashboard/users")
+                      ? "bg-slate-700 text-white"
+                      : ""
+                  }`}
+                >
                   <Users width={22} />
                   Users
                 </button>
               </Link>
               <Link href="/dashboard/tours">
-                <button className="btn btn-ghost w-full justify-start font-normal hover:bg-slate-700">
+                <button
+                  className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${
+                    isActive("/dashboard/tours")
+                      ? "bg-slate-700 text-white"
+                      : ""
+                  }`}
+                >
                   <Binoculars width={22} />
                   Tours
                 </button>
               </Link>
+              <Link href="/dashboard/add-tour">
+                <button
+                  className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${
+                    isActive("/dashboard/add-tour")
+                      ? "bg-slate-700 text-white"
+                      : ""
+                  }`}
+                >
+                  <CirclePlus width={22} />
+                  Add Tour
+                </button>
+              </Link>
               <Link href="/dashboard/orders">
-                <button className="btn btn-ghost w-full justify-start font-normal hover:bg-slate-700">
+                <button
+                  className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${
+                    isActive("/dashboard/orders")
+                      ? "bg-slate-700 text-white"
+                      : ""
+                  }`}
+                >
                   <CircleDollarSign width={22} />
                   Orders
                 </button>
