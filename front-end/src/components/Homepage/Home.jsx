@@ -9,14 +9,14 @@ export default function Homepage() {
   return (
     <div>
       <HeaderPart />
-      <div className="pt-[100px]">
-        <Carousel />
-      </div>
+      <Carousel />
       <div className="py-[50px]">
         <Hero />
       </div>
       <WalkDifference />
-      <WorkingProcess />
+      <div className="py-[50px]">
+        <WorkingProcess />
+      </div>
       <Footer />
     </div>
   );

@@ -2,9 +2,9 @@ import { Card } from "../card/Card";
 
 export const Hero = () => {
   return (
-    <div className="container mx-auto pt-20 pb-32 flex flex-col bg-gradient-to-b from-blue-500 via-green-400 to-teal-500 rounded-[12px] ">
+    <div className="container mx-auto pt-20 pb-32 flex flex-col  shadow-xl rounded-[12px]">
       <div>
-        <h1 className="font-bold text-4xl text-white text-center">
+        <h1 className="font-bold text-4xl text-black text-center">
           Choose Your Tour
         </h1>
       </div>
@@ -20,7 +20,7 @@ export const Hero = () => {
         ))}
       </div>
 
-      <div className="pt-10 px-[90px] ">
+      <div className="pt-10 px-[90px]">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <Card
             image="https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg"
