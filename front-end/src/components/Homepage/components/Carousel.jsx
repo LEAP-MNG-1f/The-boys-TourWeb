@@ -87,14 +87,14 @@ const Carousel = () => {
 
                   <div className="absolute top-[130px] flex space-x-2">
                     <button
-                      className="bg-white text-black w-10 h-10 flex justify-center items-center rounded-full shadow-md"
+                      className="bg-white text-black w-[45px] h-[45px] flex justify-center items-center rounded-full shadow-md"
                       onClick={prevSlide}
                       aria-label="Previous Slide"
                     >
                       &#8592;
                     </button>
                     <button
-                      className="bg-white text-black w-10 h-10 flex justify-center items-center rounded-full shadow-md"
+                      className="bg-white text-black w-[45px] h-[45px] flex justify-center items-center rounded-full shadow-md"
                       onClick={nextSlide}
                       aria-label="Next Slide"
                     >

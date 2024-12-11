@@ -21,9 +21,9 @@ export const HeaderPart = () => {
                 Create Your Tour
               </h1>
             </Link>
-            <Link href={"/"}>
+            <Link href={"/event-page"}>
               <h1 className="text-white text-lg font-medium hover:text-orange-500 transition duration-300">
-                Mongolian Guest
+                Mongolian Event
               </h1>
             </Link>
             <Link href={"/about-us"}>
