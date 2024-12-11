@@ -24,6 +24,10 @@ const itinerarySchema = new Schema(
     endDate: {
       type: String,
     },
+    categoryId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Category",
+    },
     price: [
       {
         pax: { type: String },

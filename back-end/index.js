@@ -4,6 +4,7 @@ import cloudinary from "cloudinary";
 import cors from "cors";
 import mongoose from "mongoose";
 import tourRouter from "./routes/TourRouter.js";
+import categoryRouter from "./routes/CategoryRouter.js";
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ mongoose
   });
 
 server.use("/api", tourRouter);
+server.use("/api", categoryRouter);
 
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
