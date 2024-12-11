@@ -1,6 +1,6 @@
 export const Card = ({ image, price, description, additionalInfo }) => {
   return (
-    <div className="w-[270px] h-[340px] relative group overflow-hidden rounded-[24px] shadow-lg">
+    <div className="w-[320px] h-[340px] relative group overflow-hidden rounded-[24px] shadow-lg">
       <img
         className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
         src={image}

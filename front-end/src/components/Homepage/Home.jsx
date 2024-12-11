@@ -12,7 +12,9 @@ export default function Homepage() {
       <div className="pt-[100px]">
         <Carousel />
       </div>
-      <Hero />
+      <div className="py-[50px]">
+        <Hero />
+      </div>
       <WalkDifference />
       <WorkingProcess />
       <Footer />
