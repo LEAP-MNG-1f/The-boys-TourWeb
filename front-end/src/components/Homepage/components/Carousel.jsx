@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
 const Carousel = () => {
   const slides = [
@@ -47,7 +48,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh]">
+    <div className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh] ">
       <div
         className="w-full h-full bg-cover bg-center"
         style={{ backgroundImage: `url(${slides[currentIndex].imageUrl})` }}
@@ -85,34 +86,42 @@ const Carousel = () => {
 
         <div className="absolute top-0 right-20 h-full flex flex-col justify-center items-center space-y-6">
           <div className="grid grid-cols-2 gap-4">
-            <div className="w-40 h-40 bg-white rounded-lg">
-              <img
-                className="w-full h-full object-cover rounded-lg"
-                src="https://cdn.mongolia-guide.com/generated/aimag/yB5tmMud3F7rJsh124LfK4ML8rLIdCKXHqTaw3tX_1920_1000.jpeg"
-                alt=""
-              />
-            </div>
-            <div className="w-40 h-40 bg-white rounded-lg">
-              <img
-                className="w-full h-full object-cover rounded-lg"
-                src="https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg"
-                alt=""
-              />
-            </div>
-            <div className="w-40 h-40 bg-white rounded-lg">
-              <img
-                className="w-full h-full object-cover rounded-lg"
-                src="https://cdn.bookatrekking.com/data/images/2019/08/gobi-desert-new.webp"
-                alt=""
-              />
-            </div>
-            <div className="w-40 h-40 bg-white rounded-lg">
-              <img
-                className="w-full h-full object-cover rounded-lg"
-                src="https://www.toursmongolia.com/uploads/landscape%20mongolian%20gobi%20nature%20destination.jpg"
-                alt=""
-              />
-            </div>
+            <Link href={"/view-all-page"}>
+              <div className="w-40 h-40 bg-white rounded-lg">
+                <img
+                  className="w-full h-full object-cover rounded-lg"
+                  src="https://cdn.mongolia-guide.com/generated/aimag/yB5tmMud3F7rJsh124LfK4ML8rLIdCKXHqTaw3tX_1920_1000.jpeg"
+                  alt=""
+                />
+              </div>
+            </Link>
+            <Link href={"view-all-page"}>
+              <div className="w-40 h-40 bg-white rounded-lg">
+                <img
+                  className="w-full h-full object-cover rounded-lg"
+                  src="https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg"
+                  alt=""
+                />
+              </div>
+            </Link>
+            <Link href={"view-all-page"}>
+              <div className="w-40 h-40 bg-white rounded-lg">
+                <img
+                  className="w-full h-full object-cover rounded-lg"
+                  src="https://cdn.bookatrekking.com/data/images/2019/08/gobi-desert-new.webp"
+                  alt=""
+                />
+              </div>
+            </Link>
+            <Link href={"view-all-page"}>
+              <div className="w-40 h-40 bg-white rounded-lg">
+                <img
+                  className="w-full h-full object-cover rounded-lg"
+                  src="https://www.toursmongolia.com/uploads/landscape%20mongolian%20gobi%20nature%20destination.jpg"
+                  alt=""
+                />
+              </div>
+            </Link>
           </div>
         </div>
       </div>

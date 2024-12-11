@@ -71,7 +71,6 @@ export default function Special() {
               id="duration"
               name="duration"
               min="1"
-              placeholder="Enter number of nights"
               className="block w-full py-1.5 px-3 text-base text-gray-900 rounded-md bg-white outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
             />
           </div>
@@ -87,27 +86,42 @@ export default function Special() {
         <h1 className="font-bold text-[22px] mt-10">
           How much would you like to spend per person?
         </h1>
+        <h1 className="w-[500px] mt-10">
+          Our Taler-made trips are custorrised private departurss Cenerally,
+          unknow you have 6 or more people in your group destination dependant
+          price will be higher than our standard tours but the exprerince is
+          well worth it
+        </h1>
         <div className="mt-3">
           <input
             type="number"
             id="duration"
             name="duration"
             min="50"
-            placeholder="Enter number of nights"
-            className="block w-full py-1.5 px-3 text-base text-gray-900 rounded-md bg-white outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+            className="block w-full  mt-5 py-1.5 px-3 text-base text-gray-900 rounded-md bg-white outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
           />
         </div>
         <h1 className="font-bold text-[22px] mt-10">
-          Tell us about your travel
+          Tell us about your travel plans
+        </h1>
+        <h1 className="w-[500px] mt-8">
+          intrepid Tallor-Made trips include an element of touring if you are
+          looking for just a hotel and transfer or an all-inclusive resort
+          package if you are looking to get know the destination, meeting
+          locals, and maybe try new food - we got you covered
         </h1>
         <div>
           <textarea
-            id="information"
-            name="information"
-            className="w-full h-[200px] mt-5 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] resize-none outline-none text-black font-sans text-base font-normal leading-[19px]"
-            placeholder=""
+            name="dnn$ctr200131$View$Comments"
+            rows={2}
+            cols={20}
+            id="dnn_ctr200131_View_Comments"
+            placeholder="Any must haves in your idel ltinerary your prefened style of accommodain, ny special interests of your group "
+            className="form-control mt-5 CommentsTextBox border border-e-gray-600 w-full"
+            style={{ height: "93px" }}
           ></textarea>
         </div>
+
         <div className="mt-5">
           <FormGroup>
             <FormControlLabel
@@ -116,18 +130,15 @@ export default function Special() {
             />
           </FormGroup>
         </div>
+        <h1 className="w-[500px] mt-10">
+          if you have seen a trip you love the look of on our website please let
+          us know the name or website link. Aternatively if to you have your own
+          itinerary feel free to upload this your contact can work with you and
+          your group an a proposal
+        </h1>
         <h1 className="font-bold text-[22px] mt-10">Your contact details</h1>
         <h1 className=" mt-5">Name (as per passport)</h1>
-        <h1 className=" mt-5">Titel*</h1>
-        <div className="mt-3">
-          <input
-            type="number"
-            id="duration"
-            name="duration"
-            min="1"
-            className="block w-full py-1.5 px-3 text-base mt-5 text-gray-900 rounded-md bg-white outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
-          />
-        </div>
+
         <div className="mt-5">
           <input
             placeholder="Frist Name*"
@@ -187,32 +198,20 @@ export default function Special() {
               label="Email"
             />
           </FormGroup>
+        </div>
+        <div className="mt-10 w-[500px]">
           <FormGroup>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              label="Phone(morning)"
-            />
-          </FormGroup>
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Phone(afternoon)"
+              label="I accept that all deteils provided will be held and used in accordance with the intrepid Travel Privacy Statement"
             />
           </FormGroup>
         </div>
-        <div className="mt-10">
+        <div className="mt-10  w-[500px]">
           <FormGroup>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              label="I accept that all deteils"
-            />
-          </FormGroup>
-        </div>
-        <div className="mt-10">
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Phone(afternoon)"
+              label="We'd love to contact you by email from time t time about exciting travel news and products we think migth interest you. Please tick this box if you are happy to receive this"
             />
           </FormGroup>
         </div>

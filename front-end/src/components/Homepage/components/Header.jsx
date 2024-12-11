@@ -1,40 +1,49 @@
+import Link from "next/link";
 export const HeaderPart = () => {
   return (
-    <div>
-      <nav className="py-4 px-8">
-        <div className="flex items-center justify-between max-w-6xl mx-auto">
-          <div>
-            <button className="text-2xl font-extrabold text-blue-700 hover:text-[#FC8233] transition-colors duration-300">
+    <div className="pb-[40px] fixed w-full top-0 z-50">
+      <header className="bg-gray-800 py-6 shadow-md">
+        <div className="container mx-auto px-6 flex justify-between items-center">
+          <Link href={"/"}>
+            <div className="text-white text-2xl font-bold tracking-wide">
               LOGO
+            </div>
+          </Link>
+
+          <nav className="hidden md:flex gap-8">
+            <Link href={"/"}>
+              <h1 className="text-white text-lg font-medium hover:text-orange-500 transition duration-300">
+                Mongolian Tour
+              </h1>
+            </Link>
+            <Link href={"/special-order"}>
+              <h1 className="text-white text-lg font-medium hover:text-orange-500 transition duration-300">
+                Create Your Tour
+              </h1>
+            </Link>
+            <Link href={"/"}>
+              <h1 className="text-white text-lg font-medium hover:text-orange-500 transition duration-300">
+                Mongolian Guest
+              </h1>
+            </Link>
+            <Link href={"/about-us"}>
+              <h1 className="text-white text-lg font-medium hover:text-orange-500 transition duration-300">
+                About Us
+              </h1>
+            </Link>
+          </nav>
+
+          <div className="md:hidden">
+            <button
+              className="text-white text-2xl focus:outline-none"
+              aria-label="Open Menu"
+            >
+              ☰
             </button>
-          </div>
-          <div className="flex space-x-6">
-            {[
-              { text: "Mongolian tour", isBold: true },
-              { text: "Create own special tour", isBold: false },
-              { text: "Mongolian guest", isBold: false },
-              { text: "About us", isBold: false },
-            ].map((item, index) => (
-              <button
-                key={index}
-                className={`
-                text-gray-800 
-                hover:text-[#FC8233] 
-                font-semibold
-                hover:underline 
-                transition-all 
-                duration-300 
-                ease-in-out 
-                transform 
-                hover:scale-105
-              `}
-              >
-                {item.text}
-              </button>
-            ))}
+            <div></div>
           </div>
         </div>
-      </nav>
+      </header>
     </div>
   );
 };
