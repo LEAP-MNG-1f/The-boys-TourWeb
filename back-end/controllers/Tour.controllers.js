@@ -15,6 +15,7 @@ const createTour = async (request, response) => {
       price,
       location,
       dailyPlans,
+      categoryId,
       serviceInclude,
       serviceNotInclude,
     } = request.body;
@@ -49,6 +50,7 @@ const createTour = async (request, response) => {
       images: imageUrls,
       startDate,
       endDate,
+      categoryId,
       price: parsedPrice,
       location,
       dailyPlans: parsedDailyPlans,
