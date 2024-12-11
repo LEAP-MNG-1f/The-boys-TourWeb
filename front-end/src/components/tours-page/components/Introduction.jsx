@@ -55,8 +55,33 @@ export const Introduction = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="max-w-[1536px] flex gap-5">
-        <div className="flex flex-col gap-5">
+      <div className="max-w-[1536px] w-full flex gap-5">
+        <div className="max-w-[1048px] flex flex-col gap-5">
+          <div className="w-full flex flex-col gap-6 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl">
+            <div className="flex flex-col gap-2">
+              <div className="flex">
+                <div className="pb-3 border-b border-[#F97316]">
+                  <p className="text-black font-roboto text-2xl font-semibold leading-6">
+                    Overview
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p className="text-black font-roboto text-lg font-normal ">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
+              perspiciatis distinctio repellat maiores reiciendis impedit
+              tenetur numquam maxime provident, soluta accusantium minima,
+              excepturi ipsam expedita. Aspernatur ea debitis sit aliquam facere
+              consectetur quam possimus. Vero velit totam debitis doloremque
+              dolorum natus laudantium vel ipsa ea accusantium cupiditate iure
+              quod soluta, placeat nemo cum molestias sint asperiores voluptas
+              enim? Nulla exercitationem labore illo molestias, modi et magnam
+              sequi ab? Eum asperiores veniam minima enim aliquam nihil ab
+              molestiae modi praesentium, velit quidem corporis beatae dolore
+              fugit quas, quis expedita. Aliquam doloribus fugit aperiam autem
+              minus. Non officiis accusantium error ducimus. Repudiandae?
+            </p>
+          </div>
           <div className="w-full flex flex-col gap-8 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl">
             <div className="flex flex-col gap-2">
               <div className="flex">
@@ -103,7 +128,7 @@ export const Introduction = () => {
           <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex">
             <div className="w-full">
               <div className="flex">
-                <div className="flex gap-4 flex-col w-full">
+                <div className="flex gap-6 flex-col w-full">
                   <div className="w-full flex">
                     <div className="pb-3 border-b border-[#F97316]">
                       <p className="text-black font-roboto  text-2xl font-semibold leading-6">
@@ -126,7 +151,7 @@ export const Introduction = () => {
                     })}
                   </div>
                 </div>
-                <div className="flex gap-4 flex-col w-full">
+                <div className="flex gap-6 flex-col w-full">
                   <div className="w-full flex">
                     <div className="pb-3 border-b border-[#F97316]">
                       <p className="text-black font-roboto  text-2xl font-semibold leading-6">
@@ -153,11 +178,22 @@ export const Introduction = () => {
             </div>
           </div>
           <div className="h-[500px] shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex">
-            <div></div>
+            <div className="flex flex-col gap-2">
+              <div className="flex">
+                <div className="pb-3 border-b border-[#F97316]">
+                  <p className="text-black font-roboto text-2xl font-semibold leading-6">
+                    Tour map
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* <div>
+              <img src="" alt="" />
+            </div> */}
           </div>
         </div>
-        <div className="w-[600px] flex flex-col gap-5">
-          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-5">
+          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex flex-col gap-6">
             <div className="flex">
               <div className="pb-3 border-b border-[#F97316]">
                 <p className="text-black font-roboto text-2xl font-semibold leading-6">
@@ -192,7 +228,7 @@ export const Introduction = () => {
               </div>
             </div>
           </div>
-          <div className="h-[300px] shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex flex-col gap-4">
+          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex flex-col gap-6">
             <div className="flex">
               <div className="pb-3 border-b border-[#F97316]">
                 <p className="text-black font-roboto text-2xl font-semibold leading-6">
@@ -200,7 +236,19 @@ export const Introduction = () => {
                 </p>
               </div>
             </div>
-            <div></div>
+            <div className="border-b border-[rgba(0,0,0,0.125)] pb-2">
+              <p className="text-black font-roboto text-base font-medium">
+                4 season
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <button className="w-full h-12 bg-[#F97316] rounded-lg text-white font-roboto text-xl font-medium">
+                Book now
+              </button>
+              <button className="w-full h-12 border-[2px] border-[#F97316] rounded-lg text-black font-roboto text-xl font-medium">
+                Call
+              </button>
+            </div>
           </div>
         </div>
       </div>
