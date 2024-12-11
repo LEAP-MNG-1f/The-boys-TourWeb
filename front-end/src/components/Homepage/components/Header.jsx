@@ -2,7 +2,7 @@ import Link from "next/link";
 export const HeaderPart = () => {
   return (
     <div className="fixed w-full top-0 z-50 backdrop-blur-sm bg-black/40">
-      <header className="py-6 shadow-md">
+      <header className="py-4 shadow-md">
         <div className="container mx-auto px-6 flex justify-between items-center">
           <Link href={"/"}>
             <div className="text-white text-2xl font-bold tracking-wide">
