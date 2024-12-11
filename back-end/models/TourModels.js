@@ -11,38 +11,32 @@ const itinerarySchema = new Schema(
       type: String,
       default: "No description provided.",
     },
+    serviceInclude: [{ type: String }],
+    serviceNotInclude: [{ type: String }],
     images: [
       {
         type: String,
       },
     ],
     startDate: {
-      type: Date,
-      required: [true, "Start date is required."],
+      type: String,
     },
     endDate: {
-      type: Date,
-      required: [true, "End date is required."],
-      validate: {
-        validator: function (value) {
-          return value > this.startDate;
-        },
-        message: "End date must be after the start date.",
+      type: String,
+    },
+    price: [
+      {
+        pax: { type: String },
+        perPerson: { type: String },
       },
-    },
-    price: {
-      type: String, // Use "Number" if the value is purely numeric.
-      required: [true, "Price is required."],
-    },
+    ],
     location: {
       type: String,
       trim: true,
     },
     dailyPlans: [
       {
-        day: {
-          type: String,
-        },
+        day: { type: String },
         periodOfTime: [
           {
             when: {

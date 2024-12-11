@@ -15,10 +15,15 @@ const createTour = async (request, response) => {
       price,
       location,
       dailyPlans,
+      serviceInclude,
+      serviceNotInclude,
     } = request.body;
 
     // Parse stringified JSON fields
     const parsedDailyPlans = JSON.parse(dailyPlans);
+    const parsedPrice = JSON.parse(price);
+    const parsedServiceInclude = JSON.parse(serviceInclude);
+    const parsedServiceNotInclude = JSON.parse(serviceNotInclude);
 
     const files = request.files;
 
@@ -44,9 +49,11 @@ const createTour = async (request, response) => {
       images: imageUrls,
       startDate,
       endDate,
-      price,
+      price: parsedPrice,
       location,
       dailyPlans: parsedDailyPlans,
+      serviceInclude: parsedServiceInclude,
+      serviceNotInclude: parsedServiceNotInclude,
     });
 
     response.status(201).json({
