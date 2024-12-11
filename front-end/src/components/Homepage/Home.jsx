@@ -10,9 +10,13 @@ export default function Homepage() {
     <div>
       <HeaderPart />
       <Carousel />
-      <Hero />
+      <div className="py-[50px]">
+        <Hero />
+      </div>
       <WalkDifference />
-      <WorkingProcess />
+      <div className="py-[50px]">
+        <WorkingProcess />
+      </div>
       <Footer />
     </div>
   );
