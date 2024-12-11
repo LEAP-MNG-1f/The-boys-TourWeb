@@ -24,7 +24,7 @@ const WorkingProcess = () => {
   ];
 
   return (
-    <div className="container mx-auto px-6 py-[150px]">
+    <div className="container mx-auto px-6 py-[100px] rounded-[15px]  shadow-xl">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           Our Working Process
