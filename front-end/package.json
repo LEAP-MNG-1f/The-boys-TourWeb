@@ -17,8 +17,14 @@
     "@mui/x-date-pickers": "^7.23.1",
     "@tailwindcss/forms": "^0.5.9",
     "next": "^15.0.4",
+<<<<<<< HEAD
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
+=======
+    "react": "18.x",
+    "react-dom": "18.x",
+    "yarn": "^1.22.22"
+>>>>>>> 69161c3 (...)
   },
   "devDependencies": {
     "@types/node": "22.10.1",
