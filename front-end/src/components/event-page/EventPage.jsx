@@ -96,22 +96,24 @@ const EventsPage = () => {
               className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
             >
               <div className="p-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-2">
-                  {event.title}
-                </h2>
-                <img
-                  src={event.image}
-                  className="w-full rounded-md h-[400px]"
-                />
-                <p className="text-gray-500">{event.date}</p>
-                <p className="text-gray-600">Season: {event.season}</p>
-
+                <div className="flex flex-col gap-4">
+                  <h2 className="text-xl font-bold text-gray-800 mb-2">
+                    {event.title}
+                  </h2>
+                  <img
+                    src={event.image}
+                    className="w-full rounded-md h-[400px] object-cover"
+                  />
+                </div>
+                <div className="flex flex-col gap-2 mt-[20px]">
+                  <p className="text-gray-500">{event.date}</p>
+                  <p className="text-gray-600">Season: {event.season}</p>
+                </div>
                 <p className="text-gray-500 mt-4">
                   {expandedEventId === event.id
                     ? event.fullDescription
                     : event.description}
                 </p>
-
                 <button
                   onClick={() => toggleEventDescription(event.id)}
                   className="text-blue-600 mt-4 flex items-center"
