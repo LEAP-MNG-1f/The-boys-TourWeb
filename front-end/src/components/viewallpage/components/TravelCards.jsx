@@ -1,49 +1,90 @@
-import TourCard from "../card/card";
+"use client";
+import { useEffect, useState } from "react";
 
 const TravelCards = () => {
-  return (
-    <div className="flex gap-12 justify-center">
-      <TourCard
-        image={
-          "https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg"
-        }
-        description={"Lorem ipsume"}
-        price={"100$"}
-        date={"2025-10-02"}
-      />
-      <TourCard
-        image={
-          "https://www.discovermongolia.mn/uploads/Gall-Central-shireet-lake.jpg"
-        }
-        description={"Lorem ipsume"}
-        price={"100$"}
-        date={"2025-10-02"}
-      />
-      <TourCard
-        image={
-          "https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/t/n/tnc_46175181_Full.jpg?crop=0%2C233%2C4000%2C2200&wid=4000&hei=2200&scl=1.0"
-        }
-        description={"Lorem ipsume"}
-        price={"100$"}
-        date={"2025-10-02"}
-      />
-      <TourCard
-        image={
-          "https://news.mn/en/wp-content/uploads/sites/3/2022/05/Orkhon-waterfall-Orkhon-valley-Mongolia.jpg"
-        }
-        description={"Lorem ipsume"}
-        price={"100$"}
-        date={"2025-10-02"}
-      />
-      <TourCard
-        image={
-          "https://good-nature-blog-uploads.s3.amazonaws.com/uploads/2013/10/Camp.jpg"
-        }
-        description={"Lorem ipsume"}
-        price={"100$"}
-        date={"2025-10-02"}
-      />
-    </div>
-  );
+  const [tourData, setTourData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("http://localhost:8000/api/tours");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      const realData = responseData?.data || [];
+
+      setTourData(realData);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError("Failed to load tours. Please try again later.");
+      setTourData([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  console.log(fetchData);
+
+  if (isLoading)
+    return (
+      <div className="flex gap-12 justify-center">
+        {tourData.length === 0 ? (
+          <div className="text-gray-500 text-center p-4">
+            No tours available at the moment.
+          </div>
+        ) : (
+          tourData.map((tour) => (
+            <div
+              key={tour._id}
+              className="w-80 bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              <img
+                src={
+                  tour.images && tour.images.length > 0
+                    ? tour.images[0]
+                    : "https://via.placeholder.com/400x250?text=Tour+Image"
+                }
+                alt={tour.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h2 className="text-xl font-bold mb-2">{tour.title}</h2>
+                <p className="text-gray-700 mb-4 line-clamp-3">
+                  {tour.description || "No description available"}
+                </p>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <span className="font-semibold text-lg">
+                      {tour.price && tour.price.length > 0
+                        ? `$${tour.price[0]}`
+                        : "Price not available"}
+                    </span>
+                    <p className="text-sm text-gray-500">
+                      {tour.startDate
+                        ? `Starts: ${new Date(
+                            tour.startDate
+                          ).toLocaleDateString()}`
+                        : "Dates not specified"}
+                    </p>
+                  </div>
+                  <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    Book Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    );
 };
 export default TravelCards;
