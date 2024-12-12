@@ -194,18 +194,37 @@ const PostTourData = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    serviceInclude: "",
-    serviceNotInclude: "",
+    serviceInclude: [],
+    serviceNotInclude: [],
     startDate: "",
     endDate: "",
     location: "",
     price: [],
     dailyPlans: [],
+    images: [],
     createdAt: new Date().toISOString(),
   });
 
   const [price, setPrice] = useState([]);
+  const [serviceInc, setServiceInc] = useState([]);
+  const [serviceNotInc, setServiceNotInc] = useState([]);
   const [dailyPlans, setDailyPlans] = useState([]);
+
+  const [previews, setPreviews] = useState([]);
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+
+    // Create image previews
+    const filePreviews = files.map((file) => URL.createObjectURL(file));
+
+    setFormData((prevData) => ({
+      ...prevData,
+      images: files,
+    }));
+
+    setPreviews(filePreviews);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -214,6 +233,18 @@ const PostTourData = () => {
 
   const handleAddPrice = () => {
     setPrice([...price, { pax: "", perPerson: "" }]);
+  };
+
+  const handleAddServiceI = (e) => {
+    const { name, value } = e.target;
+
+    // Parse the input, respecting quotes
+    const arrayt = value
+      .match(/(?:[^,"]+|"[^"]*")+/g)
+      ?.map((item) => item.replace(/^"|"$/g, "").trim())
+      .filter((item) => item !== "");
+
+    setFormData({ ...formData, [name]: arrayt });
   };
 
   const handlePriceChange = (index, field, value) => {
@@ -252,6 +283,13 @@ const PostTourData = () => {
   const handleActivityChange = (planIndex, activityIndex, field, value) => {
     const updatedPlans = [...dailyPlans];
     updatedPlans[planIndex].activities[activityIndex][field] = value;
+    setDailyPlans(updatedPlans);
+    setFormData({ ...formData, dailyPlans: updatedPlans });
+  };
+
+  const handlePeriodOfChange = (planIndex, periodOfIndex, field, value) => {
+    const updatedPlans = [...dailyPlans];
+    updatedPlans[planIndex].periodOfTime[periodOfIndex][field] = value;
     setDailyPlans(updatedPlans);
     setFormData({ ...formData, dailyPlans: updatedPlans });
   };
@@ -299,6 +337,31 @@ const PostTourData = () => {
             className="bg-[#182237] "
           ></textarea>
         </label>
+        <br />
+        <label>
+          Start Date:
+          <input
+            type="text"
+            name="startDate"
+            value={formData.startDate}
+            onChange={handleChange}
+            required
+            className="bg-[#182237] "
+          />
+        </label>
+        <br />
+        <label>
+          End Date:
+          <input
+            type="text"
+            name="endDate"
+            value={formData.endDate}
+            onChange={handleChange}
+            required
+            className="bg-[#182237] "
+          />
+        </label>
+
         <br />
 
         {/* Price Section */}
@@ -420,7 +483,7 @@ const PostTourData = () => {
                     type="text"
                     value={pofTime.when}
                     onChange={(e) =>
-                      handleAddPeriodOfTime(
+                      handlePeriodOfChange(
                         planIndex,
                         periodOfIndex,
                         "when",
@@ -436,7 +499,7 @@ const PostTourData = () => {
                   <textarea
                     value={pofTime.notes}
                     onChange={(e) =>
-                      handleAddPeriodOfTime(
+                      handlePeriodOfChange(
                         planIndex,
                         periodOfIndex,
                         "notes",
@@ -461,6 +524,77 @@ const PostTourData = () => {
         <button type="button" onClick={handleAddDailyPlan}>
           Add Daily Plan
         </button>
+        <br />
+
+        {/* <label>
+          Service Included:
+          <textarea
+            type="text"
+            name="serviceInclude"
+            value={formData.serviceInclude}
+            onChange={handleAddServiceI}
+            required
+            className="bg-[#182237] "
+          ></textarea>
+        </label> */}
+
+        <label>
+          serviceIncluded:
+          <textarea
+            name="serviceInclude"
+            placeholder="Enter services (comma-separated)"
+            onChange={handleAddServiceI}
+            className="w-full p-2 border rounded bg-[#182237]"
+            rows={4}
+          />
+        </label>
+        <br />
+        <label>
+          service not Included:
+          <textarea
+            name="serviceNotInclude"
+            placeholder="Enter services (comma-separated)"
+            onChange={handleAddServiceI}
+            className="w-full p-2 border rounded bg-[#182237]"
+            rows={4}
+          />
+        </label>
+        <br />
+
+        <div className="mb-4">
+          <label
+            htmlFor="imageUpload"
+            className="block mb-2 text-sm font-medium"
+          >
+            Upload Images
+          </label>
+          <input
+            type="file"
+            id="imageUpload"
+            name="images"
+            multiple
+            accept="image/*"
+            onChange={handleFileChange}
+            className="block w-full text-sm text-gray-900 
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-sm file:font-semibold
+              file:bg-violet-50 file:text-violet-700
+              hover:file:bg-violet-100"
+          />
+        </div>
+        {previews.length > 0 && (
+          <div className="flex space-x-2 mt-4">
+            {previews.map((preview, index) => (
+              <img
+                key={index}
+                src={preview}
+                alt={`Preview ${index + 1}`}
+                className="w-20 h-20 object-cover rounded"
+              />
+            ))}
+          </div>
+        )}
         <br />
 
         {/* Submit Button */}
