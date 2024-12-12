@@ -12,6 +12,7 @@ const createOrder = async (req, res) => {
       totalamount,
       personNumber,
       questions,
+      tourId,
     } = req.body;
 
     const result = await OrderModels.create({
@@ -24,6 +25,7 @@ const createOrder = async (req, res) => {
       totalamount,
       personNumber,
       questions,
+      tourId,
     });
 
     res.json({
