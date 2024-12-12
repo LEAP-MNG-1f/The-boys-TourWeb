@@ -1,5 +1,9 @@
 import express from "express";
-import { createTour, getAllTours } from "../controllers/Tour.controllers.js";
+import {
+  createTour,
+  getAllTours,
+  getSingleTour,
+} from "../controllers/Tour.controllers.js";
 import multer from "multer";
 import path from "path";
 
@@ -32,6 +36,7 @@ const upload = multer({
 const tourRouter = express.Router();
 
 tourRouter.post("/tours", upload.array("images", 5), createTour);
-tourRouter.get("/tours", getAllTours);
+tourRouter.get("/tours/", getAllTours);
+tourRouter.get("/tours/:title", getSingleTour);
 
 export default tourRouter;
