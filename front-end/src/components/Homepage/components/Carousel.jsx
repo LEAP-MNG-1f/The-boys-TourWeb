@@ -3,31 +3,10 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 const Carousel = () => {
-  const slides = [
-    {
-      title: "MONGOLIAN GOBI",
-      description:
-        "Explore the vast and mysterious landscapes of the Gobi Desert.",
-      buttonText: "Book now",
-      imageUrl:
-        "https://cdn.bookatrekking.com/data/images/2019/08/gobi-desert-new.webp",
-    },
-    {
-      title: "KHUVSGUL LAKE",
-      description:
-        "Discover the tranquility of pristine lakes and calm waters.",
-      buttonText: "Book now",
-      imageUrl:
-        "https://cdn.mongolia-guide.com/generated/aimag/yB5tmMud3F7rJsh124LfK4ML8rLIdCKXHqTaw3tX_1920_1000.jpeg",
-    },
-    {
-      title: "LUSH FORESTS",
-      description: "Escape into the wilderness of vibrant, peaceful forests.",
-      buttonText: "Book now",
-      imageUrl:
-        "https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg",
-    },
-  ];
+  const [tourData, setTourData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); // New state for image index
 
   const thumbnailImages = [
     "https://cdn.mongolia-guide.com/generated/aimag/yB5tmMud3F7rJsh124LfK4ML8rLIdCKXHqTaw3tX_1920_1000.jpeg",
@@ -36,77 +15,123 @@ const Carousel = () => {
     "https://www.toursmongolia.com/uploads/landscape%20mongolian%20gobi%20nature%20destination.jpg",
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
 
+      console.log("Attempting to fetch from: http://localhost:8000/api/tours");
+
+      const response = await fetch("http://localhost:8000/api/tours", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("Response status:", response.status);
+      console.log(
+        "Response headers:",
+        Object.fromEntries(response.headers.entries())
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error response text:", errorText);
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${errorText}`
+        );
+      }
+
+      const responseData = await response.json();
+      console.log("Full response data:", responseData);
+
+      const realData = responseData?.data || [];
+
+      setTourData(realData);
+      setError(null);
+    } catch (error) {
+      console.error("Detailed fetch error:", {
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+      });
+
+      setError(`Failed to load tours: ${error.message}`);
+      setTourData([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // UseEffect to fetch data on mount
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // SetInterval to change the image every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 4000);
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % tourData.length); // Loops back to the first image after the last one
+    }, 5000); // Change every 5 seconds
 
-    return () => clearInterval(interval);
-  }, [slides.length]);
+    return () => clearInterval(interval); // Clean up interval on unmount
+  }, [tourData.length]); // Dependency on tourData length to avoid unnecessary re-renders
 
-  const nextSlide = () => {
-    setCurrentIndex((currentIndex + 1) % slides.length);
-  };
+  if (isLoading || tourData.length === 0) {
+    return (
+      <div className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh] mt-[100px] flex justify-center items-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
-  const prevSlide = () => {
-    setCurrentIndex((currentIndex - 1 + slides.length) % slides.length);
-  };
+  if (error) {
+    return (
+      <div className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh] mt-[100px] flex justify-center items-center text-red-500">
+        {error}
+      </div>
+    );
+  }
+
+  const currentImage = tourData[currentImageIndex]; // Get the current image based on index
 
   return (
     <div className="relative overflow-hidden shadow-lg h-[75vh]">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url(${slides[currentIndex].imageUrl})`,
+          backgroundImage: `url(${
+            currentImage.images && currentImage.images[0]
+          })`,
           backgroundSize: "cover",
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
         <div className="container mx-auto relative z-10 h-full">
-          <div className="flex h-full items-center text-white justify-between  ">
-            <div className=" flex w-[50%] md:w-1/2 flex-col">
+          <div className="flex h-full items-center text-white justify-between">
+            <div className="flex w-[50%] md:w-1/2 flex-col">
               <div className="flex flex-col gap-[15px] pb-[165px]">
                 <h1 className="text-[30px] md:text-5xl font-bold">
-                  {slides[currentIndex].title}
+                  {currentImage.title || "Category"}
                 </h1>
-                <p className="text-[25px] ">
-                  {slides[currentIndex].description}
-                </p>
               </div>
               <div className="absolute top-[580px] flex items-end">
-                <div className="flex gap-[20px] flex-col ">
-                  <button
-                    className="bg-orange-500 w-[155px] hover:bg-orange-600 px-6 py-3 rounded-lg shadow-lg text-white text-lg"
-                    aria-label="Book Tour"
-                  >
-                    {slides[currentIndex].buttonText}
-                  </button>
-
-                  <div className="absolute top-[130px] flex space-x-2">
+                <div className="flex gap-[20px] flex-col">
+                  <Link href="/view-all-page">
                     <button
-                      className="bg-white text-black w-[45px] h-[45px] flex justify-center items-center rounded-full shadow-md"
-                      onClick={prevSlide}
-                      aria-label="Previous Slide"
+                      className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg shadow-lg text-white text-lg"
+                      aria-label="Jump to all tours"
                     >
-                      &#8592;
+                      Jump to all tours
                     </button>
-                    <button
-                      className="bg-white text-black w-[45px] h-[45px] flex justify-center items-center rounded-full shadow-md"
-                      onClick={nextSlide}
-                      aria-label="Next Slide"
-                    >
-                      &#8594;
-                    </button>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="absolute bottom-[250px]  md:right-0 ">
+          <div className="absolute bottom-[250px] md:right-0">
             <div className="grid grid-cols-2 gap-4">
               {thumbnailImages.map((image, index) => (
                 <Link
@@ -117,7 +142,6 @@ const Carousel = () => {
                   <img
                     className="w-full h-full object-cover rounded-lg"
                     src={image}
-                    alt={`Tour Thumbnail ${index + 1}`}
                   />
                 </Link>
               ))}
