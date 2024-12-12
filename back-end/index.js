@@ -5,6 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import tourRouter from "./routes/TourRouter.js";
 import categoryRouter from "./routes/CategoryRouter.js";
+import orderRouter from "./routes/OrderRouter.js";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ mongoose
 
 server.use("/api", tourRouter);
 server.use("/api", categoryRouter);
+server.use("/api", orderRouter);
 
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
