@@ -36,6 +36,10 @@ const orderSchema = new mongoose.Schema({
   questions: {
     type: String,
   },
+  tourId: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Itinerary",
+  },
 });
 
 export const OrderModels = mongoose.model("Order", orderSchema);
