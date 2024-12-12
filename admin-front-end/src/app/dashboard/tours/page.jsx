@@ -1,10 +1,10 @@
 import React from "react";
-import { AdminPage } from "./components/AdminTours";
+import GobiTourInfo, { AdminPage } from "./components/AdminTours";
 
 const ToursPage = () => {
   return (
     <div>
-      <AdminPage />
+      <GobiTourInfo />
     </div>
   );
 };
