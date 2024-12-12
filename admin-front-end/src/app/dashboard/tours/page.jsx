@@ -1,5 +1,5 @@
 import React from "react";
-import GobiTourInfo, { AdminPage } from "./components/AdminTours";
+import GobiTourInfo from "./components/AdminTours";
 
 const ToursPage = () => {
   return (
