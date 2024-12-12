@@ -1,3 +1,5 @@
+"use client";
+
 import Footer from "../Homepage/components/Footer";
 import { HeaderPart } from "../Homepage/components/Header";
 import Carousel from "./components/Carousel";

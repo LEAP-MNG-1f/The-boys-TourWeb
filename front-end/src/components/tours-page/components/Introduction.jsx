@@ -8,7 +8,7 @@ import MuiAccordionSummary, {
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckIcon, Location, NotCheckIcon } from "../icons";
 import { included, notIncluded, tour } from "./data";
 
@@ -48,10 +48,34 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export const Introduction = () => {
   const [expanded, setExpanded] = useState("DAY-1");
+  const [tours, setTours] = useState([]);
+
+  const fetchDataTours = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/tours`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const tours = await response.json();
+      setTours(tours.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataTours();
+  }, []);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+
+  // console.log(tours[0].serviceInclude);
+
+  // const serviceIncludes = tours[0].serviceInclude.slice(0, -1);
 
   return (
     <div className="w-full flex justify-center">
@@ -68,18 +92,7 @@ export const Introduction = () => {
               </div>
             </div>
             <p className="text-black font-roboto text-lg font-normal ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
-              perspiciatis distinctio repellat maiores reiciendis impedit
-              tenetur numquam maxime provident, soluta accusantium minima,
-              excepturi ipsam expedita. Aspernatur ea debitis sit aliquam facere
-              consectetur quam possimus. Vero velit totam debitis doloremque
-              dolorum natus laudantium vel ipsa ea accusantium cupiditate iure
-              quod soluta, placeat nemo cum molestias sint asperiores voluptas
-              enim? Nulla exercitationem labore illo molestias, modi et magnam
-              sequi ab? Eum asperiores veniam minima enim aliquam nihil ab
-              molestiae modi praesentium, velit quidem corporis beatae dolore
-              fugit quas, quis expedita. Aliquam doloribus fugit aperiam autem
-              minus. Non officiis accusantium error ducimus. Repudiandae?
+              {/* {tours.id} */}
             </p>
           </div>
           <div className="w-full flex flex-col gap-8 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl">
@@ -192,7 +205,7 @@ export const Introduction = () => {
             </div> */}
           </div>
         </div>
-        <div className="w-full flex flex-col gap-5">
+        <div className="w-full max-w-[468px] flex flex-col gap-5">
           <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex flex-col gap-6">
             <div className="flex">
               <div className="pb-3 border-b border-[#F97316]">
