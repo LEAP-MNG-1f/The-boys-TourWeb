@@ -1,192 +1,5 @@
 "use client";
 
-// import React, { useState } from "react";
-// import axios from "axios";
-
-// const PostTourData = () => {
-//   const [formData, setFormData] = useState({
-//     title: "",
-//     description: "",
-//     serviceInclude: "",
-//     serviceNotInclude: "",
-//     startDate: "",
-//     endDate: "",
-//     location: "",
-//     price: [],
-//     dailyPlans: [],
-//   });
-
-//   const [price, setPrice] = useState([]);
-//   const [dailyPlans, setDailyPlans] = useState([]);
-//   const [serviceInclude, setServiceInclude] = useState([]);
-//   const [serviceNotInclude, setServiceNotInclude] = useState([]);
-//   const [images, setImages] = useState([]);
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
-//   const handleAddPrice = () => {
-//     setPrice([...price, { pax: "", perPerson: "" }]);
-//   };
-
-//   const handlePriceChange = (index, field, value) => {
-//     const updatedPrices = [...price];
-//     updatedPrices[index][field] = value;
-//     setPrice(updatedPrices);
-//     setFormData({ ...formData, price: updatedPrices });
-//   };
-
-//   const handleAddDailyPlan = () => {
-//     setDailyPlans([
-//       ...dailyPlans,
-//       { day: "", activities: [], periodOfTime: [], accommodation: "" },
-//     ]);
-//   };
-
-//   const handleDailyPlanChange = (index, field, value) => {
-//     const updatedPlans = [...dailyPlans];
-//     updatedPlans[index][field] = value;
-//     setDailyPlans(updatedPlans);
-//     setFormData({ ...formData, dailyPlans: updatedPlans });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     // try {
-//     //   const response = await axios.post(
-//     //     "https://your-api-endpoint.com/tours",
-//     //     formData
-//     //   );
-//     //   console.log("Response:", response.data);
-//     //   alert("Tour data submitted successfully!");
-//     // } catch (error) {
-//     //   console.error("Error submitting tour data:", error);
-//     //   alert("Failed to submit tour data.");
-//     // }
-//     console.log(formData);
-//   };
-
-//   return (
-//     <div className="mt-5">
-//       <h1>Create a New Tour</h1>
-//       <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
-//         {/* Basic Information */}
-//         <label>
-//           Title:
-//           <input
-//             type="text"
-//             name="title"
-//             value={formData.title}
-//             onChange={handleChange}
-//             required
-//             className="bg-[#182237] "
-//           />
-//         </label>
-
-//         <label>
-//           Description:
-//           <textarea
-//             name="description"
-//             value={formData.description}
-//             onChange={handleChange}
-//             required
-//             className="bg-[#182237] "
-//           ></textarea>
-//         </label>
-
-//         {/* Price Section */}
-//         <h3>Price Details</h3>
-//         {price.map((p, index) => (
-//           <div key={index}>
-//             <label>
-//               Pax:
-//               <input
-//                 type="number"
-//                 value={p.pax}
-//                 onChange={(e) =>
-//                   handlePriceChange(index, "pax", e.target.value)
-//                 }
-//                 required
-//                 className="bg-[#182237] "
-//               />
-//             </label>
-//             <label>
-//               Per Person Price:
-//               <input
-//                 type="text"
-//                 value={p.perPerson}
-//                 onChange={(e) =>
-//                   handlePriceChange(index, "perPerson", e.target.value)
-//                 }
-//                 required
-//                 className="bg-[#182237] "
-//               />
-//             </label>
-//           </div>
-//         ))}
-//         <button type="button" onClick={handleAddPrice}>
-//           Add Price
-//         </button>
-//         <br />
-
-//         {/* Daily Plans Section */}
-//         <h3>Daily Plans</h3>
-//         {dailyPlans.map((plan, index) => (
-//           <div key={index}>
-//             <label>
-//               Day:
-//               <input
-//                 type="text"
-//                 value={plan.day}
-//                 onChange={(e) =>
-//                   handleDailyPlanChange(index, "day", e.target.value)
-//                 }
-//                 required
-//                 className="bg-[#182237] "
-//               />
-//             </label>
-//             <label>
-//               Activities:
-//               <input
-//                 type="text"
-//                 value={plan.activities}
-//                 onChange={(e) =>
-//                   handleDailyPlanChange(index, "activities", e.target.value)
-//                 }
-//                 required
-//                 className="bg-[#182237] "
-//               />
-//             </label>
-//             <label>
-//               Accommodation:
-//               <input
-//                 type="text"
-//                 value={plan.accommodation}
-//                 onChange={(e) =>
-//                   handleDailyPlanChange(index, "accommodation", e.target.value)
-//                 }
-//                 required
-//                 className="bg-[#182237] "
-//               />
-//             </label>
-//           </div>
-//         ))}
-//         <button type="button" onClick={handleAddDailyPlan}>
-//           Add Daily Plan
-//         </button>
-//         <br />
-
-//         {/* Submit Button */}
-//         <button type="submit">Submit Tour</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default PostTourData;
-
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -194,6 +7,7 @@ const PostTourData = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
+    categoryId: "",
     serviceInclude: [],
     serviceNotInclude: [],
     startDate: "",
@@ -234,6 +48,11 @@ const PostTourData = () => {
   const handleAddPrice = () => {
     setPrice([...price, { pax: "", perPerson: "" }]);
   };
+  const handleRemovePrice = (index) => {
+    const updatedPrices = price.filter((_, i) => i !== index);
+    setPrice(updatedPrices);
+    setFormData((prevFormData) => ({ ...prevFormData, price: updatedPrices }));
+  };
 
   const handleAddServiceI = (e) => {
     const { name, value } = e.target;
@@ -261,6 +80,15 @@ const PostTourData = () => {
     ]);
   };
 
+  const handleRemoveDailyPlan = (index) => {
+    const updatedPlans = dailyPlans.filter((_, i) => i !== index);
+    setDailyPlans(updatedPlans);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      dailyPlans: updatedPlans,
+    }));
+  };
+
   const handleDailyPlanChange = (index, field, value) => {
     const updatedPlans = [...dailyPlans];
     updatedPlans[index][field] = value;
@@ -274,10 +102,47 @@ const PostTourData = () => {
     setDailyPlans(updatedPlans);
   };
 
+  const handleRemoveActivity = (planIndex, activityIndex) => {
+    setDailyPlans((prevPlans) => {
+      const updatedPlans = prevPlans.map((plan, index) =>
+        index === planIndex
+          ? {
+              ...plan,
+              activities: plan.activities.filter(
+                (_, idx) => idx !== activityIndex
+              ),
+            }
+          : plan
+      );
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        dailyPlans: updatedPlans,
+      }));
+
+      return updatedPlans;
+    });
+  };
+
   const handleAddPeriodOfTime = (planIndex) => {
     const updatedPlans = [...dailyPlans];
     updatedPlans[planIndex].periodOfTime.push({ when: "", notes: "" });
     setDailyPlans(updatedPlans);
+  };
+
+  const handleRemovePeriodOfTime = (planIndex, pIndex) => {
+    setDailyPlans((prevPlans) =>
+      prevPlans.map((plan, index) =>
+        index === planIndex
+          ? {
+              ...plan,
+              periodOfTime: plan.periodOfTime.filter(
+                (_, idx) => idx !== pIndex
+              ),
+            }
+          : plan
+      )
+    );
   };
 
   const handleActivityChange = (planIndex, activityIndex, field, value) => {
@@ -313,7 +178,10 @@ const PostTourData = () => {
   return (
     <div>
       <h1>Create a New Tour</h1>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-start gap-5 w-[600px] "
+      >
         {/* Basic Information */}
         <label>
           Title:
@@ -326,8 +194,7 @@ const PostTourData = () => {
             className="bg-[#182237] "
           />
         </label>
-        <br />
-        <label>
+        <label className="flex ">
           Description:
           <textarea
             name="description"
@@ -337,7 +204,36 @@ const PostTourData = () => {
             className="bg-[#182237] "
           ></textarea>
         </label>
-        <br />
+        <label>
+          category name:
+          <select
+            name="categoryId"
+            className="bg-[#182237]"
+            onChange={handleChange}
+            value={formData.categoryId}
+            required
+          >
+            <option value="" disabled>
+              Select a season
+            </option>
+            <option value="winter">Winter</option>
+            <option value="spring">Spring</option>
+            <option value="summer">Summer</option>
+            <option value="autumn">Autumn</option>
+          </select>
+        </label>
+
+        <label>
+          location:
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            required
+            className="bg-[#182237] "
+          />
+        </label>
         <label>
           Start Date:
           <input
@@ -349,7 +245,6 @@ const PostTourData = () => {
             className="bg-[#182237] "
           />
         </label>
-        <br />
         <label>
           End Date:
           <input
@@ -361,46 +256,52 @@ const PostTourData = () => {
             className="bg-[#182237] "
           />
         </label>
-
-        <br />
-
         {/* Price Section */}
-        <h3>Price Details</h3>
-        {price.map((p, index) => (
-          <div key={index}>
-            <label>
-              Pax:
-              <input
-                type="number"
-                value={p.pax}
-                onChange={(e) =>
-                  handlePriceChange(index, "pax", e.target.value)
-                }
-                required
-                className="bg-[#182237] "
-              />
-            </label>
-            <label>
-              Per Person Price:
-              <input
-                type="text"
-                value={p.perPerson}
-                onChange={(e) =>
-                  handlePriceChange(index, "perPerson", e.target.value)
-                }
-                required
-                className="bg-[#182237] "
-              />
-            </label>
+        <div>
+          <h3>Price Details: </h3>
+          <div className="flex flex-col gap-4">
+            {price.map((p, index) => (
+              <div key={index} className="price-item">
+                <label>
+                  Pax:
+                  <input
+                    type="number"
+                    value={p.pax}
+                    onChange={(e) =>
+                      handlePriceChange(index, "pax", e.target.value)
+                    }
+                    required
+                    className="bg-[#182237]"
+                  />
+                </label>
+                <label>
+                  Per Person Price:
+                  <input
+                    type="text"
+                    value={p.perPerson}
+                    onChange={(e) =>
+                      handlePriceChange(index, "perPerson", e.target.value)
+                    }
+                    required
+                    className="bg-[#182237]"
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="btn btn-delete"
+                  onClick={() => handleRemovePrice(index)}
+                >
+                  X
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
-        <button type="button" onClick={handleAddPrice}>
-          Add Price
-        </button>
-        <br />
+          <button type="button" className="btn" onClick={handleAddPrice}>
+            Add Price
+          </button>
+        </div>
 
-        {/* Daily Plans Section */}
-        <h3>Daily Plans</h3>
+        <h3>Daily Plans: </h3>
         {dailyPlans.map((plan, planIndex) => (
           <div key={planIndex}>
             <label>
@@ -432,9 +333,9 @@ const PostTourData = () => {
               />
             </label>
 
-            <h4>Activities</h4>
+            <h4>Activities: </h4>
             {plan.activities.map((activity, activityIndex) => (
-              <div key={activityIndex}>
+              <div key={activityIndex} className="activity-item">
                 <label>
                   Activity Name:
                   <input
@@ -449,7 +350,7 @@ const PostTourData = () => {
                       )
                     }
                     required
-                    className="bg-[#182237] "
+                    className="bg-[#182237]"
                   />
                 </label>
                 <label>
@@ -465,16 +366,27 @@ const PostTourData = () => {
                       )
                     }
                     required
-                    className="bg-[#182237] "
+                    className="bg-[#182237]"
                   ></textarea>
                 </label>
+                <button
+                  type="button"
+                  className="btn btn-delete"
+                  onClick={() => handleRemoveActivity(planIndex, activityIndex)}
+                >
+                  X
+                </button>
               </div>
             ))}
-            <button type="button" onClick={() => handleAddActivity(planIndex)}>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => handleAddActivity(planIndex)}
+            >
               Add Activity
             </button>
 
-            <h4>Period Of time</h4>
+            <h4>Period Of time:</h4>
             {plan.periodOfTime.map((pofTime, periodOfIndex) => (
               <div key={periodOfIndex}>
                 <label>
@@ -510,22 +422,37 @@ const PostTourData = () => {
                     className="bg-[#182237] "
                   ></textarea>
                 </label>
+                <button
+                  type="button"
+                  className="btn btn-delete"
+                  onClick={() =>
+                    handleRemovePeriodOfTime(planIndex, periodOfIndex)
+                  }
+                >
+                  X
+                </button>
               </div>
             ))}
             <button
               type="button"
+              className="btn"
               onClick={() => handleAddPeriodOfTime(planIndex)}
             >
               Add period of time
             </button>
+
+            <button
+              type="button"
+              className="btn btn-delete"
+              onClick={() => handleRemoveDailyPlan(planIndex)}
+            >
+              X
+            </button>
           </div>
         ))}
-
-        <button type="button" onClick={handleAddDailyPlan}>
+        <button type="button" className="btn" onClick={handleAddDailyPlan}>
           Add Daily Plan
         </button>
-        <br />
-
         {/* <label>
           Service Included:
           <textarea
@@ -537,7 +464,6 @@ const PostTourData = () => {
             className="bg-[#182237] "
           ></textarea>
         </label> */}
-
         <label>
           serviceIncluded:
           <textarea
@@ -548,7 +474,6 @@ const PostTourData = () => {
             rows={4}
           />
         </label>
-        <br />
         <label>
           service not Included:
           <textarea
@@ -559,8 +484,6 @@ const PostTourData = () => {
             rows={4}
           />
         </label>
-        <br />
-
         <div className="mb-4">
           <label
             htmlFor="imageUpload"
@@ -575,7 +498,7 @@ const PostTourData = () => {
             multiple
             accept="image/*"
             onChange={handleFileChange}
-            className="block w-full text-sm text-gray-900 
+            className="block w-full text-sm text-white
               file:mr-4 file:py-2 file:px-4
               file:rounded-full file:border-0
               file:text-sm file:font-semibold
@@ -595,10 +518,10 @@ const PostTourData = () => {
             ))}
           </div>
         )}
-        <br />
-
         {/* Submit Button */}
-        <button type="submit">Submit Tour</button>
+        <button type="submit" className="btn btn-success">
+          Submit Tour
+        </button>
       </form>
     </div>
   );
