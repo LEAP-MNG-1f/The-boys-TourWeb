@@ -14,7 +14,7 @@ const createCategory = (req, res) => {
 };
 
 const getAllCategory = async (req, res) => {
-  const result = await Category.find();
+  const result = await CategoryModels.find();
   res.json({
     success: true,
     data: result,
