@@ -79,7 +79,7 @@ const EventsPage = () => {
                 px-4 py-2 rounded-full text-sm font-medium transition-colors
                 ${
                   activeSeason === season
-                    ? "bg-blue-600 text-white"
+                    ? "bg-orange-500 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }
               `}
@@ -93,21 +93,17 @@ const EventsPage = () => {
           {filteredEvents.map((event) => (
             <div
               key={event.id}
-              className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+              className="bg-white border border-gray-200 rounded-xl shadow-2xl hover:shadow-md transition-shadow duration-300"
             >
               <div className="p-6">
                 <div className="flex flex-col gap-4">
-                  <h2 className="text-xl font-bold text-gray-800 mb-2">
+                  <h2 className=" font-bold text-gray-800 mb-2 text-2xl">
                     {event.title}
                   </h2>
                   <img
                     src={event.image}
                     className="w-full rounded-md h-[400px] object-cover"
                   />
-                </div>
-                <div className="flex flex-col gap-2 mt-[20px]">
-                  <p className="text-gray-500">{event.date}</p>
-                  <p className="text-gray-600">Season: {event.season}</p>
                 </div>
                 <p className="text-gray-500 mt-4">
                   {expandedEventId === event.id
@@ -128,6 +124,10 @@ const EventsPage = () => {
                     </>
                   )}
                 </button>
+                <div className="flex flex-col gap-2 mt-[20px]">
+                  <p className=" font-[600] text-xl">{event.date}</p>
+                  <p className=" font-[600] text-xl">Season: {event.season}</p>
+                </div>
               </div>
             </div>
           ))}
