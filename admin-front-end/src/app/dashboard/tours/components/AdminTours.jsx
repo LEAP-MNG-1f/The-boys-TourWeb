@@ -1,6 +1,9 @@
+"use client";
 import React from "react";
+import { useState } from "react";
 
 const GobiTourInfo = () => {
+  const [selectedSeason, setSelectedSeason] = useState(null);
   const name = "Sengee";
   const email = "senge@gmail.com";
   const tourTitle = "Gobi Tour";
@@ -29,6 +32,24 @@ const GobiTourInfo = () => {
 
   return (
     <div className="pt-[50px] w-full ">
+      <div className="flex gap-6 pt-6 justify-start pb-[30px] ">
+        <button className="text-white border border-white p-[15px] rounded-lg">
+          + Create new category
+        </button>
+        {["Summer", "Autumn", "Winter", "Spring"].map((season) => (
+          <button
+            key={season}
+            onClick={() => setSelectedSeason(season)}
+            className={`border-2 text-gray-800 py-2 px-6 rounded-lg font-medium transition duration-300 ${
+              selectedSeason === season
+                ? "bg-orange-500 text-white border-orange-500"
+                : "hover:bg-gray-100"
+            }`}
+          >
+            {season}
+          </button>
+        ))}
+      </div>
       <div className="w-[25%] bg-[#182237] shadow-lg rounded-lg overflow-hidden p-6 ">
         <h2 className="text-2xl font-bold text-white mb-4">{tourTitle}</h2>
 
@@ -74,10 +95,6 @@ const GobiTourInfo = () => {
             ))}
           </tbody>
         </table>
-
-        <p className="text-sm text-white italic">
-          * Prices are subject to change
-        </p>
       </div>
     </div>
   );
