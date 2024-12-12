@@ -9,8 +9,10 @@ const ViewallPage = () => {
   return (
     <div>
       <HeaderPart />
-      <ViewAllPicture />
-      <TravelCards />
+      <div className="flex gap-10 flex-col">
+        <ViewAllPicture />
+        <TravelCards />
+      </div>
       <Footer />
     </div>
   );
