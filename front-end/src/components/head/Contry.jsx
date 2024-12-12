@@ -4,7 +4,7 @@ import { Autocomplete, TextField, Box } from "@mui/material";
 export default function Country() {
   return (
     <Autocomplete
-      id="country-select-demo"
+      id="country_select_demo"
       sx={{ width: 500 }}
       options={countries}
       autoHighlight
