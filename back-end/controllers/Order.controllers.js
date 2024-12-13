@@ -42,7 +42,7 @@ const createOrder = async (req, res) => {
 
 const getAllOrders = async (req, res) => {
   try {
-    const result = await OrderModels.find();
+    const result = await OrderModels.find().populate("tourId");
     res.json({
       success: true,
       data: result,

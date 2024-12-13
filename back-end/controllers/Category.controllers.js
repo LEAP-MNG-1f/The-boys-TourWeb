@@ -39,11 +39,55 @@ const createCategory = async (req, res) => {
 };
 
 const getAllCategory = async (req, res) => {
-  const result = await CategoryModels.find();
-  res.json({
-    success: true,
-    data: result,
-  });
+  try {
+    const categories = await CategoryModels.find();
+
+    if (!categories || categories.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No categories found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: categories,
+      message: `${categories.length} categories retrieved successfully.`,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching categories",
+      error: error.message,
+    });
+  }
 };
 
-export { createCategory, getAllCategory };
+const deleteCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedCategory = await CategoryModels.findByIdAndDelete(id);
+
+    if (!deletedCategory) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found or already deleted",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Category deleted successfully",
+      data: deletedCategory,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while deleting the category",
+      error: error.message,
+    });
+  }
+};
+
+export { createCategory, getAllCategory, deleteCategory };

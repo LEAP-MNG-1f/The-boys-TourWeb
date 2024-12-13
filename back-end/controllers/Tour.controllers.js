@@ -2,7 +2,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { Itinerary } from "../models/TourModels.js";
 
 const getAllTours = async (request, response) => {
-  const result = await Itinerary.find();
+  const result = await Itinerary.find().populate("categoryId");
   response.json(result);
 };
 
