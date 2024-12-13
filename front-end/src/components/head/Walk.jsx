@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const WalkDifference = () => {
@@ -38,9 +39,11 @@ const WalkDifference = () => {
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s.
           </p>
-          <button className="bg-orange-500 w-[155px] text-white px-[30px] py-[10px] text-center rounded-[20px] shadow-md hover:bg-orange-600">
-            Book now
-          </button>
+          <Link href="/specialtour">
+            <button className="bg-orange-500 w-[210px] text-white px-[30px] py-[10px] text-center rounded-[20px] shadow-md hover:bg-orange-600">
+              Create your own trip
+            </button>
+          </Link>
         </div>
       </div>
 

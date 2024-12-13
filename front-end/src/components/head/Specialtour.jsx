@@ -31,7 +31,7 @@ const MenuProps = {
   },
 };
 
-export default function Special() {
+export default function Specialtour() {
   const form = useRef();
   const [formData, setFormData] = useState({
     user_location: "",

@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import { HeaderPart } from "./components/Header";
 import { Hero } from "./components/Hero";
 import WorkingProcess from "./components/Process";
-import WalkDifference from "./components/Walk";
+import WalkDifference from "../head/Walk";
 
 export default function Homepage() {
   return (
