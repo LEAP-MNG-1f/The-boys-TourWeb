@@ -13,10 +13,6 @@ const categorySchema = new mongoose.Schema({
   intoduction: {
     type: String,
   },
-  tourId: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "Itinerary",
-  },
 });
 
 export const CategoryModels = mongoose.model("Category", categorySchema);
