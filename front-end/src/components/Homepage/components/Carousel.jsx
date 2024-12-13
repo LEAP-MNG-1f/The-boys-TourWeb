@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const Carousel = () => {
@@ -114,9 +115,9 @@ const Carousel = () => {
           <div className="absolute bottom-[250px] md:right-0">
             <div className="grid grid-cols-2 gap-4">
               {thumbnailImages.map((image, index) => (
-                <a
+                <Link
                   key={index}
-                  href="/view-all-page"
+                  href="/view-all"
                   className="w-32 h-32 md:w-40 md:h-40"
                 >
                   <img
@@ -124,7 +125,7 @@ const Carousel = () => {
                     src={image}
                     alt={`Thumbnail ${index + 1}`}
                   />
-                </a>
+                </Link>
               ))}
             </div>
           </div>
