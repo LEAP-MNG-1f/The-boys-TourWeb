@@ -1,7 +1,19 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
 
 const GobiTourInfo = () => {
+  const [open, setOpen] = React.useState(false);
+  const [newCategory, setNewCategory] = useState({
+    name: "",
+    description: "",
+  });
+
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [tourData, setTourData] = useState(null);
 
@@ -18,6 +30,37 @@ const GobiTourInfo = () => {
 
     fetchTourData();
   }, []);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    // Reset form when closing
+    setNewCategory({ name: "", description: "" });
+  };
+
+  const handleCreateCategory = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8000/api/categories", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newCategory),
+      });
+
+      if (response.ok) {
+        // Handle successful category creation
+        console.log("Category created successfully");
+        handleClose();
+      }
+    } catch (error) {
+      console.error("Error creating category:", error);
+    }
+  };
 
   const name = tourData?.name || "Sengee";
   const email = tourData?.email || "senge@gmail.com";
@@ -49,9 +92,62 @@ const GobiTourInfo = () => {
     <div className="pt-[50px] w-full">
       <div className="pt-[50px] w-full ">
         <div className="flex gap-6 pt-6 justify-start pb-[30px] ">
-          <button className="text-white border border-white p-[15px] rounded-lg">
+          <Button variant="outlined" onClick={handleClickOpen}>
             + Create new category
-          </button>
+          </Button>
+
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="form-dialog-title"
+            fullWidth
+            maxWidth="sm"
+          >
+            <DialogTitle id="form-dialog-title">
+              Create New Category
+            </DialogTitle>
+            <form onSubmit={handleCreateCategory}>
+              <DialogContent>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="Category Name"
+                  fullWidth
+                  value={newCategory.name}
+                  onChange={(e) =>
+                    setNewCategory((prev) => ({
+                      ...prev,
+                      name: e.target.value,
+                    }))
+                  }
+                  required
+                />
+                <TextField
+                  margin="dense"
+                  label="Description"
+                  fullWidth
+                  multiline
+                  rows={4}
+                  value={newCategory.description}
+                  onChange={(e) =>
+                    setNewCategory((prev) => ({
+                      ...prev,
+                      description: e.target.value,
+                    }))
+                  }
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button type="submit" color="primary">
+                  Create
+                </Button>
+              </DialogActions>
+            </form>
+          </Dialog>
+
           {["Summer", "Autumn", "Winter", "Spring"].map((season) => (
             <button
               key={season}
