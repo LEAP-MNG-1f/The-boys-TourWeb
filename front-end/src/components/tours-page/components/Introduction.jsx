@@ -10,6 +10,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { CheckIcon, Location, NotCheckIcon } from "../icons";
+import Link from "next/link";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -306,9 +307,11 @@ export const Introduction = ({ tour }) => {
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <button className="w-full h-12 bg-[#F97316] rounded-lg text-white font-roboto text-xl font-medium">
-                Book now
-              </button>
+              <Link href="/book-now" className="w-full">
+                <button className="w-full h-12 bg-[#F97316] rounded-lg text-white font-roboto text-xl font-medium">
+                  Book now
+                </button>
+              </Link>
               <button className="w-full h-12 border-[2px] border-[#F97316] rounded-lg text-black font-roboto text-xl font-medium">
                 Call
               </button>
