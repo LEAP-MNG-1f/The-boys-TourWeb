@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export const Card = () => {
+export const Card = ({ selectedCategory }) => {
   const [tourData, setTourData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,10 +24,14 @@ export const Card = () => {
       }
 
       const responseData = await response.json();
-      console.log("Full response data:", responseData);
 
-      const realData = responseData || [];
-      setTourData(realData);
+      const filteredData = selectedCategory
+        ? responseData.filter(
+            (itineraries) => itineraries.categoryId.name === selectedCategory
+          )
+        : responseData;
+
+      setTourData(filteredData);
       setIsLoading(false);
     } catch (error) {
       console.error("Detailed fetch error:", {
@@ -42,7 +46,7 @@ export const Card = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [selectedCategory]);
 
   if (isLoading) {
     return (
@@ -74,6 +78,7 @@ export const Card = () => {
                 ? tour.images[0]
                 : "https://via.placeholder.com/400x250?text=Tour+Image"
             }
+            alt={tour.title || "Tour Image"}
           />
           <div className="absolute bottom-0 top-[130px] left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent text-white z-20">
             <h3 className="font-semibold text-lg">
@@ -83,7 +88,7 @@ export const Card = () => {
               <div>
                 <span className="font-semibold text-lg">
                   {tour.price && tour.price.length > 0
-                    ? `${tour.price[0].perPerson} (per person)`
+                    ? `$${tour.price[0].perPerson} (per person)`
                     : "Price not available"}
                 </span>
                 <p className="text-sm text-gray-500">
@@ -97,7 +102,7 @@ export const Card = () => {
           </div>
           <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4 z-10 pointer-events-none">
             <p className="text-gray-300 text-sm text-center">
-              {tour.additionalInfo || "Additional information not available"}
+              {tour.description || "Additional information not available"}
             </p>
           </div>
         </div>

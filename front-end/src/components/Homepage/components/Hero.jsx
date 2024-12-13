@@ -1,11 +1,10 @@
 "use client";
-import { Card } from "../card/Card";
 import { useEffect, useState } from "react";
+import { Card } from "../card/Card";
 
 export const Hero = () => {
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -27,24 +26,20 @@ export const Hero = () => {
       }
 
       const responseData = await response.json();
-      const realData = responseData?.data || responseData || [];
-
       const uniqueCategories = Array.from(
-        new Set(realData.map((item) => item.name || item.categoryName))
+        new Set(responseData.data.map((item) => item.name || item.categoryName))
       );
 
       setCategories(uniqueCategories);
       setError(null);
-      console.log("Categories:", uniqueCategories);
     } catch (error) {
       console.error("Detailed fetch error:", error);
-      setError(`Failed to load categories: ${error.message}`);
+      setError("Failed to load categories:"` ${error.message}`);
       setCategories([]);
     } finally {
       setIsLoading(false);
     }
   };
-  console.log(categories);
 
   useEffect(() => {
     fetchData();
@@ -72,15 +67,11 @@ export const Hero = () => {
               <button
                 key={category}
                 onClick={() => setSelectedSeason(category)}
-                className={`
-                  border-2 text-gray-800 py-2 px-4 sm:px-6 rounded-lg font-medium 
-                  transition duration-300 text-sm sm:text-base
-                  ${
-                    selectedSeason === category
-                      ? "bg-orange-500 text-white border-orange-500"
-                      : "hover:bg-gray-100"
-                  }
-                `}
+                className={`border-2 text-gray-800 py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
+                  selectedSeason === category
+                    ? "bg-orange-500 text-white border-orange-500"
+                    : "hover:bg-gray-100"
+                }`}
               >
                 {category}
               </button>
@@ -88,15 +79,10 @@ export const Hero = () => {
           </div>
 
           <div className="px-4 sm:px-8 lg:px-16">
-            <Card
-              selectedSeason={selectedSeason}
-              selectedCategory={selectedCategory}
-            />
+            <Card selectedCategory={selectedSeason} />
           </div>
         </>
       )}
     </div>
   );
 };
-
-export default Hero;
