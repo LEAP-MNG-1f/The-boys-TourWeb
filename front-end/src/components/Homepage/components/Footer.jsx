@@ -1,10 +1,9 @@
 import React from "react";
-import { ClickIcon } from "../icons/Click";
 import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-[90px]">
+    <footer className="bg-gray-800 text-white py-[90px] mt-[100px]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-8">
           <h4 className="text-3xl font-bold">Explore the Seasons</h4>

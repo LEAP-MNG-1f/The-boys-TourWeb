@@ -17,27 +17,20 @@ const ViewAllPicture = () => {
         },
       });
 
-      console.log("Response status:", response.status);
-      console.log(
-        "Response headers:",
-        Object.fromEntries(response.headers.entries())
-      );
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${errorText}`
+        );
+      }
 
       const responseData = await response.json();
-      console.log("Full response data:", responseData);
-
       const realData = responseData?.data || [];
       setTourData(realData);
-      console.log("category", realData);
       setError(null);
     } catch (error) {
-      console.error("Detailed fetch error:", {
-        message: error.message,
-        name: error.name,
-        stack: error.stack,
-      });
-
-      setError(`Failed to load tours: ${error.message}`);
+      console.error("Detailed fetch error:", error);
+      setError(`Failed to load categories: ${error.message}`);
       setTourData([]);
     } finally {
       setIsLoading(false);
@@ -58,18 +51,42 @@ const ViewAllPicture = () => {
     }
   }, [tourData]);
 
-  if (isLoading || tourData.length === 0) {
-    return (
-      <div className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh] mt-[100px] flex justify-center items-center">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
-      </div>
+  const renderLoadingOrError = (content) => (
+    <div className="container mx-auto relative overflow-hidden rounded-2xl shadow-lg min-h-[50vh] sm:h-[65vh] mt-8 sm:mt-16 flex justify-center items-center">
+      {content}
+    </div>
+  );
+
+  if (isLoading) {
+    return renderLoadingOrError(
+      <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
     );
   }
 
   if (error) {
-    return (
-      <div className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh] mt-[100px] flex justify-center items-center text-red-500">
-        {error}
+    return renderLoadingOrError(
+      <div className="text-red-500 text-center">
+        <p>{error}</p>
+        <button
+          onClick={fetchData}
+          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  if (tourData.length === 0) {
+    return renderLoadingOrError(
+      <div className="text-gray-500 text-center">
+        <p>No categories found</p>
+        <button
+          onClick={fetchData}
+          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Refresh
+        </button>
       </div>
     );
   }
@@ -78,7 +95,7 @@ const ViewAllPicture = () => {
 
   return (
     <div
-      className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh] mt-[100px]"
+      className="container mx-auto relative overflow-hidden rounded-2xl shadow-lg min-h-[50vh] sm:h-[65vh] mt-8 sm:mt-16"
       style={{
         backgroundImage: `url(${currentImage.imageCategory})`,
         backgroundSize: "cover",
@@ -86,21 +103,27 @@ const ViewAllPicture = () => {
         transition: "background-image 0.5s ease-in-out",
       }}
     >
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
-      <div className="absolute inset-0 flex flex-col justify-center items-start px-8 md:px-16 lg:px-24 text-white">
-        <div className="pt-[50px]">
-          <h1 className="text-5xl font-bold mb-4">
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col justify-center items-start px-4 sm:px-8 md:px-16 lg:px-24 text-white">
+        <div className="max-w-full sm:max-w-2xl">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4">
             {currentImage.name || "Category"}
           </h1>
-          <p className="text-xl max-w-2xl">{currentImage.description || ""}</p>
+          <p className="text-base sm:text-lg lg:text-xl mb-4 line-clamp-3">
+            {currentImage.description || ""}
+          </p>
 
+          {/* Navigation Dots */}
           <div className="flex space-x-2 mt-4">
             {tourData.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`w-3 h-3 rounded-full ${
+                aria-label={`Go to slide ${index + 1}`}
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors duration-300 ${
                   index === currentImageIndex ? "bg-white" : "bg-white/50"
                 }`}
               />

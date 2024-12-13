@@ -6,7 +6,6 @@ export const Card = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Function to fetch data from the API
   const fetchData = async () => {
     try {
       console.log("Attempting to fetch from: http://localhost:8000/api/tours");

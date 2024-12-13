@@ -21,6 +21,7 @@
     "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "emailjs": "^4.0.3",
     "express": "^4.21.2",
     "next": "^15.0.4",
     "nodemailer": "^6.9.16",
