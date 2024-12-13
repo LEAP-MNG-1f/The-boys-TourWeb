@@ -1,19 +1,38 @@
 "use client";
-import { useRef, useState } from "react";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Box from "@mui/material/Box";
-import Alert from "@mui/material/Alert";
-import IconButton from "@mui/material/IconButton";
-import Collapse from "@mui/material/Collapse";
-import Button from "@mui/material/Button";
+import React, { useRef, useState } from "react";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  OutlinedInput,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Box,
+  Alert,
+  IconButton,
+  Collapse,
+  Button,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { HeaderPart } from "../Homepage/components/Header";
 import emailjs from "@emailjs/browser";
-import Country from "./Contry";
+import { countries } from "./constants";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 export default function Special() {
+  const form = useRef();
   const [formData, setFormData] = useState({
     user_location: "",
     user_date: "",
@@ -22,18 +41,17 @@ export default function Special() {
     user_budget: "",
     user_name: "",
     user_email: "",
-    lai: "",
     user_phone: "",
     message: "",
-    user_country_select_demo: "",
+    selectedCountry: "",
+    user_tailorExistingItinerary: false,
     user_contactViaEmail: false,
     user_acceptPrivacy: false,
     user_receiveUpdates: false,
     user_travelingWithChildren: false,
-    user_tailorExistingItinerary: false,
   });
+  const [selectedCountries, setSelectedCountries] = useState([]);
   const [open, setOpen] = useState(false);
-  const form = useRef();
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -41,17 +59,18 @@ export default function Special() {
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    if (name === "selectedCountries") {
+      const selectedValues = event.target.value;
+      setSelectedCountries(selectedValues);
+    }
   };
 
-  const handleCountryChange = (country) => {
-    console.log(country);
-
-    setFormData((prevData) => ({
-      ...prevData,
-      user_country_select_demo: country,
-    }));
+  const getStyles = (country, selectedCountry) => {
+    return {
+      fontWeight: selectedCountry === country ? 600 : 400,
+    };
   };
-
   const sendEmail = (e) => {
     e.preventDefault();
 
@@ -61,12 +80,9 @@ export default function Special() {
       })
       .then(
         () => {
-          console.log("Form submitted successfully!");
           setOpen(true);
         },
-        (error) => {
-          console.log("Failed to send form...", error.text);
-        }
+        (error) => {}
       );
   };
 
@@ -118,12 +134,8 @@ export default function Special() {
                 <h1 className="font-bold text-[22px]">
                   Your group and travel plans
                 </h1>
-                <label
-                  htmlFor="user_groupSize"
-                  className="block text-sm font-medium leading-6 mt-5 text-gray-900"
-                >
-                  How many traveling in your group? (Minimum 4 people) *
-                </label>
+                <h1>How many traveling in your group? (Minimum 4 people) *</h1>
+
                 <input
                   type="number"
                   id="user_groupSize"
@@ -146,7 +158,7 @@ export default function Special() {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={formData.travelingWithChildren}
+                        checked={formData.user_travelingWithChildren}
                         onChange={handleChange}
                         name="user_travelingWithChildren"
                       />
@@ -248,16 +260,35 @@ export default function Special() {
               <div className="mt-5">
                 <h1>Where are you from</h1>
                 <div className="mt-5">
-                  <Country
-                    value={formData.user_country_select_demo}
-                    onChange={handleCountryChange}
-                    onCountryChange={(country) =>
-                      setFormData((prevData) => ({
-                        ...prevData,
-                        user_country_select_demo: country,
-                      }))
-                    }
-                  />
+                  <div>
+                    <div className="flex flex-col w-[500px] h-[100px] gap-3">
+                      <h1>Which countries would you like to visit *</h1>
+                      <Select
+                        value={formData.selectedCountry || ""}
+                        onChange={(event) => {
+                          const { value } = event.target;
+                          setFormData({
+                            ...formData,
+                            selectedCountry: value,
+                          });
+                        }}
+                        input={<OutlinedInput />}
+                        MenuProps={MenuProps}
+                        name="selectedCountry"
+                        required
+                      >
+                        {countries.map((country) => (
+                          <MenuItem
+                            key={country}
+                            value={country}
+                            style={getStyles(country, formData.selectedCountry)}
+                          >
+                            {country}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col mt-5">
