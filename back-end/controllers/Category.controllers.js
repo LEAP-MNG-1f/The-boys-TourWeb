@@ -3,7 +3,7 @@ import { CategoryModels } from "../models/CategoryModels.js";
 
 const createCategory = async (req, res) => {
   try {
-    const { name, introduction } = req.body;
+    const { name, introduction, tourId } = req.body;
     const file = req.file;
 
     // Зураг upload хийх
@@ -21,6 +21,7 @@ const createCategory = async (req, res) => {
       name,
       imageCategory: imageUrl,
       introduction,
+      tourId,
     });
 
     res.status(201).json({
@@ -40,7 +41,7 @@ const createCategory = async (req, res) => {
 
 const getAllCategory = async (req, res) => {
   try {
-    const categories = await CategoryModels.find();
+    const categories = await CategoryModels.find().populate("tourId");
 
     if (!categories || categories.length === 0) {
       return res.status(404).json({
