@@ -57,12 +57,12 @@ const PostTourData = () => {
   const handleAddServiceI = (e) => {
     const { name, value } = e.target;
 
-    // Parse the input, respecting quotes
     const arrayt = value
       .match(/(?:[^,"]+|"[^"]*")+/g)
       ?.map((item) => item.replace(/^"|"$/g, "").trim())
       .filter((item) => item !== "");
 
+    // console.log(arrayt)
     setFormData({ ...formData, [name]: arrayt });
   };
 
@@ -76,8 +76,30 @@ const PostTourData = () => {
   const handleAddDailyPlan = () => {
     setDailyPlans([
       ...dailyPlans,
-      { day: "", activities: [], accommodation: "", periodOfTime: [] },
+      { day: "", activities: [], accommodation: [], periodOfTime: [] },
     ]);
+  };
+
+  const handleAccommoChange = (planIndex, accomIndex, field, value) => {
+    const updatedPlans = [...dailyPlans];
+
+    // Ensure the accommodation array exists and the specified index is valid
+    if (!updatedPlans[planIndex].accommodation) {
+      updatedPlans[planIndex].accommodation = [];
+    }
+
+    // If the accommodation at the given index doesn't exist, create it
+    if (!updatedPlans[planIndex].accommodation[accomIndex]) {
+      updatedPlans[planIndex].accommodation[accomIndex] = {
+        accomName: "",
+        notes: "",
+      }; // Initialize with default values
+    }
+
+    updatedPlans[planIndex].accommodation[accomIndex][field] = value; // Update the specific field
+
+    setDailyPlans(updatedPlans); // Update the state with the new dailyPlans
+    setFormData({ ...formData, dailyPlans: updatedPlans }); // Update the formData state with the new dailyPlans
   };
 
   const handleRemoveDailyPlan = (index) => {
@@ -161,18 +183,58 @@ const PostTourData = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   const response = await axios.post(
-    //     "https://your-api-endpoint.com/tours",
-    //     formData
-    //   );
-    //   console.log("Response:", response.data);
-    //   alert("Tour data submitted successfully!");
-    // } catch (error) {
-    //   console.error("Error submitting tour data:", error);
-    //   alert("Failed to submit tour data.");
-    // }
-    console.log(formData);
+
+    // Create FormData object
+    const formDataObj = new FormData();
+
+    // Append text fields (simple fields)
+    formDataObj.append("title", formData.title);
+    formDataObj.append("description", formData.description);
+    formDataObj.append("categoryId", formData.categoryId);
+    formDataObj.append("startDate", formData.startDate);
+    formDataObj.append("endDate", formData.endDate);
+    formDataObj.append("location", formData.location);
+    formDataObj.append("createdAt", formData.createdAt);
+
+    // Append array fields (like serviceInclude and serviceNotInclude)
+    formDataObj.append("price", JSON.stringify(price)); // JSON-stringify the array
+    formDataObj.append("dailyPlans", JSON.stringify(dailyPlans));
+    formDataObj.append(
+      "serviceInclude",
+      JSON.stringify(formData.serviceInclude)
+    );
+    formDataObj.append(
+      "serviceNotInclude",
+      JSON.stringify(formData.serviceNotInclude)
+    );
+
+    // Append images (if any)
+    formData.images.forEach((image) => {
+      formDataObj.append("images", image); // Append each file separately
+    });
+
+    // Log FormData contents
+    for (let [key, value] of formDataObj.entries()) {
+      console.log(key, value);
+    }
+
+    try {
+      const response = await fetch("http://localhost:8000/api/tours", {
+        method: "POST",
+        body: formDataObj, // Use FormData directly
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit data");
+      }
+
+      const data = await response.json(); // Expect a JSON response
+      console.log("Response:", data);
+      alert("Tour data submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting tour data:", error);
+      alert("Failed to submit tour data.");
+    }
   };
 
   return (
@@ -216,10 +278,7 @@ const PostTourData = () => {
             <option value="" disabled>
               Select a season
             </option>
-            <option value="winter">Winter</option>
-            <option value="spring">Spring</option>
-            <option value="summer">Summer</option>
-            <option value="autumn">Autumn</option>
+            <option value="675ba6ee3fdf4d8ab7de61ac">Winter</option>
           </select>
         </label>
 
@@ -316,21 +375,37 @@ const PostTourData = () => {
                 className="bg-[#182237] "
               />
             </label>
+
+            <h4>Accommodation details: </h4>
             <label>
-              Accommodation:
+              Accommodation Name:
               <input
                 type="text"
-                value={plan.accommodation}
-                onChange={(e) =>
-                  handleDailyPlanChange(
-                    planIndex,
-                    "accommodation",
-                    e.target.value
-                  )
+                value={plan.accommodation[0]?.accomName || ""} // Use default empty string if undefined
+                onChange={
+                  (e) =>
+                    handleAccommoChange(
+                      planIndex,
+                      0,
+                      "accomName",
+                      e.target.value
+                    ) // Update the first accommodation
                 }
                 required
-                className="bg-[#182237] "
+                className="bg-[#182237]"
               />
+            </label>
+
+            <label>
+              Accommodation Notes:
+              <textarea
+                value={plan.accommodation[0]?.notes || ""} // Use default empty string if undefined
+                onChange={
+                  (e) =>
+                    handleAccommoChange(planIndex, 0, "notes", e.target.value) // Update the notes of the first accommodation
+                }
+                className="bg-[#182237]"
+              ></textarea>
             </label>
 
             <h4>Activities: </h4>
@@ -453,19 +528,9 @@ const PostTourData = () => {
         <button type="button" className="btn" onClick={handleAddDailyPlan}>
           Add Daily Plan
         </button>
-        {/* <label>
-          Service Included:
-          <textarea
-            type="text"
-            name="serviceInclude"
-            value={formData.serviceInclude}
-            onChange={handleAddServiceI}
-            required
-            className="bg-[#182237] "
-          ></textarea>
-        </label> */}
+
         <label>
-          serviceIncluded:
+          Service Included:
           <textarea
             name="serviceInclude"
             placeholder="Enter services (comma-separated)"
@@ -474,6 +539,7 @@ const PostTourData = () => {
             rows={4}
           />
         </label>
+
         <label>
           service not Included:
           <textarea
@@ -504,6 +570,7 @@ const PostTourData = () => {
               file:text-sm file:font-semibold
               file:bg-violet-50 file:text-violet-700
               hover:file:bg-violet-100"
+            required
           />
         </div>
         {previews.length > 0 && (
