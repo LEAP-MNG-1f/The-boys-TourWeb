@@ -8,13 +8,13 @@ import MuiAccordionSummary, {
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CheckIcon, Location, NotCheckIcon } from "../icons";
-import { included, notIncluded, tour } from "./data";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
+  width: "100%",
   position: "relative",
   borderRadius: "8px",
   border: `1px solid ${theme.palette.divider}`,
@@ -46,36 +46,27 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-export const Introduction = () => {
-  const [expanded, setExpanded] = useState("DAY-1");
-  const [tours, setTours] = useState([]);
+export const Introduction = ({ tour }) => {
+  const [expanded, setExpanded] = useState("Day 1");
 
-  const fetchDataTours = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/api/tours`);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const tours = await response.json();
-      setTours(tours.data);
-    } catch (error) {
-      console.error(error);
+  const formattedStartDate = new Date(tour.startDate).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     }
-  };
+  );
 
-  useEffect(() => {
-    fetchDataTours();
-  }, []);
+  const formattedEndDate = new Date(tour.endDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-
-  // console.log(tours[0].serviceInclude);
-
-  // const serviceIncludes = tours[0].serviceInclude.slice(0, -1);
 
   return (
     <div className="w-full flex justify-center">
@@ -92,10 +83,10 @@ export const Introduction = () => {
               </div>
             </div>
             <p className="text-black font-roboto text-lg font-normal ">
-              {/* {tours.id} */}
+              {tour.description}
             </p>
           </div>
-          <div className="w-full flex flex-col gap-8 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl">
+          <div className="max-w-[1048px] w-full flex flex-col gap-8 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl">
             <div className="flex flex-col gap-2">
               <div className="flex">
                 <div className="pb-3 border-b border-[#F97316]">
@@ -105,14 +96,14 @@ export const Introduction = () => {
                 </div>
               </div>
             </div>
-            <div className="flex gap-5">
-              <div className="w-[3px] relative h-full bg-[#F97316]">
+            <div className="flex gap-5 ">
+              <div className="w-[2px] relative h-full bg-[#F97316]">
                 <div className="absolute left-[50%] translate-x-[-50%] top-[-20px]">
                   <Location />
                 </div>
               </div>
-              <div className="flex flex-col gap-4">
-                {tour?.map((value, id) => {
+              <div className="flex flex-col gap-4 w-full">
+                {tour.dailyPlans?.map((value, id) => {
                   return (
                     <Accordion
                       key={id}
@@ -126,11 +117,76 @@ export const Introduction = () => {
                         <div className="flex items-center gap-5">
                           <Typography>{value.day}</Typography>
                           <div className="h-full w-[1px] bg-[#242424]"></div>
-                          <Typography>{value.text}</Typography>
+                          <div className="flex items-center gap-2">
+                            <div className="flex flex-col">
+                              {Array.isArray(value.periodOfTime)
+                                ? value.periodOfTime.map((activity, index) => (
+                                    <p
+                                      className="font-roboto text-black"
+                                      key={index}
+                                    >
+                                      {activity.when} :
+                                    </p>
+                                  ))
+                                : ""}
+                            </div>
+                            <div className="flex flex-col ">
+                              {Array.isArray(value.periodOfTime)
+                                ? value.periodOfTime.map((activity, index) => (
+                                    <p
+                                      className="font-roboto text-black"
+                                      key={index}
+                                    >
+                                      {activity.notes}
+                                    </p>
+                                  ))
+                                : ""}
+                            </div>
+                          </div>
                         </div>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Typography>{value.description}</Typography>
+                        <p className="text-black font-roboto text-lg font-medium leading-6">
+                          Activities
+                        </p>
+                        {Array.isArray(value.activities)
+                          ? value.activities.map((activity, index) => (
+                              <div className="flex flex-col" key={index}>
+                                <div className="flex items-center gap-2">
+                                  <div className="w-[6px] h-[6px] bg-[#F97316] rounded-full"></div>
+                                  <p
+                                    className="font-roboto text-black"
+                                    key={index}
+                                  >
+                                    {activity.activityName}
+                                  </p>
+                                </div>
+                                <p className="px-[14px]">{activity.notes}</p>
+                              </div>
+                            ))
+                          : ""}
+                        <p className="text-black font-roboto text-lg font-medium leading-6">
+                          Accommodation
+                        </p>
+                        {Array.isArray(value.accommodation)
+                          ? value.accommodation.map((activity, index) => (
+                              <div
+                                className="flex items-center gap-6"
+                                key={index}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <div className="w-[6px] h-[6px] bg-[#F97316] rounded-full"></div>
+                                  <p
+                                    className="font-roboto text-black"
+                                    key={index}
+                                  >
+                                    {activity.accomName}
+                                  </p>
+                                </div>
+                                <p>{activity.notes}</p>
+                              </div>
+                            ))
+                          : ""}
                       </AccordionDetails>
                     </Accordion>
                   );
@@ -149,8 +205,8 @@ export const Introduction = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-4">
-                    {included?.map((value, id) => {
+                  <div className="flex flex-col gap-3">
+                    {tour?.serviceInclude?.map((value, id) => {
                       return (
                         <div className="flex items-start gap-2" key={id}>
                           <div className="w-6 h-6 flex items-center justify-center">
@@ -172,8 +228,8 @@ export const Introduction = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-4">
-                    {notIncluded?.map((value, id) => {
+                  <div className="flex flex-col gap-3">
+                    {tour?.serviceNotInclude?.map((value, id) => {
                       return (
                         <div className="flex items-center gap-2" key={id}>
                           <div className="w-6 h-6 flex items-center justify-center">
@@ -215,30 +271,21 @@ export const Introduction = () => {
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              <div className="flex items-center justify-between border-b border-[rgba(0,0,0,0.125)] pb-2">
-                <p className="text-black font-roboto text-base font-medium">
-                  2 pax
-                </p>
-                <p className="text-black font-roboto text-base font-medium">
-                  1690$
-                </p>
-              </div>
-              <div className="flex items-center justify-between border-b border-[rgba(0,0,0,0.125)] pb-2">
-                <p className="text-black font-roboto text-base font-medium">
-                  3 pax
-                </p>
-                <p className="text-black font-roboto text-base font-medium">
-                  1390$
-                </p>
-              </div>
-              <div className="flex items-center justify-between border-b border-[rgba(0,0,0,0.125)] pb-2">
-                <p className="text-black font-roboto text-base font-medium">
-                  4 pax
-                </p>
-                <p className="text-black font-roboto text-base font-medium">
-                  1355$
-                </p>
-              </div>
+              {tour?.price?.map((value, id) => {
+                return (
+                  <div
+                    key={id}
+                    className="flex items-center justify-between border-b border-[rgba(0,0,0,0.125)] pb-2"
+                  >
+                    <p className="text-black font-roboto text-base font-medium">
+                      {value.pax} pax
+                    </p>
+                    <p className="text-black font-roboto text-base font-medium">
+                      {value.perPerson}$
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex flex-col gap-6">
@@ -249,9 +296,13 @@ export const Introduction = () => {
                 </p>
               </div>
             </div>
-            <div className="border-b border-[rgba(0,0,0,0.125)] pb-2">
-              <p className="text-black font-roboto text-base font-medium">
-                4 season
+            <div className="border-b border-[rgba(0,0,0,0.125)] pb-2 flex items-center gap-1">
+              <p className="text-black font-roboto text-base font-normal">
+                {formattedStartDate}
+              </p>
+              <p className="text-black font-roboto text-base font-normal">-</p>
+              <p className="text-black font-roboto text-base font-normal">
+                {formattedEndDate}
               </p>
             </div>
             <div className="flex items-center gap-4">
