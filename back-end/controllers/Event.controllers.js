@@ -8,30 +8,22 @@ const getAllEvent = async (request, response) => {
 
 const createEvent = async (request, response) => {
   try {
-    const { name, imageEvent, intoduction, season, date, categoryId } =
-      request.body;
+    const { name, intoduction, season, date, categoryId } = request.body;
 
-    const files = request.files;
-
-    if (!files || files.length === 0) {
-      return response
-        .status(400)
-        .json({ success: false, message: "Images error" });
+    let imageUrlevent = "";
+    if (request.file) {
+      // Change from request.files to request.file
+      const uploadResult = await cloudinary.uploader.upload(request.file.path, {
+        folder: "events",
+        resource_type: "auto",
+      });
+      imageUrlevent = uploadResult.url;
     }
-
-    // Upload images to Cloudinary
-    const uploadResults = await Promise.all(
-      files.map((file) =>
-        cloudinary.uploader.upload(file.path, { folder: "events" })
-      )
-    );
-
-    const imageUrls = uploadResults.map((result) => result.url);
 
     // Save data to MongoDB
     const result = await EventModels.create({
       name,
-      imageEvent,
+      imageEvent: imageUrlevent,
       intoduction,
       season,
       date,
