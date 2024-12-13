@@ -1,12 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 
 const Carousel = () => {
   const [tourData, setTourData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0); // New state for image index
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const thumbnailImages = [
     "https://cdn.mongolia-guide.com/generated/aimag/yB5tmMud3F7rJsh124LfK4ML8rLIdCKXHqTaw3tX_1920_1000.jpeg",
@@ -18,9 +17,6 @@ const Carousel = () => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-
-      console.log("Attempting to fetch from: http://localhost:8000/api/tours");
-
       const response = await fetch("http://localhost:8000/api/tours", {
         method: "GET",
         headers: {
@@ -28,34 +24,19 @@ const Carousel = () => {
         },
       });
 
-      console.log("Response status:", response.status);
-      console.log(
-        "Response headers:",
-        Object.fromEntries(response.headers.entries())
-      );
-
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Error response text:", errorText);
         throw new Error(
           `HTTP error! status: ${response.status}, message: ${errorText}`
         );
       }
-
       const responseData = await response.json();
-      console.log("Full response data:", responseData);
 
-      const realData = responseData?.data || [];
-
+      const realData = responseData || [];
       setTourData(realData);
+
       setError(null);
     } catch (error) {
-      console.error("Detailed fetch error:", {
-        message: error.message,
-        name: error.name,
-        stack: error.stack,
-      });
-
       setError(`Failed to load tours: ${error.message}`);
       setTourData([]);
     } finally {
@@ -63,19 +44,19 @@ const Carousel = () => {
     }
   };
 
-  // UseEffect to fetch data on mount
   useEffect(() => {
     fetchData();
   }, []);
 
-  // SetInterval to change the image every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % tourData.length); // Loops back to the first image after the last one
-    }, 5000); // Change every 5 seconds
+      setCurrentImageIndex((prevIndex) =>
+        tourData.length > 0 ? (prevIndex + 1) % tourData.length : 0
+      );
+    }, 5000);
 
-    return () => clearInterval(interval); // Clean up interval on unmount
-  }, [tourData.length]); // Dependency on tourData length to avoid unnecessary re-renders
+    return () => clearInterval(interval);
+  }, [tourData.length]);
 
   if (isLoading || tourData.length === 0) {
     return (
@@ -93,7 +74,7 @@ const Carousel = () => {
     );
   }
 
-  const currentImage = tourData[currentImageIndex]; // Get the current image based on index
+  const currentImage = tourData[currentImageIndex];
 
   return (
     <div className="relative overflow-hidden shadow-lg h-[75vh]">
@@ -118,14 +99,13 @@ const Carousel = () => {
               </div>
               <div className="absolute top-[580px] flex items-end">
                 <div className="flex gap-[20px] flex-col">
-                  <Link href="/view-all-page">
-                    <button
-                      className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg shadow-lg text-white text-lg"
-                      aria-label="Jump to all tours"
-                    >
-                      Jump to all tours
-                    </button>
-                  </Link>
+                  <a
+                    href="/view-all-page"
+                    className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg shadow-lg text-white text-lg inline-block"
+                    aria-label="Jump to all tours"
+                  >
+                    Jump to all tours
+                  </a>
                 </div>
               </div>
             </div>
@@ -134,7 +114,7 @@ const Carousel = () => {
           <div className="absolute bottom-[250px] md:right-0">
             <div className="grid grid-cols-2 gap-4">
               {thumbnailImages.map((image, index) => (
-                <Link
+                <a
                   key={index}
                   href="/view-all-page"
                   className="w-32 h-32 md:w-40 md:h-40"
@@ -142,8 +122,9 @@ const Carousel = () => {
                   <img
                     className="w-full h-full object-cover rounded-lg"
                     src={image}
+                    alt={`Thumbnail ${index + 1}`}
                   />
-                </Link>
+                </a>
               ))}
             </div>
           </div>

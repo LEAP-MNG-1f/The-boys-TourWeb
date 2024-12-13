@@ -8,20 +8,12 @@ export const Card = () => {
 
   const fetchData = async () => {
     try {
-      console.log("Attempting to fetch from: http://localhost:8000/api/tours");
-
       const response = await fetch("http://localhost:8000/api/tours", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
-
-      console.log("Response status:", response.status);
-      console.log(
-        "Response headers:",
-        Object.fromEntries(response.headers.entries())
-      );
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -34,7 +26,7 @@ export const Card = () => {
       const responseData = await response.json();
       console.log("Full response data:", responseData);
 
-      const realData = responseData?.data || [];
+      const realData = responseData || [];
       setTourData(realData);
       setIsLoading(false);
     } catch (error) {
