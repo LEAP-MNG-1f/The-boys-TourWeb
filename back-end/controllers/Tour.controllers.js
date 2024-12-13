@@ -40,10 +40,14 @@ const createTour = async (request, response) => {
     } = request.body;
 
     // Parse stringified JSON fields
-    const parsedDailyPlans = JSON.parse(dailyPlans);
-    const parsedPrice = JSON.parse(price);
-    const parsedServiceInclude = JSON.parse(serviceInclude);
-    const parsedServiceNotInclude = JSON.parse(serviceNotInclude);
+    const parsedDailyPlans = dailyPlans ? JSON.parse(dailyPlans) : [];
+    const parsedPrice = price ? JSON.parse(price) : [];
+    const parsedServiceInclude = serviceInclude
+      ? JSON.parse(serviceInclude)
+      : [];
+    const parsedServiceNotInclude = serviceNotInclude
+      ? JSON.parse(serviceNotInclude)
+      : [];
 
     const files = request.files;
 
