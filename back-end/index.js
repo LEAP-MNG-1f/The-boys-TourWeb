@@ -7,6 +7,7 @@ import tourRouter from "./routes/TourRouter.js";
 import categoryRouter from "./routes/CategoryRouter.js";
 import orderRouter from "./routes/OrderRouter.js";
 import adminRouter from "./routes/AdminRouter.js";
+import eventRouter from "./routes/EventRouter.js";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ server.use("/api", tourRouter);
 server.use("/api", categoryRouter);
 server.use("/api", orderRouter);
 server.use("/api", adminRouter);
+server.use("/api", eventRouter);
 
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
