@@ -101,12 +101,12 @@ const Sidebar = () => {
           <div className="flex flex-col gap-4">
             <h2 className="text-[#b7bac1] text-xs font-bold">User</h2>
             <div className="flex flex-col gap-2">
-              <Link href="/login">
+              <a href="/api/auth/logout">
                 <button className="btn btn-ghost w-full justify-start font-normal hover:bg-slate-700">
                   <LogOut width={22} />
                   Logout
                 </button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
