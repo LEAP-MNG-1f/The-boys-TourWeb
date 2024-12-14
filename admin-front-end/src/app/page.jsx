@@ -1,3 +1,8 @@
 export default function Home() {
-  return <div> gay</div>;
+  return (
+    <div>
+      {" "}
+      <a href="/api/auth/login">Login</a>
+    </div>
+  );
 }
