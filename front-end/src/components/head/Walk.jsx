@@ -35,9 +35,13 @@ const WalkDifference = () => {
             Plan <span className="text-orange-500">Your Trip</span>
           </h2>
           <p className="text-gray-600 text-lg mb-6">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s.
+            Design your dream adventure in Mongolia! Our customizable tour
+            planning lets you choose destinations, activities, and experiences
+            tailored to your interests. Whether you seek cultural immersion,
+            breathtaking landscapes, or thrilling outdoor adventures, we make it
+            possible. Enjoy a hassle-free experience with our expert guidance,
+            ensuring every detail is perfect. Start crafting your personalized
+            journey and discover the best of Mongolia, your way!
           </p>
           <Link href="/specialtour">
             <button className="bg-orange-500 w-[210px] text-white px-[30px] py-[10px] text-center rounded-[20px] shadow-md hover:bg-orange-600">
