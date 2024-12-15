@@ -101,7 +101,7 @@ export default function Specialtour() {
                   name="user_location"
                   value={formData.user_location}
                   onChange={handleChange}
-                  className="block w-full py-1.5 pl-1 border border-gray-400 rounded-lg pr-3 text-base text-gray-900 placeholder-gray-400 focus:outline-none sm:text-sm"
+                  className="block w-full py-1.5 mt-5  pl-1 border border-gray-400 rounded-lg pr-3 text-base text-gray-900 placeholder-gray-400 focus:outline-none sm:text-sm"
                   required
                 />
               </div>
@@ -258,11 +258,10 @@ export default function Specialtour() {
                 />
               </div>
               <div className="mt-5">
-                <h1>Where are you from</h1>
+                <h1>Where are you from*</h1>
                 <div className="mt-5">
                   <div>
                     <div className="flex flex-col w-[500px] h-[100px] gap-3">
-                      <h1>Which countries would you like to visit *</h1>
                       <Select
                         value={formData.selectedCountry || ""}
                         onChange={(event) => {
@@ -291,7 +290,7 @@ export default function Specialtour() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col mt-5">
+              <div className="flex flex-col ">
                 <h1> Email Address</h1>
                 <input
                   type="email"
@@ -300,11 +299,12 @@ export default function Specialtour() {
                   value={formData.user_email}
                   onChange={handleChange}
                   placeholder="Enter your email"
-                  className="block w-full py-1.5 px-3 mt-1 text-base text-gray-900 rounded-md bg-white outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+                  className="block w-full py-1.5 mt-5 px-3 text-base text-gray-900 rounded-md bg-white outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
                   required
                 />
               </div>
               <div className="flex flex-col mt-5">
+                <h1> Phone Number</h1>
                 <input
                   type="phone"
                   id="user_phone"
@@ -312,7 +312,7 @@ export default function Specialtour() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Phone*"
-                  className="block w-full py-1.5 px-3 mt-5 text-base text-gray-900 rounded-md bg-white outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+                  className="block w-full py-1.5 mt-5 px-3 mt-5 text-base text-gray-900 rounded-md bg-white outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
                   required
                 />
               </div>
@@ -360,7 +360,7 @@ export default function Specialtour() {
               </div>
 
               <Box sx={{ width: "100%" }}>
-                <h1 className="mt-10">
+                <h1 className="mt-5">
                   <Collapse in={open}>
                     <Alert
                       action={
