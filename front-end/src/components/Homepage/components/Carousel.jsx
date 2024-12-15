@@ -101,7 +101,7 @@ const Carousel = () => {
               <div className="absolute top-[580px] flex items-end">
                 <div className="flex gap-[20px] flex-col">
                   <a
-                    href="/view-all-page"
+                    href="/view-all"
                     className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg shadow-lg text-white text-lg inline-block"
                     aria-label="Jump to all tours"
                   >

@@ -8,7 +8,7 @@ const eventSchema = new mongoose.Schema({
   imageEvent: {
     type: String,
   },
-  intoduction: {
+  introduction: {
     type: String,
   },
   season: {
