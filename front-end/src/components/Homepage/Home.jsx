@@ -1,4 +1,4 @@
-import WalkDifference from "../special-order-page/Walk";
+import WalkDifference from "../head/Walk";
 import Carousel from "./components/Carousel";
 import Footer from "./components/Footer";
 import { HeaderPart } from "./components/Header";

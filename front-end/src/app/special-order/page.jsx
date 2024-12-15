@@ -1,6 +1,6 @@
 import Footer from "@/components/Homepage/components/Footer";
 import { HeaderPart } from "@/components/Homepage/components/Header";
-import Specialtour from "@/components/special-order-page/Specialtour";
+import Specialtour from "@/components/head/Specialtour";
 
 export default function Home() {
   return (
