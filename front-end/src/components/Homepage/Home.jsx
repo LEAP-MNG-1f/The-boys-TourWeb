@@ -1,9 +1,9 @@
+import WalkDifference from "../special-order-page/Walk";
 import Carousel from "./components/Carousel";
 import Footer from "./components/Footer";
 import { HeaderPart } from "./components/Header";
 import { Hero } from "./components/Hero";
 import WorkingProcess from "./components/Process";
-import WalkDifference from "../head/Walk";
 
 export default function Homepage() {
   return (
