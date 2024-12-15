@@ -312,7 +312,7 @@ export const Introduction = ({ tour }) => {
                   Book now
                 </button>
               </Link>
-              <button className="w-full h-12 border-[2px] border-[#F97316] rounded-lg text-black font-roboto text-xl font-medium">
+              <button className="w-full h-12 border border-[#F97316] rounded-lg text-[#F97316] font-roboto text-xl font-medium">
                 Call
               </button>
             </div>

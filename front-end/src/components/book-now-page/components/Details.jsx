@@ -18,53 +18,18 @@ const MenuProps = {
   },
 };
 
-export const Details = ({ tour }) => {
-  const [dataCart, setDataCart] = useState([]);
-
+export const Details = ({
+  tour,
+  incrementQuantity,
+  decrementQuantity,
+  calculateTotalAmount,
+  price,
+}) => {
   const getStyles = (country, selectedCountry) => {
     return {
       fontWeight: selectedCountry === country ? 600 : 400,
     };
   };
-
-  useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const cartWithQuantity = (tour.price || []).map((item) => {
-      const savedItem = savedCart.find((cartItem) => cartItem._id === item._id);
-      return {
-        ...item,
-        quantity: savedItem ? savedItem.quantity : 0,
-      };
-    });
-    setDataCart(cartWithQuantity);
-  }, [tour.price]);
-
-  const incrementQuantity = (itemId) => {
-    const updatedCart = dataCart.map((item) =>
-      item._id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-    );
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setDataCart(updatedCart);
-  };
-
-  const decrementQuantity = (itemId) => {
-    const updatedCart = dataCart.map((item) =>
-      item._id === itemId && item.quantity > 1
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
-    );
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setDataCart(updatedCart);
-  };
-
-  const calculateTotalAmount = () => {
-    return dataCart.reduce(
-      (sum, item) => sum + item.quantity * item.perPerson,
-      0
-    );
-  };
-
-  console.log(dataCart);
 
   const formik = useFormik({
     initialValues: {
@@ -78,14 +43,14 @@ export const Details = ({ tour }) => {
       questions: "",
       totalamount: "",
       tourId: "",
-      quantity: "",
     },
 
     // validationSchema,
     onSubmit: async (values) => {
+      const totalAmount = calculateTotalAmount();
       const requestData = {
         ...values,
-        cart: dataCart,
+        totalamount: totalAmount,
       };
       try {
         const response = await fetch(`http://localhost:8000/api/orders`, {
@@ -106,6 +71,12 @@ export const Details = ({ tour }) => {
       }
     },
   });
+
+  useEffect(() => {
+    if (tour._id) {
+      formik.setFieldValue("tourId", tour._id);
+    }
+  }, [tour._id]);
 
   return (
     <div className="w-full flex flex-col items-center gap-20 mt-[144px]">
@@ -134,7 +105,7 @@ export const Details = ({ tour }) => {
                 name="fullname"
                 type="text"
                 placeholder="Full name"
-                className="h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-[19px] outline-none"
+                className="h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-5 outline-none"
                 value={formik.values.fullname}
                 onChange={formik.handleChange}
               />
@@ -148,7 +119,7 @@ export const Details = ({ tour }) => {
                 name="email"
                 type="email"
                 placeholder="Email address"
-                className="h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-[19px] outline-none"
+                className="h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-5 outline-none"
                 value={formik.values.email}
                 onChange={formik.handleChange}
               />
@@ -160,9 +131,9 @@ export const Details = ({ tour }) => {
               <input
                 id="phone"
                 name="phone"
-                type="text"
+                type="number"
                 placeholder="Phone number"
-                className="h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-[19px] outline-none"
+                className="h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-5 outline-none"
                 value={formik.values.phone}
                 onChange={formik.handleChange}
               />
@@ -174,16 +145,28 @@ export const Details = ({ tour }) => {
               <Select
                 id="country"
                 name="country"
-                value={formik.values.country || "Country"}
+                value={formik.values.country}
                 onChange={(event) => {
                   formik.setFieldValue("country", event.target.value);
                 }}
                 MenuProps={MenuProps}
-                className="h-12 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-[19px] outline-none"
+                sx={{
+                  height: "48px",
+                  border: "1px solid #ECEDF0",
+                  backgroundColor: "#F7F7F8",
+                  borderRadius: "4px",
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
+                }}
                 required
               >
                 {countries.map((country, id) => (
-                  <MenuItem key={id} value={country} style={getStyles(country)}>
+                  <MenuItem
+                    key={id}
+                    value={country}
+                    style={getStyles(country, formik.values.country)}
+                  >
                     {country}
                   </MenuItem>
                 ))}
@@ -198,7 +181,7 @@ export const Details = ({ tour }) => {
                 name="questions"
                 type="text"
                 placeholder="Questions or comments"
-                className="h-[200px] px-4 py-3 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-[19px] outline-none resize-none"
+                className="h-[200px] px-4 py-3 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-5 outline-none resize-none"
                 value={formik.values.questions}
                 onChange={formik.handleChange}
               />
@@ -224,7 +207,7 @@ export const Details = ({ tour }) => {
                 id="startdate"
                 name="startdate"
                 type="date"
-                className="cursor-pointer h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-[19px] outline-none"
+                className="cursor-pointer h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-5 outline-none"
                 value={formik.values.startdate}
                 onChange={formik.handleChange}
               />
@@ -237,7 +220,7 @@ export const Details = ({ tour }) => {
                 id="enddate"
                 name="enddate"
                 type="date"
-                className="cursor-pointer h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-[19px] outline-none"
+                className="cursor-pointer h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-5 outline-none"
                 value={formik.values.enddate}
                 onChange={formik.handleChange}
               />
@@ -249,9 +232,9 @@ export const Details = ({ tour }) => {
               <input
                 id="personNumber"
                 name="personNumber"
-                type="text"
+                type="number"
                 placeholder="Person number"
-                className="h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-[19px] outline-none"
+                className="h-12 px-4 py-2 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-5 outline-none"
                 value={formik.values.personNumber}
                 onChange={formik.handleChange}
               />
@@ -266,7 +249,7 @@ export const Details = ({ tour }) => {
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              {dataCart?.map((item, id) => {
+              {price?.map((item, id) => {
                 return (
                   <div
                     key={id}
@@ -276,7 +259,11 @@ export const Details = ({ tour }) => {
                       {item.pax} pax
                     </p>
                     <div className="flex items-center gap-4">
+                      <p className="text-black text-base font-roboto font-normal">
+                        {item.perPerson}$
+                      </p>
                       <button
+                        type="button"
                         onClick={() => decrementQuantity(item._id)}
                         className="w-9 h-8 flex items-center justify-center rounded-lg bg-white border border-black"
                       >
@@ -286,6 +273,7 @@ export const Details = ({ tour }) => {
                         {item.quantity}
                       </p>
                       <button
+                        type="button"
                         onClick={() => incrementQuantity(item._id)}
                         className="w-9 h-8 flex items-center justify-center rounded-lg bg-white border border-black"
                       >
