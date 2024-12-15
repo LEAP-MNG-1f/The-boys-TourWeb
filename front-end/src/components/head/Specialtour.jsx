@@ -71,6 +71,7 @@ export default function Specialtour() {
       fontWeight: selectedCountry === country ? 600 : 400,
     };
   };
+
   const sendEmail = (e) => {
     e.preventDefault();
 
