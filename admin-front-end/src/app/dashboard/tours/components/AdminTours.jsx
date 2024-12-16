@@ -17,6 +17,7 @@ const GobiTourInfo = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [tourData, setTourData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchCategories = async () => {
     try {
@@ -44,6 +45,15 @@ const GobiTourInfo = () => {
   }, []);
 
   const handleDelete = async (id) => {
+    // Show confirmation dialog
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this tour? This action cannot be undone."
+    );
+
+    if (!confirmDelete) {
+      return; // Exit if the user cancels the action
+    }
+
     try {
       const response = await fetch(`http://localhost:8000/api/tours/${id}`, {
         method: "DELETE",
@@ -61,6 +71,36 @@ const GobiTourInfo = () => {
     }
   };
 
+  const handleDeleteCate = async (id) => {
+    // Show confirmation dialog
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this category? This action cannot be undone."
+    );
+
+    if (!confirmDelete) {
+      return; // Exit if the user cancels the action
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/categories/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        // Remove the deleted tour from the state
+        setCategories((prev) => prev.filter((cate) => cate._id !== id));
+        alert("Category deleted successfully!");
+      } else {
+        alert("Failed to delete the tour.");
+      }
+    } catch (error) {
+      console.error("Error deleting tour:", error);
+    }
+  };
+
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -69,9 +109,12 @@ const GobiTourInfo = () => {
 
   const handleCreateCategory = async (e) => {
     e.preventDefault();
+
     const formData = new FormData();
     formData.append("name", newCategory.name);
     formData.append("imageCategory", newCategory.imageCategory);
+
+    setLoading(true); // Start loading
 
     try {
       const response = await fetch("http://localhost:8000/api/categories", {
@@ -81,21 +124,25 @@ const GobiTourInfo = () => {
 
       if (response.ok) {
         console.log("Category created successfully");
-        fetchCategories();
-        handleClose();
+        fetchCategories(); // Refresh categories
+        handleClose(); // Close the dialog
+      } else {
+        console.error("Failed to create category");
       }
     } catch (error) {
       console.error("Error creating category:", error);
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
-  return (
-    <div className="pt-[50px] w-full">
-      <div className="flex gap-6 pt-6 justify-start pb-[30px]">
-        <Button variant="outlined" onClick={handleClickOpen}>
-          + Create New Category
-        </Button>
+  // bg - #1512c2
+  // bgsoft - #182237
+  // textsoft - #b7bac1
 
+  return (
+    <div className="w-full flex flex-col gap-3">
+      <div className="flex gap-6 pt-6 justify-start pb-[30px]">
         <Dialog
           open={open}
           onClose={handleClose}
@@ -103,14 +150,19 @@ const GobiTourInfo = () => {
           fullWidth
           maxWidth="sm"
         >
-          <DialogTitle id="form-dialog-title">Create New Category</DialogTitle>
-          <form onSubmit={handleCreateCategory}>
-            <DialogContent>
-              <TextField
-                autoFocus
-                margin="dense"
-                label="Category Name"
-                fullWidth
+          <DialogTitle
+            className="bg-[#182237] text-white"
+            id="form-dialog-title"
+          >
+            Create New Category
+          </DialogTitle>
+          <form
+            onSubmit={handleCreateCategory}
+            className="bg-[#182237] text-white "
+          >
+            <DialogContent className="flex flex-col gap-4">
+              <input
+                className="input bg-[#151c2c] "
                 value={newCategory.name}
                 onChange={(e) =>
                   setNewCategory((prev) => ({
@@ -133,18 +185,18 @@ const GobiTourInfo = () => {
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose} color="primary">
+              <Button onClick={handleClose} disabled={loading} color="primary">
                 Cancel
               </Button>
-              <Button type="submit" color="primary">
-                Create
+              <Button type="submit" color="primary" disabled={loading}>
+                {loading ? "Creating..." : "Create"}
               </Button>
             </DialogActions>
           </form>
         </Dialog>
       </div>
 
-      <div className="flex flex-wrap gap-4 mb-6">
+      {/* <div className="flex flex-wrap gap-4 mb-6">
         {categories.map((category) => (
           <div
             key={category._id}
@@ -158,13 +210,57 @@ const GobiTourInfo = () => {
             <div className="text-center font-medium">{category.name}</div>
           </div>
         ))}
-      </div>
+      </div> */}
 
-      <div className="max-w-[30vw] bg-[#182237] shadow-lg rounded-lg overflow-hidden p-6">
+      <div className="w-max bg-[#182237] flex flex-col shadow-lg rounded-lg overflow-hidden p-6">
+        <h1>Categories</h1>
         <table className="table">
           {/* head */}
           <thead className="text-white">
             <tr>
+              <th>Title</th>
+              {/* <th>created at</th> */}
+            </tr>
+          </thead>
+          <tbody>
+            {/* row 1 */}
+
+            {categories.map((category) => (
+              <tr key={category._id}>
+                <th>{category.name}</th>
+                {/* 
+                <td className="px-4 py-2 text-sm">
+                  {new Date(category.createdAt).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: "Asia/Ulaanbaatar",
+                  })}
+                </td> */}
+
+                <td>
+                  <button onClick={() => handleDeleteCate(category._id)}>
+                    <Trash2 />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button className="btn " onClick={handleClickOpen}>
+          + Create New Category
+        </button>
+      </div>
+
+      <div className="max-w-[30vw] bg-[#182237] shadow-lg rounded-lg overflow-hidden p-6">
+        <h1>Tours</h1>
+        <table className="table">
+          {/* head */}
+          <thead className="text-white">
+            <tr>
+              <th></th>
               <th>Title</th>
               <th>created at</th>
             </tr>
@@ -172,9 +268,10 @@ const GobiTourInfo = () => {
           <tbody>
             {/* row 1 */}
 
-            {tourData.map((tour) => (
+            {tourData.map((tour, index) => (
               <tr key={tour._id}>
-                <th>{tour.title}</th>
+                <th>{index + 1} </th>
+                <td>{tour.title}</td>
 
                 <td className="px-4 py-2 text-sm">
                   {new Date(tour.createdAt).toLocaleString("en-US", {
