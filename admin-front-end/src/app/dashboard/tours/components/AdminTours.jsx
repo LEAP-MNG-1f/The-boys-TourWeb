@@ -6,6 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
+import { Trash2 } from "lucide-react";
 
 const GobiTourInfo = () => {
   const [open, setOpen] = useState(false);
@@ -14,8 +15,8 @@ const GobiTourInfo = () => {
     imageCategory: "",
   });
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [tourData, setTourData] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [tourData, setTourData] = useState([]);
 
   const fetchCategories = async () => {
     try {
@@ -32,7 +33,7 @@ const GobiTourInfo = () => {
       try {
         const response = await fetch("http://localhost:8000/api/tours");
         const data = await response.json();
-        setTourData(data.data);
+        setTourData(data);
       } catch (error) {
         console.error("Error fetching tour data:", error);
       }
@@ -41,6 +42,26 @@ const GobiTourInfo = () => {
     fetchTourData();
     fetchCategories();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/tours/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        alert("Tour deleted successfully!");
+        // Re-fetch the tour data to update the table
+        fetchTours();
+      } else {
+        alert("Failed to delete the tour.");
+      }
+    } catch (error) {
+      console.error("Error deleting tour:", error);
+    }
+  };
+
+  console.log(tourData);
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
@@ -141,21 +162,42 @@ const GobiTourInfo = () => {
         ))}
       </div>
 
-      <div className="w-[25%] bg-[#182237] shadow-lg rounded-lg overflow-hidden p-6">
-        <h2 className="text-2xl font-bold text-white mb-4">
-          {tourData?.title || "Gobi Tour"}
-        </h2>
+      <div className="max-w-[30vw] bg-[#182237] shadow-lg rounded-lg overflow-hidden p-6">
+        <table className="table">
+          {/* head */}
+          <thead className="text-white">
+            <tr>
+              <th>Title</th>
+              <th>created at</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* row 1 */}
 
-        <div className="grid grid-cols-1 gap-4 mb-6">
-          {(tourData?.images || []).map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Tour Image ${index + 1}`}
-              className="w-full h-40 object-cover rounded-md"
-            />
-          ))}
-        </div>
+            {tourData.map((tour) => (
+              <tr key={tour._id}>
+                <th>{tour.title}</th>
+
+                <td className="px-4 py-2 text-sm">
+                  {new Date(tour.createdAt).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: "Asia/Ulaanbaatar",
+                  })}
+                </td>
+
+                <td>
+                  <button onClick={() => handleDelete(tour._id)}>
+                    <Trash2 />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
