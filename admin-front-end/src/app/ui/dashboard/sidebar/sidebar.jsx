@@ -84,6 +84,18 @@ const Sidebar = () => {
                   Add Tour
                 </button>
               </Link>
+              <Link href="/dashboard/event-page">
+                <button
+                  className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${
+                    isActive("/dashboard/event-page")
+                      ? "bg-slate-700 text-white"
+                      : ""
+                  }`}
+                >
+                  <CirclePlus width={22} />
+                  Events
+                </button>
+              </Link>
               <Link href="/dashboard/orders">
                 <button
                   className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${

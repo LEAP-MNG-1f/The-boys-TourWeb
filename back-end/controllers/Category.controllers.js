@@ -21,7 +21,6 @@ const createCategory = async (req, res) => {
       name,
       imageCategory: imageUrl,
       introduction,
-      tourId,
     });
 
     res.status(201).json({
