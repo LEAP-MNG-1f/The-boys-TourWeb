@@ -8,11 +8,10 @@ const getAllEvent = async (request, response) => {
 
 const createEvent = async (request, response) => {
   try {
-    const { name, intoduction, season, date, categoryId } = request.body;
+    const { name, introduction, season, date, categoryId } = request.body;
 
     let imageUrlevent = "";
     if (request.file) {
-      // Change from request.files to request.file
       const uploadResult = await cloudinary.uploader.upload(request.file.path, {
         folder: "events",
         resource_type: "auto",
@@ -20,11 +19,10 @@ const createEvent = async (request, response) => {
       imageUrlevent = uploadResult.url;
     }
 
-    // Save data to MongoDB
     const result = await EventModels.create({
       name,
       imageEvent: imageUrlevent,
-      intoduction,
+      introduction,
       season,
       date,
       categoryId,
