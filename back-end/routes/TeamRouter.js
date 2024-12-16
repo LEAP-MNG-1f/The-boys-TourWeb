@@ -36,7 +36,7 @@ const upload = multer({
 const teamRouter = express.Router();
 
 teamRouter.get("/teams", getAllTeams);
-teamRouter.delete("/teams", deleteTeam);
+teamRouter.delete("/teams/:id", deleteTeam);
 teamRouter.post(
   "/teams",
   upload.single("imageTeam"), // "imageCategory" - frontend-с илгээх file input-ын нэр
