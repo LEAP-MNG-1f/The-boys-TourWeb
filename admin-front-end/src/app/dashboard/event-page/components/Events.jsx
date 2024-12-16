@@ -235,7 +235,7 @@ export const EventsPages = () => {
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text text-white">Event Image</span>
-                    </label>
+                    </label>  
                     <input
                       type="file"
                       name="imageEvent"
