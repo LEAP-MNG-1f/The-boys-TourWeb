@@ -50,9 +50,9 @@ const GobiTourInfo = () => {
       });
 
       if (response.ok) {
+        // Remove the deleted tour from the state
+        setTourData((prev) => prev.filter((tour) => tour._id !== id));
         alert("Tour deleted successfully!");
-        // Re-fetch the tour data to update the table
-        fetchTours();
       } else {
         alert("Failed to delete the tour.");
       }
@@ -60,8 +60,6 @@ const GobiTourInfo = () => {
       console.error("Error deleting tour:", error);
     }
   };
-
-  console.log(tourData);
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
