@@ -122,7 +122,7 @@ export const EventsPages = () => {
         </div>
       )}
 
-      <div className="card bg-base-100 shadow-xl">
+      <div className="card bg-[#182237] shadow-xl">
         <div className="card-body">
           <div className="flex justify-between items-center mb-4">
             <h2 className="card-title">Events Management</h2>
@@ -135,13 +135,13 @@ export const EventsPages = () => {
           </div>
 
           {isAddModalOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="modal-box">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#182237] bg-opacity-50">
+              <div className="modal-box bg-[#182237] ">
                 <h3 className="font-bold text-lg mb-4">Add New Event</h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Event Name</span>
+                      <span className="label-text text-white">Event Name</span>
                     </label>
 
                     <input
@@ -150,27 +150,29 @@ export const EventsPages = () => {
                       value={eventData.name}
                       onChange={handleInputChange}
                       placeholder="Enter event name"
-                      className="input input-bordered w-full"
+                      className="input input-bordered w-full bg-[#151c2c] "
                       required
                     />
                   </div>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Introduction</span>
+                      <span className="label-text text-white">
+                        Introduction
+                      </span>
                     </label>
                     <textarea
                       name="introduction"
                       value={eventData.introduction}
                       onChange={handleInputChange}
                       placeholder="Event description"
-                      className="textarea textarea-bordered h-24"
+                      className="textarea textarea-bordered h-24 bg-[#151c2c]"
                       required
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="form-control">
                       <label className="label">
-                        <span className="label-text">Season</span>
+                        <span className="label-text text-white">Season</span>
                       </label>
                       <input
                         type="text"
@@ -178,27 +180,27 @@ export const EventsPages = () => {
                         value={eventData.season}
                         onChange={handleInputChange}
                         placeholder="Event season"
-                        className="input input-bordered w-full"
+                        className="input input-bordered w-full bg-[#151c2c]"
                         required
                       />
                     </div>
                     <div className="form-control">
                       <label className="label">
-                        <span className="label-text">Date</span>
+                        <span className="label-text text-white">Date</span>
                       </label>
                       <input
                         type="date"
                         name="date"
                         value={eventData.date}
                         onChange={handleInputChange}
-                        className="input input-bordered w-full"
+                        className="input input-bordered w-full bg-[#151c2c]"
                         required
                       />
                     </div>
                   </div>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Category ID</span>
+                      <span className="label-text text-white">Category ID</span>
                     </label>
                     <input
                       type="text"
@@ -206,31 +208,31 @@ export const EventsPages = () => {
                       value={eventData.categoryId}
                       onChange={handleInputChange}
                       placeholder="Enter category ID"
-                      className="input input-bordered w-full"
+                      className="input input-bordered w-full bg-[#151c2c]"
                       required
                     />
                   </div>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Event Image</span>
+                      <span className="label-text text-white">Event Image</span>
                     </label>
                     <input
                       type="file"
                       name="imageEvent"
                       onChange={handleFileChange}
-                      className="file-input file-input-bordered w-full"
+                      className="file-input file-input-bordered w-full bg-[#151c2c]"
                       required
                     />
                   </div>
                   <div className="modal-action">
                     <button
-                      type="button"
+                      type="button "
                       className="btn"
                       onClick={() => setIsAddModalOpen(false)}
                     >
                       Cancel
                     </button>
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-success">
                       Submit Event
                     </button>
                   </div>
@@ -253,7 +255,7 @@ export const EventsPages = () => {
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {events.map((event) => (
-                  <div key={event._id} className="card bg-base-100 shadow-xl">
+                  <div key={event._id} className="card bg-[#182232] shadow-xl">
                     {event.imageEvent && (
                       <figure>
                         <img
