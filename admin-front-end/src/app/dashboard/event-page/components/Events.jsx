@@ -13,26 +13,42 @@ export const EventsPages = () => {
   });
 
   const [events, setEvents] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [deleteEventId, setDeleteEventId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchEvents = async () => {
+  const fetchData = async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://localhost:8000/api/events", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const eventsResponse = await axios.get(
+        "http://localhost:8000/api/events",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      console.log("Fetched events:", response.data);
-      setEvents(response.data.data || response.data);
+      const categoriesResponse = await axios.get(
+        "http://localhost:8000/api/categories",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Fetched events:", eventsResponse.data);
+      console.log("Fetched categories:", categoriesResponse.data);
+
+      setEvents(eventsResponse.data.data || eventsResponse.data);
+      setCategories(categoriesResponse.data.data || categoriesResponse.data);
     } catch (error) {
-      console.error("Error fetching events:", error);
-      setError(error.message || "Failed to fetch events");
+      console.error("Error fetching data:", error);
+      setError(error.message || "Failed to fetch data");
     } finally {
       setIsLoading(false);
     }
@@ -55,7 +71,7 @@ export const EventsPages = () => {
   };
 
   useEffect(() => {
-    fetchEvents();
+    fetchData();
   }, []);
 
   const handleInputChange = (e) => {
@@ -92,7 +108,7 @@ export const EventsPages = () => {
         imageEvent: null,
       });
 
-      fetchEvents();
+      fetchData();
       setIsAddModalOpen(false);
     } catch (error) {
       console.error("Error adding event:", error);
@@ -143,7 +159,6 @@ export const EventsPages = () => {
                     <label className="label">
                       <span className="label-text text-white">Event Name</span>
                     </label>
-
                     <input
                       type="text"
                       name="name"
@@ -200,17 +215,22 @@ export const EventsPages = () => {
                   </div>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text text-white">Category ID</span>
+                      <span className="label-text text-white">Category</span>
                     </label>
-                    <input
-                      type="text"
+                    <select
                       name="categoryId"
                       value={eventData.categoryId}
                       onChange={handleInputChange}
-                      placeholder="Enter category ID"
-                      className="input input-bordered w-full bg-[#151c2c]"
+                      className="select select-bordered w-full bg-[#151c2c]"
                       required
-                    />
+                    >
+                      <option value="">Select a category</option>
+                      {categories.map((category) => (
+                        <option key={category._id} value={category._id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="form-control">
                     <label className="label">
@@ -226,7 +246,7 @@ export const EventsPages = () => {
                   </div>
                   <div className="modal-action">
                     <button
-                      type="button "
+                      type="button"
                       className="btn"
                       onClick={() => setIsAddModalOpen(false)}
                     >
@@ -274,6 +294,11 @@ export const EventsPages = () => {
                           </div>
                           <div className="badge badge-outline">
                             {event.date}
+                          </div>
+                          <div className="badge badge-outline">
+                            {categories.find(
+                              (category) => category._id === event.categoryId
+                            )?.name || "Unknown Category"}
                           </div>
                         </div>
                         <button
