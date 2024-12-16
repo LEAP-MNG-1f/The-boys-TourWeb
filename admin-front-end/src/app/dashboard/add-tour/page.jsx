@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const PostTourData = () => {
@@ -23,8 +23,24 @@ const PostTourData = () => {
   const [serviceInc, setServiceInc] = useState([]);
   const [serviceNotInc, setServiceNotInc] = useState([]);
   const [dailyPlans, setDailyPlans] = useState([]);
-
   const [previews, setPreviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/categories");
+        const data = await response.json();
+        setCategories(data.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -76,7 +92,13 @@ const PostTourData = () => {
   const handleAddDailyPlan = () => {
     setDailyPlans([
       ...dailyPlans,
-      { day: "", activities: [], accommodation: [], periodOfTime: [] },
+      {
+        day: "",
+        dayTitle: "",
+        activities: [],
+        accommodation: [],
+        periodOfTime: [],
+      },
     ]);
   };
 
@@ -184,6 +206,8 @@ const PostTourData = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true); // Start loading
+
     // Create FormData object
     const formDataObj = new FormData();
 
@@ -230,15 +254,33 @@ const PostTourData = () => {
 
       const data = await response.json(); // Expect a JSON response
       console.log("Response:", data);
+
+      // Clear form fields after submission
+      setFormData({
+        title: "",
+        description: "",
+        categoryId: "",
+        startDate: "",
+        endDate: "",
+        location: "",
+        createdAt: "",
+        serviceInclude: [],
+        serviceNotInclude: [],
+        images: [],
+      });
+      setPrice([]);
+      setDailyPlans([]);
       alert("Tour data submitted successfully!");
     } catch (error) {
       console.error("Error submitting tour data:", error);
       alert("Failed to submit tour data.");
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
   return (
-    <div>
+    <div className="py-16 ">
       <div>
         <h1 className="text-2xl font-bold mb-6 text-center text-white">
           Create a New Tour
@@ -286,9 +328,13 @@ const PostTourData = () => {
                 required
               >
                 <option value="" disabled>
-                  Select a season
+                  Select category
                 </option>
-                <option value="675ba6ee3fdf4d8ab7de61ac">Winter</option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}{" "}
+                  </option>
+                ))}
               </select>
             </label>
 
@@ -357,7 +403,7 @@ const PostTourData = () => {
                   <label className="flex-1">
                     Per Person Price
                     <input
-                      type="text"
+                      type="number"
                       value={p.perPerson}
                       onChange={(e) =>
                         handlePriceChange(index, "perPerson", e.target.value)
@@ -399,10 +445,29 @@ const PostTourData = () => {
                       Day:
                     </span>
                     <input
-                      type="text"
+                      type="number"
                       value={plan.day}
                       onChange={(e) =>
                         handleDailyPlanChange(planIndex, "day", e.target.value)
+                      }
+                      required
+                      className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </label>
+
+                  <label className="block mb-2">
+                    <span className="text-sm font-medium text-gray-300 mb-2 block">
+                      Day title:
+                    </span>
+                    <input
+                      type="text"
+                      value={plan.dayTitle}
+                      onChange={(e) =>
+                        handleDailyPlanChange(
+                          planIndex,
+                          "dayTitle",
+                          e.target.value
+                        )
                       }
                       required
                       className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -666,9 +731,12 @@ const PostTourData = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full btn btn-success bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors font-semibold text-lg"
+            className={`w-full btn btn-success text-white py-3 rounded-md transition-colors font-semibold text-lg ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loading} // Disable the button while loading
           >
-            Submit Tour
+            {loading ? "Submitting..." : "Submit Tour"}
           </button>
         </form>
       </div>

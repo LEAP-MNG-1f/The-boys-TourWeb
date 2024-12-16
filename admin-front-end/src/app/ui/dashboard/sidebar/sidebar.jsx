@@ -11,13 +11,14 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getSession } from "@auth0/nextjs-auth0";
 
 const Sidebar = () => {
   const pathname = usePathname();
 
   // Function to determine if a link is active
   const isActive = (href) => pathname === href;
-
+  // const { user } = await getSession();
   return (
     <div className="bg-[#182237] flex flex-col p-5 ">
       <div className="flex flex-col gap-5">
