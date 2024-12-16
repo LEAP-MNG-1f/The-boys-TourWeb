@@ -94,4 +94,31 @@ const createTour = async (request, response) => {
   }
 };
 
-export { createTour, getAllTours, getSingleTour };
+const deleteTour = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedTour = await Itinerary.findByIdAndDelete(id);
+
+    if (!deletedTour) {
+      return res.status(404).json({
+        success: false,
+        message: "Tour not found or already deleted",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Tour deleted successfully",
+      data: deletedTour,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while deleting the tour",
+      error: error.message,
+    });
+  }
+};
+
+export { createTour, getAllTours, getSingleTour, deleteTour };

@@ -64,7 +64,7 @@ const deleteTeam = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "An error occurred while deleting the delete",
+      message: "An error occurred while deleting the team",
       error: error.message,
     });
   }
