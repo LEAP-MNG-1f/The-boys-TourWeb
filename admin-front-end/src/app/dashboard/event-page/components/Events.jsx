@@ -119,8 +119,8 @@ export const EventsPages = () => {
     <div className="container mx-auto p-4">
       {deleteEventId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="modal modal-open">
-            <div className="modal-box">
+          <div className="modal modal-open  ">
+            <div className="modal-box bg-[#182237]">
               <h3 className="font-bold text-lg">Confirm Deletion</h3>
               <p className="py-4">
                 Are you sure you want to delete this event?
@@ -235,7 +235,7 @@ export const EventsPages = () => {
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text text-white">Event Image</span>
-                    </label>  
+                    </label>
                     <input
                       type="file"
                       name="imageEvent"

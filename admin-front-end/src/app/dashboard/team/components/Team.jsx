@@ -18,12 +18,12 @@ export const TeamPage = () => {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/team");
+        const response = await fetch("http://localhost:8000/api/teams");
         if (!response.ok) {
           throw new Error(`Failed to fetch data: ${response.statusText}`);
         }
         const data = await response.json();
-        setTeamData(data.data);
+        setTeamData(data);
       } catch (error) {
         console.error("Error fetching team data:", error);
         alert(
@@ -53,7 +53,7 @@ export const TeamPage = () => {
       newTeamMember;
 
     try {
-      const response = await fetch("http://localhost:8000/api/team", {
+      const response = await fetch("http://localhost:8000/api/teams", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
