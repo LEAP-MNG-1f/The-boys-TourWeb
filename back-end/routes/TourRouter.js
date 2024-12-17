@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createTour,
+  deleteTour,
   getAllTours,
   getSingleTour,
 } from "../controllers/Tour.controllers.js";
@@ -38,5 +39,6 @@ const tourRouter = express.Router();
 tourRouter.post("/tours", upload.array("images", 5), createTour);
 tourRouter.get("/tours/", getAllTours);
 tourRouter.get("/tours/:title", getSingleTour);
+tourRouter.delete("/tours/:id", deleteTour);
 
 export default tourRouter;

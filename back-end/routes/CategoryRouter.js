@@ -10,7 +10,7 @@ const upload = multer({ dest: "./uploads/" });
 const categoryRouter = express.Router();
 
 categoryRouter.get("/categories", getAllCategory);
-categoryRouter.delete("/categories", deleteCategory);
+categoryRouter.delete("/categories/:id", deleteCategory);
 categoryRouter.post(
   "/categories",
   upload.single("imageCategory"), // "imageCategory" - frontend-с илгээх file input-ын нэр

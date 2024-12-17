@@ -41,6 +41,7 @@ const itinerarySchema = new Schema(
     dailyPlans: [
       {
         day: { type: String },
+        dayTitle: { type: String },
         periodOfTime: [
           {
             when: {

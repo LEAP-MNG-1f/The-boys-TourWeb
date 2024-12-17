@@ -11,13 +11,14 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getSession } from "@auth0/nextjs-auth0";
 
 const Sidebar = () => {
   const pathname = usePathname();
 
   // Function to determine if a link is active
   const isActive = (href) => pathname === href;
-
+  // const { user } = await getSession();
   return (
     <div className="bg-[#182237] flex flex-col p-5 ">
       <div className="flex flex-col gap-5">
@@ -82,6 +83,28 @@ const Sidebar = () => {
                 >
                   <CirclePlus width={22} />
                   Add Tour
+                </button>
+              </Link>
+              <Link href="/dashboard/event-page">
+                <button
+                  className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${
+                    isActive("/dashboard/event-page")
+                      ? "bg-slate-700 text-white"
+                      : ""
+                  }`}
+                >
+                  <CirclePlus width={22} />
+                  Events
+                </button>
+              </Link>
+              <Link href="/dashboard/team">
+                <button
+                  className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${
+                    isActive("/dashboard/team") ? "bg-slate-700 text-white" : ""
+                  }`}
+                >
+                  <CirclePlus width={22} />
+                  Teams
                 </button>
               </Link>
               <Link href="/dashboard/orders">

@@ -8,11 +8,10 @@ const getAllEvent = async (request, response) => {
 
 const createEvent = async (request, response) => {
   try {
-    const { name, intoduction, season, date, categoryId } = request.body;
+    const { name, introduction, season, date, categoryId } = request.body;
 
     let imageUrlevent = "";
     if (request.file) {
-      // Change from request.files to request.file
       const uploadResult = await cloudinary.uploader.upload(request.file.path, {
         folder: "events",
         resource_type: "auto",
@@ -20,11 +19,10 @@ const createEvent = async (request, response) => {
       imageUrlevent = uploadResult.url;
     }
 
-    // Save data to MongoDB
     const result = await EventModels.create({
       name,
       imageEvent: imageUrlevent,
-      intoduction,
+      introduction,
       season,
       date,
       categoryId,
@@ -43,4 +41,31 @@ const createEvent = async (request, response) => {
   }
 };
 
-export { createEvent, getAllEvent };
+const deleteEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedEvent = await EventModels.findByIdAndDelete(id);
+
+    if (!deletedEvent) {
+      return res.status(404).json({
+        success: false,
+        message: "Event not found or already deleted",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Event deleted successfully",
+      data: deletedEvent,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while deleting the event",
+      error: error.message,
+    });
+  }
+};
+
+export { createEvent, getAllEvent, deleteEvent };
