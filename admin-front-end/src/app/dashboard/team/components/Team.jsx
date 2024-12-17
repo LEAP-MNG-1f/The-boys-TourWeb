@@ -72,6 +72,7 @@ export const TeamPage = () => {
         setTeamData((prev) => [...prev, newTeam.data]);
 
         closeModal();
+        alert("Team member added successfully!");
       } else {
         throw new Error("Failed to add team member");
       }
@@ -103,20 +104,22 @@ export const TeamPage = () => {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6 text-center">Team Page</h1>
+    <div className="container mx-auto px-4 py-8 max-w-screen-xl">
+      <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
+        Team Page
+      </h1>
 
-      <div className="flex justify-center mb-4">
-        <button onClick={openModal} className="btn btn-primary">
+      <div className="flex justify-center mb-6">
+        <button
+          onClick={openModal}
+          className="btn btn-primary btn-md sm:btn-wide"
+        >
           Add New Team Member
         </button>
       </div>
 
-      <dialog
-        ref={modalRef}
-        className="modal w-full flex justify-center items-center"
-      >
-        <div className="modal-box">
+      <dialog ref={modalRef} className="modal modal-middle sm:modal-middle">
+        <div className="modal-box w-11/12 max-w-2xl">
           <form method="dialog">
             <button
               type="button"
@@ -127,79 +130,81 @@ export const TeamPage = () => {
             </button>
           </form>
 
-          <h2 className="text-2xl font-semibold mb-4 text-center">
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center">
             Create New Team Member
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Name</span>
-              </div>
-              <input
-                type="text"
-                name="name"
-                value={newTeamMember.name}
-                onChange={handleChange}
-                className="input input-bordered w-full"
-                required
-              />
-            </label>
+          <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text">Name</span>
+                </div>
+                <input
+                  type="text"
+                  name="name"
+                  value={newTeamMember.name}
+                  onChange={handleChange}
+                  className="input input-bordered w-full"
+                  required
+                />
+              </label>
 
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Image URL</span>
-              </div>
-              <input
-                type="text"
-                name="imageTeam"
-                value={newTeamMember.imageTeam}
-                onChange={handleChange}
-                className="input input-bordered w-full"
-                required
-              />
-            </label>
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text">Image URL</span>
+                </div>
+                <input
+                  type="text"
+                  name="imageTeam"
+                  value={newTeamMember.imageTeam}
+                  onChange={handleChange}
+                  className="input input-bordered w-full"
+                  required
+                />
+              </label>
 
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Languages</span>
-              </div>
-              <input
-                type="text"
-                name="languege"
-                value={newTeamMember.languege}
-                onChange={handleChange}
-                className="input input-bordered w-full"
-                required
-              />
-            </label>
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text">Languages</span>
+                </div>
+                <input
+                  type="text"
+                  name="languege"
+                  value={newTeamMember.languege}
+                  onChange={handleChange}
+                  className="input input-bordered w-full"
+                  required
+                />
+              </label>
 
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Experience</span>
-              </div>
-              <input
-                type="text"
-                name="exprience"
-                value={newTeamMember.exprience}
-                onChange={handleChange}
-                className="input input-bordered w-full"
-                required
-              />
-            </label>
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text">Experience</span>
+                </div>
+                <input
+                  type="text"
+                  name="exprience"
+                  value={newTeamMember.exprience}
+                  onChange={handleChange}
+                  className="input input-bordered w-full"
+                  required
+                />
+              </label>
 
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Introduction</span>
-              </div>
-              <textarea
-                name="introduction"
-                value={newTeamMember.introduction}
-                onChange={handleChange}
-                className="textarea textarea-bordered w-full"
-                required
-              />
-            </label>
+              <label className="form-control w-full md:col-span-2">
+                <div className="label">
+                  <span className="label-text">Introduction</span>
+                </div>
+                <textarea
+                  name="introduction"
+                  value={newTeamMember.introduction}
+                  onChange={handleChange}
+                  className="textarea textarea-bordered w-full h-24"
+                  required
+                />
+              </label>
+            </div>
 
             <button
               type="submit"
@@ -213,37 +218,39 @@ export const TeamPage = () => {
       </dialog>
 
       <div className="mt-6">
-        <h2 className="text-2xl font-bold mb-4">Team Members</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <h2 className="text-xl md:text-2xl font-bold mb-4">Team Members</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {teamData.map((teamMember) => (
             <div
               key={teamMember._id}
-              className="card bg-base-100 shadow-md rounded-lg"
+              className="card bg-base-100 shadow-md rounded-lg overflow-hidden "
             >
-              <figure>
+              <figure className="aspect-video">
                 <img
                   src={teamMember.imageTeam}
                   alt={teamMember.name}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-full object-cover"
                 />
               </figure>
-              <div className="card-body">
-                <h3 className="card-title text-lg font-bold">
+              <div className="card-body p-4">
+                <h3 className="card-title text-base md:text-lg font-bold mb-2">
                   {teamMember.name}
                 </h3>
-                <p className="text-sm text-gray-600">
-                  <strong>Languages:</strong> {teamMember.languege}
-                </p>
-                <p className="text-sm text-gray-600">
-                  <strong>Experience:</strong> {teamMember.exprience}
-                </p>
-                <p className="text-sm text-gray-600">
-                  <strong>Introduction:</strong> {teamMember.introduction}
-                </p>
-                <div className="mt-4 flex justify-end">
+                <div className="space-y-1 text-sm">
+                  <p>
+                    <strong>Languages:</strong> {teamMember.languege}
+                  </p>
+                  <p>
+                    <strong>Experience:</strong> {teamMember.exprience}
+                  </p>
+                  <p className="line-clamp-2">
+                    <strong>Introduction:</strong> {teamMember.introduction}
+                  </p>
+                </div>
+                <div className="mt-3 flex justify-end">
                   <button
                     onClick={() => handleDelete(teamMember._id)}
-                    className="btn btn-error btn-sm"
+                    className="btn btn-error btn-xs sm:btn-sm"
                   >
                     Delete
                   </button>
