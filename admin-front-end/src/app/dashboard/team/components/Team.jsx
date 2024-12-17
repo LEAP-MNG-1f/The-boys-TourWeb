@@ -219,46 +219,50 @@ export const TeamPage = () => {
 
       <div className="mt-6">
         <h2 className="text-xl md:text-2xl font-bold mb-4">Team Members</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {teamData.map((teamMember) => (
-            <div
-              key={teamMember._id}
-              className="card bg-base-100 shadow-md rounded-lg overflow-hidden "
-            >
-              <figure className="aspect-video">
-                <img
-                  src={teamMember.imageTeam}
-                  alt={teamMember.name}
-                  className="w-full h-full object-cover"
-                />
-              </figure>
-              <div className="card-body p-4">
-                <h3 className="card-title text-base md:text-lg font-bold mb-2">
-                  {teamMember.name}
-                </h3>
-                <div className="space-y-1 text-sm">
-                  <p>
-                    <strong>Languages:</strong> {teamMember.languege}
-                  </p>
-                  <p>
-                    <strong>Experience:</strong> {teamMember.exprience}
-                  </p>
-                  <p className="line-clamp-2">
-                    <strong>Introduction:</strong> {teamMember.introduction}
-                  </p>
-                </div>
-                <div className="mt-3 flex justify-end">
-                  <button
-                    onClick={() => handleDelete(teamMember._id)}
-                    className="btn btn-error btn-xs sm:btn-sm"
-                  >
-                    Delete
-                  </button>
+        {teamData.length === 0 ? (
+          <p className="text-center text-[25px] text-red-500 ">0 Members</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {teamData.map((teamMember) => (
+              <div
+                key={teamMember._id}
+                className="card bg-base-100 shadow-md rounded-lg overflow-hidden"
+              >
+                <figure className="aspect-video">
+                  <img
+                    src={teamMember.imageTeam}
+                    alt={teamMember.name}
+                    className="w-full h-full object-cover"
+                  />
+                </figure>
+                <div className="card-body p-4">
+                  <h3 className="card-title text-base md:text-lg font-bold mb-2">
+                    {teamMember.name}
+                  </h3>
+                  <div className="space-y-1 text-sm">
+                    <p>
+                      <strong>Languages:</strong> {teamMember.languege}
+                    </p>
+                    <p>
+                      <strong>Experience:</strong> {teamMember.exprience}
+                    </p>
+                    <p className="line-clamp-2">
+                      <strong>Introduction:</strong> {teamMember.introduction}
+                    </p>
+                  </div>
+                  <div className="mt-3 flex justify-end">
+                    <button
+                      onClick={() => handleDelete(teamMember._id)}
+                      className="btn btn-error btn-xs sm:btn-sm"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
