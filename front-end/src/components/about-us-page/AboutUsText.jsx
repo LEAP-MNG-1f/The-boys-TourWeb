@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const AboutUsText = () => {
   const [activeTab, setActiveTab] = useState("Company");
@@ -60,20 +61,110 @@ const AboutUsText = () => {
     {
       title: "Our Values",
       description:
-        " Through our travel services, we proudly showcase Mongolia's unique culture, breathtaking landscapes, and rich heritage. We prioritize sustainable practices, safety, and creating meaningful connections that inspire exploration and cultural understanding.",
+        "Through our travel services, we proudly showcase Mongolia's unique culture, breathtaking landscapes, and rich heritage. We prioritize sustainable practices, safety, and creating meaningful connections that inspire exploration and cultural understanding.",
     },
   ];
 
+  const CompanyDescriptionsGrid = ({ companyDescriptions }) => {
+    return (
+      <div className="container mx-auto px-4 py-8 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          {companyDescriptions.map((section, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, translateY: 20 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.2,
+                ease: "easeOut",
+              }}
+              className="group"
+            >
+              <div
+                className="bg-white 
+                p-4 sm:p-6 
+                rounded-2xl 
+                min-h-[300px]
+                border 
+                border-gray-100 
+                shadow-lg 
+                hover:shadow-2xl 
+                hover:border-[#FC8233]/20
+                transition-all 
+                duration-300 
+                transform 
+                hover:-translate-y-2
+                space-y-4"
+              >
+                <div className="flex items-center mb-4">
+                  <div
+                    className="w-10 h-10 sm:w-12 sm:h-12 
+                    bg-[#FC8233]/10 
+                    rounded-full 
+                    flex 
+                    items-center 
+                    justify-center 
+                    mr-3 sm:mr-4 
+                    group-hover:bg-[#FC8233]/20 
+                    transition-colors 
+                    duration-300"
+                  >
+                    <span className="text-[#FC8233] text-xl sm:text-2xl font-bold">
+                      {index + 1}
+                    </span>
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 group-hover:text-[#FC8233] transition-colors">
+                    {section.title}
+                  </h3>
+                </div>
+
+                <p
+                  className="text-sm sm:text-base text-gray-600 
+                  leading-relaxed 
+                  opacity-80 
+                  group-hover:opacity-100 
+                  transition-opacity 
+                  duration-300"
+                >
+                  {section.description}
+                </p>
+
+                <div
+                  className="h-1 
+                  w-full 
+                  bg-[#FC8233]/10 
+                  rounded-full 
+                  overflow-hidden 
+                  mt-4"
+                >
+                  <div
+                    className="h-full 
+                    bg-[#FC8233] 
+                    w-0 
+                    group-hover:w-full 
+                    transition-all 
+                    duration-500"
+                  ></div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="w-full min-h-screen px-[100px] py-[50px] mt-[100px] bg-gray-50">
+    <div className="w-full min-h-screen px-4 sm:px-8 md:px-[100px] py-8 sm:py-12 md:py-[50px] mt-8 sm:mt-[100px]">
       <div className="container mx-auto">
-        <div className="flex justify-end mb-10 space-x-6">
+        <div className="flex justify-end mb-6 sm:mb-10 space-x-4 sm:space-x-6">
           {tabItems.map((item, index) => (
             <button
               key={index}
               onClick={() => setActiveTab(item.text)}
               className={`
-                text-lg
+                text-base sm:text-lg
                 font-semibold
                 transition-all
                 duration-300
@@ -93,23 +184,14 @@ const AboutUsText = () => {
 
         {activeTab === "Company" && (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              {companyDescriptions.map((section, index) => (
-                <div
-                  key={index}
-                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-                >
-                  <h3 className="text-xl font-bold text-[#FC8233] mb-4">
-                    {section.title}
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    {section.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="relative group overflow-hidden rounded-2xl shadow-lg max-w-4xl mx-auto transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
-              <img
+            <CompanyDescriptionsGrid
+              companyDescriptions={companyDescriptions}
+            />
+            <div className="relative group overflow-hidden rounded-2xl shadow-lg max-w-4xl mx-auto transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl px-4 sm:px-0">
+              <motion.img
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
                 src="https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg"
                 alt="Stepper Riders"
                 className="w-full h-auto object-cover transition-transform duration-300 group-hover:brightness-90"
@@ -120,11 +202,11 @@ const AboutUsText = () => {
 
         {activeTab === "Our Team" && (
           <div className="text-center">
-            <div className="mt-8 bg-white p-8 rounded-xl shadow-md mb-8">
-              <h2 className="text-2xl font-bold text-[#FC8233] mb-6">
+            <div className="mt-8 bg-white p-6 sm:p-8 rounded-xl shadow-md mb-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#FC8233] mb-4 sm:mb-6">
                 Our Story
               </h2>
-              <p className="text-gray-700 leading-relaxed max-w-4xl mx-auto">
+              <p className="text-sm sm:text-base text-gray-700 leading-relaxed max-w-4xl mx-auto">
                 We are the travel company established in own experience work in
                 tourism sector in 2022. We currently offering Natural and
                 Customized Tour for international travelers. We are able to
@@ -144,31 +226,38 @@ const AboutUsText = () => {
                 No team members found.
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 mt-8 px-4 sm:px-0">
                 {teamData.map((member, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group"
+                    initial={{ opacity: 0, translateY: 20 }}
+                    animate={{ opacity: 1, translateY: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.2,
+                      ease: "easeOut",
+                    }}
+                    className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group"
                   >
-                    <div className="mb-6 overflow-hidden rounded-full w-48 h-48 mx-auto border-4 border-[#FC8233]/30 group-hover:border-[#FC8233]/50 transition-all">
+                    <div className="mb-4 sm:mb-6 overflow-hidden rounded-full w-32 h-32 sm:w-48 sm:h-48 mx-auto border-4 border-[#FC8233]/30 group-hover:border-[#FC8233]/50 transition-all">
                       <img
                         src={member.imageTeam}
+                        alt={member.name}
                         className="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition-all duration-300"
                       />
                     </div>
                     <div className="text-center">
-                      <h3 className="text-2xl font-bold text-gray-800 mb-1">
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-1">
                         {member.name}
                       </h3>
-                      <h4 className="text-[#FC8233] font-semibold text-lg mb-2">
+                      <h4 className="text-[#FC8233] font-semibold text-base sm:text-lg mb-2">
                         {member.languege}
                       </h4>
-                      <p className="text-gray-600 text-sm italic">
-                        experience:
-                        {member.exprience}
+                      <p className="text-xs sm:text-sm text-gray-600 italic">
+                        experience: {member.exprience}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             )}
