@@ -1,68 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export const Card = ({ selectedCategory }) => {
-  const [tourData, setTourData] = useState([]);
+export const Card = ({ selectedCategory, tourData }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTourId, setSelectedTourId] = useState(null);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/api/tours", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error response text:", errorText);
-        throw new Error(
-          `HTTP error! status: ${response.status}, message: ${errorText}`
-        );
-      }
-
-      const responseData = await response.json();
-
-      const filteredData = selectedCategory
-        ? responseData.filter((itineraries) => {
-            const categoryName = itineraries.imageCategory
-              ? itineraries.imageCategory.name
-              : null;
-            return categoryName === selectedCategory;
-          })
-        : responseData;
-
-      setTourData(filteredData);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Detailed fetch error:", {
-        message: error.message,
-        name: error.name,
-        stack: error.stack,
-      });
-      setError(`Failed to load tours: ${error.message}`);
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [selectedCategory]);
 
   const handleBookNowClick = (tourId) => {
     setSelectedTourId(selectedTourId === tourId ? null : tourId);
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
+  //     </div>
+  //   );
+  // }
+
+  // console.log(tourData);
 
   if (error) {
     return (
