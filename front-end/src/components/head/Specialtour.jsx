@@ -17,6 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { HeaderPart } from "../Homepage/components/Header";
 import emailjs from "@emailjs/browser";
 import { countries } from "./constants";
+import Footer from "../Homepage/components/Footer";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -360,6 +361,9 @@ export default function Specialtour() {
           </div>
         </form>
       </div>
+      <h1 className="w-full">
+        <Footer />
+      </h1>
     </div>
   );
 }
