@@ -5,38 +5,79 @@ import Footer from "../Homepage/components/Footer";
 import { HeaderPart } from "../Homepage/components/Header";
 import Carousel from "./components/Carousel";
 import { Introduction } from "./components/Introduction";
-// import { useRouter } from "next/router";
 
 const ProductsPage = () => {
-  // const router = useRouter();
   const [tour, setTour] = useState([]);
+  const [loading, setLoading] = useState(true); // Ачааллаж байгааг харуулах төлөв
+  const baseUrl = "http://localhost:8000/api"; // API үндсэн зам
 
+  // Fetch Tour Data
   const fetchDataTour = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/tours/Gobi-Tour`);
+      const response = await fetch(`${baseUrl}/tours/Gobi-Tour`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const tour = await response.json();
-      setTour(tour);
+      const data = await response.json();
+      setTour(data);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to fetch tour data:", error);
+    }
+  };
+
+  // Increment Page Views
+  const incrementPageView = async (pageId) => {
+    try {
+      const response = await fetch(`${baseUrl}/views`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ pageId }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("View incremented:", result);
+    } catch (error) {
+      console.error("Failed to increment view count:", error);
     }
   };
 
   useEffect(() => {
-    fetchDataTour();
+    const fetchAndIncrement = async () => {
+      try {
+        // Fetch tour data
+        await fetchDataTour();
+
+        // Increment view count with pageId
+        await incrementPageView("tour");
+      } catch (error) {
+        console.error("Failed to fetch data or increment views:", error);
+      } finally {
+        setLoading(false); // Ачаалал дууссаны дараа false болгоно
+      }
+    };
+
+    fetchAndIncrement();
   }, []);
 
   return (
     <div className="flex flex-col gap-5">
       <HeaderPart />
-      <div className="flex flex-col gap-5">
-        <Carousel tour={tour} />
-        <Introduction tour={tour} />
-      </div>
+      {loading ? ( // Ачаалал явагдаж байгаа эсэхийг харуулна
+        <div className="text-center">Loading...</div>
+      ) : (
+        <div className="flex flex-col gap-5">
+          <Carousel tour={tour} />
+          <Introduction tour={tour} />
+        </div>
+      )}
       <Footer />
     </div>
   );
