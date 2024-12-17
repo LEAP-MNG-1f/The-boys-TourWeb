@@ -361,9 +361,6 @@ export default function Specialtour() {
           </div>
         </form>
       </div>
-      <h1 className="w-full">
-        <Footer />
-      </h1>
     </div>
   );
 }
