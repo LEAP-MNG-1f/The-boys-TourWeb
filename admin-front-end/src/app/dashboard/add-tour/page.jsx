@@ -20,8 +20,6 @@ const PostTourData = () => {
   });
 
   const [price, setPrice] = useState([]);
-  const [serviceInc, setServiceInc] = useState([]);
-  const [serviceNotInc, setServiceNotInc] = useState([]);
   const [dailyPlans, setDailyPlans] = useState([]);
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -732,7 +730,7 @@ const PostTourData = () => {
           <button
             type="submit"
             className={`w-full btn btn-success text-white py-3 rounded-md transition-colors font-semibold text-lg ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
+              loading ? "bg-success cursor-not-allowed" : ""
             }`}
             disabled={loading} // Disable the button while loading
           >
