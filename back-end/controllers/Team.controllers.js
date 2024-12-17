@@ -49,10 +49,10 @@ const deleteTeam = async (req, res) => {
 
     const deletedTeam = await TeamModels.findByIdAndDelete(id);
 
-    if (!deletedCategory) {
+    if (!deletedTeam) {
       return res.status(404).json({
         success: false,
-        message: "Delete not found or already deleted",
+        message: "Team not found or already deleted",
       });
     }
 
