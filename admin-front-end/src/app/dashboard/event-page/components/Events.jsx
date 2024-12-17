@@ -41,9 +41,6 @@ export const EventsPages = () => {
         }
       );
 
-      console.log("Fetched events:", eventsResponse.data);
-      console.log("Fetched categories:", categoriesResponse.data);
-
       setEvents(eventsResponse.data.data || eventsResponse.data);
       setCategories(categoriesResponse.data.data || categoriesResponse.data);
     } catch (error) {

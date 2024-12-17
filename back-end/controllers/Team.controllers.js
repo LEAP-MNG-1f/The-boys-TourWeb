@@ -20,7 +20,6 @@ const createTeams = async (request, response) => {
       imageUrlteam = uploadResult.url;
     }
 
-    // Save data to MongoDB
     const result = await TeamModels.create({
       imageTeam: imageUrlteam,
       name,
