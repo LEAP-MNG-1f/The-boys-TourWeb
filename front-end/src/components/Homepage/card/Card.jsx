@@ -5,6 +5,7 @@ export const Card = ({ selectedCategory }) => {
   const [tourData, setTourData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedTourId, setSelectedTourId] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -26,9 +27,12 @@ export const Card = ({ selectedCategory }) => {
       const responseData = await response.json();
 
       const filteredData = selectedCategory
-        ? responseData.filter(
-            (itineraries) => itineraries.categoryId.name === selectedCategory
-          )
+        ? responseData.filter((itineraries) => {
+            const categoryName = itineraries.imageCategory
+              ? itineraries.imageCategory.name
+              : null;
+            return categoryName === selectedCategory;
+          })
         : responseData;
 
       setTourData(filteredData);
@@ -47,6 +51,10 @@ export const Card = ({ selectedCategory }) => {
   useEffect(() => {
     fetchData();
   }, [selectedCategory]);
+
+  const handleBookNowClick = (tourId) => {
+    setSelectedTourId(selectedTourId === tourId ? null : tourId);
+  };
 
   if (isLoading) {
     return (
@@ -95,12 +103,19 @@ export const Card = ({ selectedCategory }) => {
                   {tour.startDate || "Start date not available"}
                 </p>
               </div>
-              <button className="border border-white text-white rounded-lg py-1 px-4 hover:bg-white hover:text-black transition-all duration-300">
+              <button
+                onClick={() => handleBookNowClick(tour._id)}
+                className="border border-white text-white rounded-lg py-1 px-4 hover:bg-white hover:text-black transition-all duration-300"
+              >
                 Book now
               </button>
             </div>
           </div>
-          <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4 z-10 pointer-events-none">
+          <div
+            className={`absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4 z-10 pointer-events-none ${
+              selectedTourId === tour._id ? "opacity-100" : "opacity-0"
+            }`}
+          >
             <p className="text-gray-300 text-sm text-center">
               {tour.description || "Additional information not available"}
             </p>
