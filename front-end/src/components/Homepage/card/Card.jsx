@@ -27,7 +27,7 @@ export const Card = ({ selectedCategory }) => {
 
       const filteredData = selectedCategory
         ? responseData.filter(
-            (itineraries) => itineraries.categoryId.name === selectedCategory
+            (itinerary) => itinerary.imageCategory?.name === selectedCategory
           )
         : responseData;
 
