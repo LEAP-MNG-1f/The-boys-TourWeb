@@ -7,10 +7,11 @@ export const Hero = () => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [tourData, setTourData] = useState([]);
+  const [filter, setFilter] = useState("all");
 
   const fetchData = async () => {
     try {
-      setIsLoading(true);
       const response = await fetch("http://localhost:8000/api/categories", {
         method: "GET",
         headers: {
@@ -26,23 +27,58 @@ export const Hero = () => {
       }
 
       const responseData = await response.json();
-      const uniqueCategories = Array.from(
-        new Set(responseData.data.map((item) => item.name || item.categoryName))
-      );
-
-      setCategories(uniqueCategories);
+      setCategories(responseData.data);
       setError(null);
     } catch (error) {
       console.error("Detailed fetch error:", error);
-      setError("Failed to load categories:"` ${error.message}`);
+      setError(`Failed to load categories: ${error.message}`);
       setCategories([]);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const fetchTourData = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/tours", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error response text:", errorText);
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${errorText}`
+        );
+      }
+
+      const responseData = await response.json();
+
+      // Set all fetched tours data directly
+      setTourData(responseData);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Detailed fetch error:", {
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+      });
+      setError(`Failed to load tours: ${error.message}`);
+      setIsLoading(false);
+    }
+  };
+
+  const filteredTours =
+    filter === "all"
+      ? tourData
+      : tourData.filter((tour) => tour.categoryId?._id === filter);
+
   useEffect(() => {
     fetchData();
+    fetchTourData();
   }, []);
 
   return (
@@ -58,31 +94,35 @@ export const Hero = () => {
 
       {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
-      {isLoading ? (
-        <div className="text-center">Loading...</div>
-      ) : (
-        <>
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-4 px-4 sm:px-0">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedSeason(category)}
-                className={`border-2 text-gray-800 py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
-                  selectedSeason === category
-                    ? "bg-orange-500 text-white border-orange-500"
-                    : "hover:bg-gray-100"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-4 px-4 sm:px-0">
+        <button
+          onClick={() => setFilter("all")}
+          className={`border-2 text-gray-800 py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
+            filter === "all"
+              ? "bg-orange-500 text-white"
+              : "bg-gray-200 text-gray-800 hover:bg-orange-100"
+          }`}
+        >
+          all
+        </button>
+        {categories.map((category) => (
+          <button
+            key={category._id}
+            onClick={() => setFilter(category._id)}
+            className={`border-2 text-gray-800 py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
+              filter === category._id
+                ? "bg-orange-500 text-white"
+                : "bg-gray-200 text-gray-800 hover:bg-orange-100"
+            }`}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
 
-          <div className="px-4 sm:px-8 lg:px-16">
-            <Card selectedCategory={selectedSeason} />
-          </div>
-        </>
-      )}
+      <div className="px-4 sm:px-8 lg:px-16">
+        <Card selectedCategory={selectedSeason} tourData={filteredTours} />
+      </div>
     </div>
   );
 };
