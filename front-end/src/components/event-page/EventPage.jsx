@@ -66,8 +66,8 @@ const EventsPage = () => {
             amidst breathtaking landscapes, we bring you unforgettable moments.
             Immerse yourself in the rich traditions and vibrant heritage of
             Mongolia, blended with modern touches to create a one-of-a-kind
-            experience. Whether it's the vast steppes, majestic mountains, or
-            the heartwarming hospitality of nomadic culture, our events are
+            experience. Whether it&apos;s the vast steppes, majestic mountains,
+            or the heartwarming hospitality of nomadic culture, our events are
             designed to connect you with the true essence of this remarkable
             land. Join us and embark on a journey that will leave you inspired,
             amazed, and forever in love with Mongolia!
