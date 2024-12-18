@@ -24,7 +24,7 @@ export const EventsPages = () => {
     setError(null);
     try {
       const eventsResponse = await axios.get(
-        "http://localhost:8000/api/events",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/events`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const EventsPages = () => {
       );
 
       const categoriesResponse = await axios.get(
-        "http://localhost:8000/api/categories",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +55,9 @@ export const EventsPages = () => {
     if (!deleteEventId) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/events/${deleteEventId}`);
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/events/${deleteEventId}`
+      );
 
       setEvents((prevEvents) =>
         prevEvents.filter((event) => event._id !== deleteEventId)
@@ -90,7 +92,7 @@ export const EventsPages = () => {
     });
 
     try {
-      await axios.post("http://localhost:8000/api/events", formData, {
+      await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/events`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

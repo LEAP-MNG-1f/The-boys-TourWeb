@@ -12,10 +12,10 @@ const teamSchema = new mongoose.Schema({
   introduction: {
     type: String,
   },
-  languege: {
+  language: {
     type: String,
   },
-  exprience: {
+  experience: {
     type: String,
   },
 });
