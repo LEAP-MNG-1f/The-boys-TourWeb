@@ -7,7 +7,6 @@ import MuiAccordionSummary, {
   accordionSummaryClasses,
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { CheckIcon, Location, NotCheckIcon } from "../icons";
 import Link from "next/link";
@@ -48,7 +47,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export const Introduction = ({ tour }) => {
-  const [expanded, setExpanded] = useState("Day 1");
+  const [expanded, setExpanded] = useState("1");
 
   const formattedStartDate = new Date(tour.startDate).toLocaleDateString(
     "en-US",
@@ -116,37 +115,33 @@ export const Introduction = ({ tour }) => {
                         id="panel1d-header"
                       >
                         <div className="flex items-center gap-5">
-                          <Typography>{value.day}</Typography>
+                          <p className="text-black font-sans text-lg font-normal">
+                            Day {value.day}
+                          </p>
                           <div className="h-full w-[1px] bg-[#242424]"></div>
-                          <div className="flex items-center gap-2">
-                            <div className="flex flex-col">
-                              {Array.isArray(value.periodOfTime)
-                                ? value.periodOfTime.map((activity, index) => (
-                                    <p
-                                      className="font-roboto text-black"
-                                      key={index}
-                                    >
-                                      {activity.when} :
-                                    </p>
-                                  ))
-                                : ""}
-                            </div>
-                            <div className="flex flex-col ">
-                              {Array.isArray(value.periodOfTime)
-                                ? value.periodOfTime.map((activity, index) => (
-                                    <p
-                                      className="font-roboto text-black"
-                                      key={index}
-                                    >
-                                      {activity.notes}
-                                    </p>
-                                  ))
-                                : ""}
-                            </div>
-                          </div>
+                          <p className="text-black font-sans text-lg font-normal">
+                            {value.dayTitle}
+                          </p>
                         </div>
                       </AccordionSummary>
                       <AccordionDetails>
+                        <p className="text-black font-roboto text-lg font-medium leading-6">
+                          Period of time
+                        </p>
+                        {Array.isArray(value.periodOfTime)
+                          ? value.periodOfTime.map((activity, index) => (
+                              <div
+                                className="flex flex-col items-start"
+                                key={index}
+                              >
+                                <div className="flex gap-2">
+                                  <p className="font-roboto text-black">
+                                    {activity.when} : {activity.notes}
+                                  </p>
+                                </div>
+                              </div>
+                            ))
+                          : ""}
                         <p className="text-black font-roboto text-lg font-medium leading-6">
                           Activities
                         </p>
@@ -155,14 +150,13 @@ export const Introduction = ({ tour }) => {
                               <div className="flex flex-col" key={index}>
                                 <div className="flex items-center gap-2">
                                   <div className="w-[6px] h-[6px] bg-[#F97316] rounded-full"></div>
-                                  <p
-                                    className="font-roboto text-black"
-                                    key={index}
-                                  >
+                                  <p className="font-roboto text-black">
                                     {activity.activityName}
                                   </p>
                                 </div>
-                                <p className="px-[14px]">{activity.notes}</p>
+                                <p className="px-[14px] font-roboto">
+                                  {activity.notes}
+                                </p>
                               </div>
                             ))
                           : ""}
@@ -171,20 +165,16 @@ export const Introduction = ({ tour }) => {
                         </p>
                         {Array.isArray(value.accommodation)
                           ? value.accommodation.map((activity, index) => (
-                              <div
-                                className="flex items-center gap-6"
-                                key={index}
-                              >
+                              <div className="flex flex-col" key={index}>
                                 <div className="flex items-center gap-2">
                                   <div className="w-[6px] h-[6px] bg-[#F97316] rounded-full"></div>
-                                  <p
-                                    className="font-roboto text-black"
-                                    key={index}
-                                  >
+                                  <p className="font-roboto text-black">
                                     {activity.accomName}
                                   </p>
                                 </div>
-                                <p>{activity.notes}</p>
+                                <p className="px-[14px] font-roboto">
+                                  {activity.notes}
+                                </p>
                               </div>
                             ))
                           : ""}
@@ -213,7 +203,7 @@ export const Introduction = ({ tour }) => {
                           <div className="w-6 h-6 flex items-center justify-center">
                             <CheckIcon />
                           </div>
-                          <p className="text-black font-sans text-lg font-normal ">
+                          <p className="text-black font-sans text-lg font-normal">
                             {value}
                           </p>
                         </div>
