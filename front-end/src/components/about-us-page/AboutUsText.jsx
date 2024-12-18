@@ -145,7 +145,7 @@ const AboutUsText = () => {
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                src="blob:https://www.facebook.com/fb7dcfd3-8b63-40bb-a338-8c424c2058b1"
+                src="https://res.cloudinary.com/dmsyul4sr/image/upload/v1734495011/465053790_9080584541981233_7124384568269687891_n_mo0dph.png"
                 alt="Stepper Riders"
                 className="w-full h-auto object-cover transition-transform duration-300 group-hover:brightness-90"
               />
