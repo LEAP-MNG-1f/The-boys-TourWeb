@@ -6,6 +6,17 @@ import { useEffect, useState } from "react";
 import { Minus } from "../icons/Minus";
 import { Plus } from "../icons/Plus";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+
+import { loadStripe } from "@stripe/stripe-js";
+// import CheckoutPage from "@/components/CheckoutPage";
+// import convertToSubcurrency from "@/lib/convertToSubcurrency";
+// import { Elements } from "@stripe/react-stripe-js";
+
+if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
+  throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
+}
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -25,11 +36,35 @@ export const Details = ({
   calculateTotalAmount,
   price,
 }) => {
+  const [isFilled, setIsFilled] = useState(false);
   const getStyles = (country, selectedCountry) => {
     return {
       fontWeight: selectedCountry === country ? 600 : 400,
     };
   };
+
+  const validationSchema = Yup.object({
+    fullname: Yup.string()
+      .required("Full name is required")
+      .min(3, "Must be at least 3 characters"),
+    email: Yup.string()
+      .required("Email is required")
+      .email("Invalid email address"),
+    phone: Yup.string()
+      .required("Phone number is required")
+      .matches(/^[0-9]{9,15}$/, "Must be a valid phone number"),
+    country: Yup.string().required("Country is required"),
+    startdate: Yup.date()
+      .required("Start date is required")
+      .min(new Date(), "Start date must be tomorrow or later"),
+    enddate: Yup.date()
+      .required("End date is required")
+      .min(new Date(), "End date must be tomorrow or later"),
+    personNumber: Yup.number()
+      .required("Number of persons is required")
+      .min(1, "Must be at least 1 person"),
+    totalamount: Yup.number().required("Total amount is required"),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -41,11 +76,11 @@ export const Details = ({
       enddate: "",
       personNumber: "",
       questions: "",
-      totalamount: "",
-      tourId: "",
+      totalamount: 0,
+      tourId: tour?._id || "",
     },
 
-    // validationSchema,
+    validationSchema,
     onSubmit: async (values) => {
       const totalAmount = calculateTotalAmount();
       const requestData = {
@@ -62,8 +97,6 @@ export const Details = ({
         });
         const data = await response.json();
 
-        console.log(data);
-
         if (!response.ok)
           throw new Error(`HTTP error! status: ${response.status}`);
       } catch (error) {
@@ -78,9 +111,90 @@ export const Details = ({
     }
   }, [tour._id]);
 
+  useEffect(() => {
+    const totalAmount = calculateTotalAmount();
+    formik.setFieldValue("totalamount", totalAmount);
+
+    const isAllFieldsFilled =
+      formik.values.fullname &&
+      formik.values.email &&
+      formik.values.phone &&
+      formik.values.country &&
+      formik.values.startdate &&
+      formik.values.enddate &&
+      formik.values.personNumber > 0 &&
+      totalAmount > 0;
+
+    setIsFilled(isAllFieldsFilled);
+  }, [formik.values, calculateTotalAmount]);
+
+  //--------------------Payment--------------------//
+
+  // const stripePromise = loadStripe(
+  //   "pk_test_51QWJPGJAk8CP2BDJRWOKg5SHs3yPYNjPKf21kDi6XfzAHlIrR0IgtlQd9aQRVDepp686Pp3Zaneyke95QvfCI6TP00PL01rn5t"
+  // );
+
+  // const makePayment = async (e) => {
+  //   e.preventDefault();
+  //   // Create a Checkout Session.
+  //   const checkoutSession = await fetchPostJSON("/api/checkout_sessions", {
+  //     amount: input.customDonation,
+  //   });
+
+  //   if (checkoutSession.statusCode === 500) {
+  //     console.error(checkoutSession.message);
+  //     return;
+  //   }
+
+  //   // Redirect to Checkout.
+  //   const stripe = await getStripe();
+  //   const { error } = await stripe.redirectToCheckout({
+  //     // Use the id field from the Checkout Session creation API response
+  //     // instead of the placeholder.
+  //     sessionId: checkoutSession.id,
+  //   });
+
+  //   // If `redirectToCheckout` fails due to a browser or network
+  //   // error, display the localized error message to your customer.
+  //   if (error) {
+  //     console.warn(error.message);
+  //   }
+  // };
+
   return (
-    <div className="w-full flex flex-col items-center gap-20 mt-[144px]">
-      <div className="max-w-[1080px] w-full h-[3px] bg-[#F97316]"></div>
+    <div className="w-full flex flex-col items-center gap-[100px] mt-[144px]">
+      <div className="relative max-w-[1080px] w-full">
+        <div className="flex items-center justify-center">
+          <div className="relative w-[33.33%] flex justify-center">
+            <div className="w-12 h-12 bg-[#F97316] rounded-full"></div>
+            <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 font-roboto text-white text-3xl font-semibold">
+              1
+            </p>
+            <p className="absolute top-[110%] left-[50%] translate-x-[-50%] text-black font-roboto text-lg font-medium">
+              INFORMATION
+            </p>
+          </div>
+          <div className="relative w-[33.33%] flex justify-center">
+            <div className="w-12 h-12 bg-[#F97316] rounded-full"></div>
+            <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 font-roboto text-white text-3xl font-semibold">
+              2
+            </p>
+            <p className="absolute top-[110%] left-[50%] translate-x-[-50%] text-black font-roboto text-lg font-medium">
+              PAYMENT
+            </p>
+          </div>
+          <div className="relative w-[33.33%] flex justify-center">
+            <div className="w-12 h-12 bg-[#F97316] rounded-full"></div>
+            <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 font-roboto text-white text-3xl font-semibold">
+              3
+            </p>
+            <p className="absolute top-[110%] left-[50%] translate-x-[-50%] text-black font-roboto text-lg font-medium">
+              FINISH
+            </p>
+          </div>
+          <div className="absolute w-full h-[3px] bg-[#F97316]"></div>
+        </div>
+      </div>
       <form
         onSubmit={formik.handleSubmit}
         className="max-w-[1080px] w-full flex gap-20"
@@ -109,6 +223,9 @@ export const Details = ({
                 value={formik.values.fullname}
                 onChange={formik.handleChange}
               />
+              {formik.touched.fullname && formik.errors.fullname ? (
+                <p className="text-red-600 text-sm">{formik.errors.fullname}</p>
+              ) : null}
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-black text-base font-roboto font-normal">
@@ -123,6 +240,9 @@ export const Details = ({
                 value={formik.values.email}
                 onChange={formik.handleChange}
               />
+              {formik.touched.email && formik.errors.email ? (
+                <p className="text-red-600 text-sm">{formik.errors.email}</p>
+              ) : null}
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-black text-base font-roboto font-normal">
@@ -137,6 +257,9 @@ export const Details = ({
                 value={formik.values.phone}
                 onChange={formik.handleChange}
               />
+              {formik.touched.phone && formik.errors.phone ? (
+                <p className="text-red-600 text-sm">{formik.errors.phone}</p>
+              ) : null}
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-black text-base font-roboto font-normal">
@@ -171,6 +294,9 @@ export const Details = ({
                   </MenuItem>
                 ))}
               </Select>
+              {formik.touched.country && formik.errors.country ? (
+                <p className="text-red-600 text-sm">{formik.errors.country}</p>
+              ) : null}
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-black text-base font-roboto font-normal">
@@ -211,6 +337,11 @@ export const Details = ({
                 value={formik.values.startdate}
                 onChange={formik.handleChange}
               />
+              {formik.touched.startdate && formik.errors.startdate ? (
+                <p className="text-red-600 text-sm">
+                  {formik.errors.startdate}
+                </p>
+              ) : null}
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-black text-base font-roboto font-normal">
@@ -224,6 +355,9 @@ export const Details = ({
                 value={formik.values.enddate}
                 onChange={formik.handleChange}
               />
+              {formik.touched.enddate && formik.errors.enddate ? (
+                <p className="text-red-600 text-sm">{formik.errors.enddate}</p>
+              ) : null}
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-black text-base font-roboto font-normal">
@@ -238,6 +372,11 @@ export const Details = ({
                 value={formik.values.personNumber}
                 onChange={formik.handleChange}
               />
+              {formik.touched.personNumber && formik.errors.personNumber ? (
+                <p className="text-red-600 text-sm">
+                  {formik.errors.personNumber}
+                </p>
+              ) : null}
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex">
@@ -301,8 +440,14 @@ export const Details = ({
                 Clear
               </button>
               <button
+                // onClick={makePayment}
                 type="submit"
-                className="w-full h-12 bg-[#F97316] rounded-lg text-white font-roboto text-xl font-medium"
+                disabled={!isFilled}
+                className={`w-full h-12 rounded-lg font-roboto text-xl font-medium transition-all duration-500 ${
+                  isFilled
+                    ? "bg-[#F97316] text-white"
+                    : "bg-[#EEEFF2] text-[rgba(28,32,36,0.24)]"
+                }`}
               >
                 Submit
               </button>

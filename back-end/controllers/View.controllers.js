@@ -5,10 +5,31 @@ const getAllView = async (request, response) => {
   response.json(result);
 };
 
+const deleteOldViews = async () => {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  try {
+    await viewModels.updateMany(
+      {},
+      {
+        $pull: {
+          views: {
+            date: { $lt: thirtyDaysAgo.toISOString().split("T")[0] },
+          },
+        },
+      }
+    );
+  } catch (error) {
+    console.error("Error deleting old views:", error);
+  }
+};
+
 const createView = async (request, response) => {
   const { pageId } = request.body;
 
   const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD формат
+
   try {
     const pageView = await viewModels.findOne({ pageId });
 
@@ -53,4 +74,4 @@ const createView = async (request, response) => {
   }
 };
 
-export { getAllView, createView };
+export { getAllView, createView, deleteOldViews };

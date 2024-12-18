@@ -5,8 +5,8 @@ export const TeamPage = () => {
   const [newTeamMember, setNewTeamMember] = useState({
     name: "",
     imageTeam: "",
-    languege: "",
-    exprience: "",
+    language: "",
+    experience: "",
     introduction: "",
   });
 
@@ -18,7 +18,9 @@ export const TeamPage = () => {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/teams");
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams`
+        );
         if (!response.ok) throw new Error(`Failed to fetch data`);
         const data = await response.json();
         setTeamData(data);
@@ -49,8 +51,8 @@ export const TeamPage = () => {
       setNewTeamMember({
         name: "",
         imageTeam: "",
-        languege: "",
-        exprience: "",
+        language: "",
+        experience: "",
         introduction: "",
       });
     }
@@ -61,11 +63,14 @@ export const TeamPage = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/teams", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newTeamMember),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newTeamMember),
+        }
+      );
 
       if (response.ok) {
         const newTeam = await response.json();
@@ -86,9 +91,12 @@ export const TeamPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/teams/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to delete team member");
@@ -102,6 +110,10 @@ export const TeamPage = () => {
       alert(`Error: ${error.message}`);
     }
   };
+
+  // bg - #1512c2
+  // bgsoft - #182237
+  // textsoft - #b7bac1
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-screen-xl">
@@ -119,7 +131,7 @@ export const TeamPage = () => {
       </div>
 
       <dialog ref={modalRef} className="modal modal-middle sm:modal-middle">
-        <div className="modal-box w-11/12 max-w-2xl">
+        <div className="modal-box bg-[#151c2c] w-11/12 max-w-2xl">
           <form method="dialog">
             <button
               type="button"
@@ -136,71 +148,71 @@ export const TeamPage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <label className="form-control w-full">
+              <label className="form-control  w-full">
                 <div className="label">
-                  <span className="label-text">Name</span>
+                  <span className="label-text text-white ">Name</span>
                 </div>
                 <input
                   type="text"
                   name="name"
                   value={newTeamMember.name}
                   onChange={handleChange}
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full bg-[#182237] "
                   required
                 />
               </label>
 
               <label className="form-control w-full">
                 <div className="label">
-                  <span className="label-text">Image URL</span>
+                  <span className="label-text text-white">Image URL</span>
                 </div>
                 <input
                   type="text"
                   name="imageTeam"
                   value={newTeamMember.imageTeam}
                   onChange={handleChange}
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full bg-[#182237]"
+                  required
+                />
+              </label>
+
+              <label className="form-control w-full">
+                <div className="label ">
+                  <span className="label-text text-white">Languages</span>
+                </div>
+                <input
+                  type="text"
+                  name="language"
+                  value={newTeamMember.language}
+                  onChange={handleChange}
+                  className="input input-bordered w-full bg-[#182237]"
                   required
                 />
               </label>
 
               <label className="form-control w-full">
                 <div className="label">
-                  <span className="label-text">Languages</span>
+                  <span className="label-text text-white">Experience</span>
                 </div>
                 <input
                   type="text"
-                  name="languege"
-                  value={newTeamMember.languege}
+                  name="experience"
+                  value={newTeamMember.experience}
                   onChange={handleChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </label>
-
-              <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text">Experience</span>
-                </div>
-                <input
-                  type="text"
-                  name="exprience"
-                  value={newTeamMember.exprience}
-                  onChange={handleChange}
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full bg-[#182237] "
                   required
                 />
               </label>
 
               <label className="form-control w-full md:col-span-2">
                 <div className="label">
-                  <span className="label-text">Introduction</span>
+                  <span className="label-text text-white">Introduction</span>
                 </div>
                 <textarea
                   name="introduction"
                   value={newTeamMember.introduction}
                   onChange={handleChange}
-                  className="textarea textarea-bordered w-full h-24"
+                  className="textarea textarea-bordered w-full h-24 bg-[#182237]"
                   required
                 />
               </label>
@@ -226,7 +238,7 @@ export const TeamPage = () => {
             {teamData.map((teamMember) => (
               <div
                 key={teamMember._id}
-                className="card bg-base-100 shadow-md rounded-lg overflow-hidden"
+                className="card bg-[#182237] shadow-md rounded-lg overflow-hidden"
               >
                 <figure className="aspect-video">
                   <img
@@ -241,10 +253,10 @@ export const TeamPage = () => {
                   </h3>
                   <div className="space-y-1 text-sm">
                     <p>
-                      <strong>Languages:</strong> {teamMember.languege}
+                      <strong>Languages:</strong> {teamMember.language}
                     </p>
                     <p>
-                      <strong>Experience:</strong> {teamMember.exprience}
+                      <strong>Experience:</strong> {teamMember.experience}
                     </p>
                     <p className="line-clamp-2">
                       <strong>Introduction:</strong> {teamMember.introduction}

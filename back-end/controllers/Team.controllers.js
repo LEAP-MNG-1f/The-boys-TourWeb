@@ -8,7 +8,8 @@ const getAllTeams = async (request, response) => {
 
 const createTeams = async (request, response) => {
   try {
-    const { name, intoduction, imageTeam, languege, exprience } = request.body;
+    const { name, introduction, imageTeam, language, experience } =
+      request.body;
 
     let imageUrlteam = "";
     if (request.file) {
@@ -23,10 +24,10 @@ const createTeams = async (request, response) => {
     const result = await TeamModels.create({
       imageTeam: imageUrlteam,
       name,
-      intoduction,
+      introduction,
       imageTeam,
-      languege,
-      exprience,
+      language,
+      experience,
     });
 
     response.status(201).json({
