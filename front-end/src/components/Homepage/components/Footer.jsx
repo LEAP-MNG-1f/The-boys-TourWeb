@@ -7,83 +7,84 @@ import Facebook from "../icons/Feacebook";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#F6F6F7] text-black py-[90px] mt-20">
+    <footer className="bg-[#F6F6F7] text-black py-16 mt-20">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-8">
-          <h4 className="text-3xl font-bold">Explore the Seasons</h4>
-          <p className="text-[#696A75] mt-2">
+        <div className="text-center mb-12">
+          <h4 className="text-4xl font-extrabold text-gray-800">
+            Explore the Seasons
+          </h4>
+          <p className="text-[#696A75] mt-4 text-lg">
             Embrace the beauty of each season with us.
           </p>
         </div>
 
-        <div className="flex flex-col justify-between md:flex-row md:justify-between mb-8">
-          <div className="flex flex-col  md:w-1/3  mb-8 md:mb-0">
-            <h1 className="text-[22px] font-bold">About</h1>
-            <p className="mt-5 w-full md:w-[300px]">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam.
+        <div className="grid md:grid-cols-3 gap-10">
+          {/* About Section */}
+          <div className="space-y-4 flex flex-col items-start">
+            <h2 className="text-2xl font-bold text-gray-900">About</h2>
+            <p className="text-gray-600 leading-relaxed">
+              Welcome to [Your Company Name], where Mongolia's beauty and
+              culture come alive! Explore the vast Gobi Desert, serene valleys,
+              and nomadic traditions with our personalized tours. We create
+              unforgettable journeys for solo travelers, families, and groups.
+              Discover the essence of Mongolia and craft lasting memories with
+              us!
             </p>
           </div>
 
-          <div className="flex flex-col justify-center items-center md:w-1/3 mb-8 md:mb-0">
-            <h1 className="text-[22px] font-bold">Quick Links</h1>
-            <Link href="/">
-              <h1 className="text-black hover:text-gray-500 mt-5 relative group">
-                Home
-                <span className="block absolute bottom-0 left-0 w-full h-[2px] bg-orange-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
-              </h1>
-            </Link>
-            <Link href="/specialtour">
-              <h1 className="text-black hover:text-gray-500 mt-5 relative group">
-                Create Your Tour
-                <span className="block absolute bottom-0 left-0 w-full h-[2px] bg-orange-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
-              </h1>
-            </Link>
-            <Link href="/event-page">
-              <h1 className="text-black hover:text-gray-500 mt-5 relative group">
-                Mongolian Event
-                <span className="block absolute bottom-0 left-0 w-full h-[2px] bg-orange-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
-              </h1>
-            </Link>
-            <Link href="/about-us">
-              <h1 className="text-black hover:text-gray-500 mt-5 relative group">
-                About Us
-                <span className="block absolute bottom-0 left-0 w-full h-[2px] bg-orange-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
-              </h1>
-            </Link>
+          {/* Quick Links Section */}
+          <div className="space-y-4 flex flex-col md:items-center">
+            <h2 className="text-2xl font-bold text-gray-900">Quick Links</h2>
+            <nav className="space-y-3 flex flex-col">
+              {[
+                { href: "/", label: "Home" },
+                { href: "/specialtour", label: "Create Your Tour" },
+                { href: "/event-page", label: "Mongolian Event" },
+                { href: "/about-us", label: "About Us" },
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="block text-gray-700 hover:text-orange-500 transition-colors duration-300 relative group"
+                >
+                  {link.label}
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </Link>
+              ))}
+            </nav>
           </div>
 
-          <div className="flex flex-col  items-end  md:w-1/3">
-            <div className="flex flex-col w-[250px] ">
-              <h1 className="text-[22px] font-bold">Connect With Us</h1>
-              <div className="flex gap-5 items-center mt-5">
-                <Link href={`/`} legacyBehavior>
-                  <Facebook />
+          {/* Connect Section */}
+          <div className="space-y-4 flex flex-col md:items-center">
+            <h2 className="text-2xl font-bold text-gray-900">
+              Connect With Us
+            </h2>
+            <div className="flex space-x-5 mb-6">
+              {[
+                { icon: <Facebook />, href: "/" },
+                { icon: <MyIcon />, href: "/" },
+                { icon: <Youtube />, href: "/" },
+                { icon: <Watsupp />, href: "/" },
+              ].map((social, index) => (
+                <Link
+                  key={index}
+                  href={social.href}
+                  className="text-gray-700 hover:text-orange-500 transition-colors"
+                >
+                  {social.icon}
                 </Link>
-                <Link href={`/`} legacyBehavior>
-                  <MyIcon />
-                </Link>
-                <Link href={`/`} legacyBehavior>
-                  <Youtube />
-                </Link>
-                <Link href={`/`} legacyBehavior>
-                  <Watsupp />
-                </Link>
-              </div>
-              <div className="mt-10 flex flex-col  gap-5">
-                <h1>Email: Ydamtour@gmail.com</h1>
-                <h1>Phone: 80640490</h1>
-                <h1>Phone: 60602106</h1>
-              </div>
+              ))}
+            </div>
+            <div className="space-y-2 text-gray-600">
+              <p>Email: Ydamtour@gmail.com</p>
+              <p>Phone: 80640490</p>
+              <p>Phone: 60602106</p>
             </div>
           </div>
         </div>
 
-        <div className="flex justify-center gap-6 mb-6"></div>
-
-        <div className="text-center">
-          <p className="text-gray-400 text-sm ">
+        <div className="border-t border-gray-200 mt-12 pt-6 text-center">
+          <p className="text-gray-500 text-sm">
             &copy; {new Date().getFullYear()} Company Name. All rights reserved.
           </p>
         </div>

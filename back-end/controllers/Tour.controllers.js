@@ -55,7 +55,7 @@ const createTour = async (request, response) => {
     if (!files || files.length === 0) {
       return response
         .status(400)
-        .json({ success: false, message: "Images are required" });
+        .json({ success: false, message: "are required" });
     }
 
     // Upload images to Cloudinary
