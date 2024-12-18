@@ -8,13 +8,27 @@ const Carousel = () => {
   const [error, setError] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [prevImageIndex, setPrevImageIndex] = useState(null);
+  const [thumbnailImages, setThumbnailImages] = useState([]);
+  // const thumbnailImages = [
+  //   "https://cdn.mongolia-guide.com/generated/aimag/yB5tmMud3F7rJsh124LfK4ML8rLIdCKXHqTaw3tX_1920_1000.jpeg",
+  //   "https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg",
+  //   "https://cdn.bookatrekking.com/data/images/2019/08/gobi-desert-new.webp",
+  //   "https://www.toursmongolia.com/uploads/landscape%20mongolian%20gobi%20nature%20destination.jpg",
+  // ];
 
-  const thumbnailImages = [
-    "https://cdn.mongolia-guide.com/generated/aimag/yB5tmMud3F7rJsh124LfK4ML8rLIdCKXHqTaw3tX_1920_1000.jpeg",
-    "https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg",
-    "https://cdn.bookatrekking.com/data/images/2019/08/gobi-desert-new.webp",
-    "https://www.toursmongolia.com/uploads/landscape%20mongolian%20gobi%20nature%20destination.jpg",
-  ];
+  // useEffect(() => {
+  //   const fetchThumbnailImages = async () => {
+  //     try {
+  //       const response = await fetch(`http://localhost:8000/api/tours`);
+  //       const data = await response.json();
+  //       setThumbnailImages(data);
+  //     } catch (error) {
+  //       console.error("Error fetching tour data:", error);
+  //     }
+  //   };
+
+  //   fetchThumbnailImages();
+  // }, []);
 
   const fetchData = async () => {
     try {
@@ -79,7 +93,7 @@ const Carousel = () => {
 
   return (
     <div className="relative overflow-hidden shadow-lg h-[75vh]">
-      {tourData.map((tour, index) => (
+      {/* {tourData.map((tour, index) => (
         <div
           key={index}
           className={`
@@ -93,6 +107,7 @@ const Carousel = () => {
           `}
           style={{
             backgroundImage: `url(${tour.images && tour.images[0]})`,
+          
           }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -138,7 +153,35 @@ const Carousel = () => {
             </div>
           </div>
         </div>
-      ))}
+      ))} */}
+      <div className="relative h-screen w-full overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+        >
+          <source src="/landing-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="relative flex flex-col gap-7 justify-center items-center bottom-24 h-full text-white">
+          <div className="flex flex-col items-end">
+            <h1 className="text-6xl md:text-8xl font-bold text-shadow">
+              Discover Mongolia
+            </h1>
+            <p>& Ride with Us!</p>
+          </div>
+          <div>
+            <Link
+              href="/view-all"
+              className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg shadow-lg text-white text-lg inline-block"
+              aria-label="Jump to all tours"
+            >
+              Ride to all tours
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
