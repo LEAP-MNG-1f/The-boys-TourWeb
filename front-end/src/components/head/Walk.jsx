@@ -79,46 +79,46 @@ const WalkDifference = () => {
           </div>
         </div>
       </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-12 lg:mt-[200px]">
-        <div className="space-y-8 order-2 lg:order-1">
-          <div className="text-center">
-            <h1 className="text-4xl sm:text-6xl lg:text-[80px] font-[400]">
-              The Walk
-            </h1>
-            <h1 className="text-4xl sm:text-6xl lg:text-[80px] font-[400] lg:ml-[220px] text-orange-500">
-              Difference
-            </h1>
+      <div className="container mx-auto mt-20 px-4 sm:px-6 lg:px-8 pt-16 sm:pt-8 pb-10 sm:pb-1 flex flex-col shadow-xl rounded-xl sm:rounded-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-12 lg:mt-[100px]">
+          <div className="space-y-8 order-2 lg:order-1">
+            <div className="text-center">
+              <h1 className="text-4xl sm:text-6xl lg:text-[80px] font-[400]">
+                The Walk
+              </h1>
+              <h1 className="text-4xl sm:text-6xl lg:text-[80px] font-[400] lg:ml-[220px] text-orange-500">
+                Difference
+              </h1>
+            </div>
+          </div>
+          <div className="relative h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden order-1 lg:order-2">
+            <img
+              src="https://news.mn/en/wp-content/uploads/sites/3/2021/08/2.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
-        <div className="relative h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden order-1 lg:order-2">
-          <img
-            src="https://news.mn/en/wp-content/uploads/sites/3/2021/08/2.jpg"
-            alt=""
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-
-      {/* Sections */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {sections.map((section, index) => (
-            <div
-              key={index}
-              className="p-4 sm:p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="flex items-center mb-4">
-                <section.icon className="h-8 w-8 sm:h-10 sm:w-10 text-orange-600 mr-2 sm:mr-4 bg-orange-100 p-2 rounded-full" />
-                <h2 className="font-bold text-xl sm:text-2xl text-gray-800">
-                  {section.title}
-                </h2>
+        {/* Sections */}
+        <div className="container mx-auto px-4 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {sections.map((section, index) => (
+              <div
+                key={index}
+                className="p-4 sm:p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="flex items-center mb-4">
+                  <section.icon className="h-8 w-8 sm:h-10 sm:w-10 text-orange-600 mr-2 sm:mr-4 bg-orange-100 p-2 rounded-full" />
+                  <h2 className="font-bold text-xl sm:text-2xl text-gray-800">
+                    {section.title}
+                  </h2>
+                </div>
+                <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+                  {section.description}
+                </p>
               </div>
-              <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-                {section.description}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
