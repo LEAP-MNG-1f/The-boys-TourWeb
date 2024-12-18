@@ -9,9 +9,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { loadStripe } from "@stripe/stripe-js";
-// import CheckoutPage from "@/components/CheckoutPage";
-// import convertToSubcurrency from "@/lib/convertToSubcurrency";
-// import { Elements } from "@stripe/react-stripe-js";
+import { useRouter } from "next/router";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
@@ -130,36 +128,35 @@ export const Details = ({
 
   //--------------------Payment--------------------//
 
-  // const stripePromise = loadStripe(
-  //   "pk_test_51QWJPGJAk8CP2BDJRWOKg5SHs3yPYNjPKf21kDi6XfzAHlIrR0IgtlQd9aQRVDepp686Pp3Zaneyke95QvfCI6TP00PL01rn5t"
-  // );
+  const handler = async () => {
+    const amount = calculateTotalAmount();
+    const title = tour.title;
+    const images = tour.images;
+    try {
+      const stripe = await stripePromise;
+      const res = await fetch("/api/stripe", {
+        method: "POST",
+        body: JSON.stringify({
+          amount,
+          title,
+          images,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const { sessionId } = await res.json();
+      console.log(sessionId, "front");
 
-  // const makePayment = async (e) => {
-  //   e.preventDefault();
-  //   // Create a Checkout Session.
-  //   const checkoutSession = await fetchPostJSON("/api/checkout_sessions", {
-  //     amount: input.customDonation,
-  //   });
-
-  //   if (checkoutSession.statusCode === 500) {
-  //     console.error(checkoutSession.message);
-  //     return;
-  //   }
-
-  //   // Redirect to Checkout.
-  //   const stripe = await getStripe();
-  //   const { error } = await stripe.redirectToCheckout({
-  //     // Use the id field from the Checkout Session creation API response
-  //     // instead of the placeholder.
-  //     sessionId: checkoutSession.id,
-  //   });
-
-  //   // If `redirectToCheckout` fails due to a browser or network
-  //   // error, display the localized error message to your customer.
-  //   if (error) {
-  //     console.warn(error.message);
-  //   }
-  // };
+      const { error } = await stripe.redirectToCheckout({ sessionId });
+      console.log(error);
+      if (error) {
+        console.log("errooorrrr", error);
+        // push("/error");
+      }
+    } catch (error) {
+      console.log(error);
+      // push("/error");
+    }
+  };
 
   return (
     <div className="w-full flex flex-col items-center gap-[100px] mt-[144px]">
@@ -440,7 +437,7 @@ export const Details = ({
                 Clear
               </button>
               <button
-                // onClick={makePayment}
+                onClick={handler}
                 type="submit"
                 disabled={!isFilled}
                 className={`w-full h-12 rounded-lg font-roboto text-xl font-medium transition-all duration-500 ${
