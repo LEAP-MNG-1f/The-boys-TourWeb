@@ -5,8 +5,11 @@ import Footer from "../Homepage/components/Footer";
 import { HeaderPart } from "../Homepage/components/Header";
 import Carousel from "./components/Carousel";
 import { Introduction } from "./components/Introduction";
+import { useParams, useRouter } from "next/navigation";
 
-const ProductsPage = () => {
+const TourPage = () => {
+  // const router = useRouter();
+  const params = useParams();
   const [tour, setTour] = useState([]);
   const [loading, setLoading] = useState(true); // Ачааллаж байгааг харуулах төлөв
   const baseUrl = "http://localhost:8000/api"; // API үндсэн зам
@@ -14,7 +17,7 @@ const ProductsPage = () => {
   // Fetch Tour Data
   const fetchDataTour = async () => {
     try {
-      const response = await fetch(`${baseUrl}/tours/Gobi-Tour`);
+      const response = await fetch(`${baseUrl}/tours/${params.id}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -43,7 +46,6 @@ const ProductsPage = () => {
       }
 
       const result = await response.json();
-      console.log("View incremented:", result);
     } catch (error) {
       console.error("Failed to increment view count:", error);
     }
@@ -52,7 +54,6 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchAndIncrement = async () => {
       try {
-        // Fetch tour data
         await fetchDataTour();
 
         // Increment view count with pageId
@@ -83,4 +84,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default TourPage;

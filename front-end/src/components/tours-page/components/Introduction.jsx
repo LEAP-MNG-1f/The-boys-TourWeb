@@ -49,22 +49,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 export const Introduction = ({ tour }) => {
   const [expanded, setExpanded] = useState("1");
 
-  const formattedStartDate = new Date(tour.startDate).toLocaleDateString(
-    "en-US",
-    {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }
-  );
-
-  const formattedEndDate = new Date(tour.endDate).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
-  const handleChange = (panel) => (event, newExpanded) => {
+  const handleChange = (panel) => (newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
@@ -289,11 +274,11 @@ export const Introduction = ({ tour }) => {
             </div>
             <div className="border-b border-[rgba(0,0,0,0.125)] pb-2 flex items-center gap-1">
               <p className="text-black font-roboto text-base font-normal">
-                {formattedStartDate}
+                {tour.startDate}
               </p>
               <p className="text-black font-roboto text-base font-normal">-</p>
               <p className="text-black font-roboto text-base font-normal">
-                {formattedEndDate}
+                {tour.endDate}
               </p>
             </div>
             <div className="flex items-center gap-4">

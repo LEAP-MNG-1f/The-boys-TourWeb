@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const TravelCards = () => {
@@ -113,9 +114,12 @@ const TravelCards = () => {
                   </span>
                   <p className="text-sm text-gray-500">{tour.startDate}</p>
                 </div>
-                <button className="w-full sm:w-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                <Link
+                  href={`/view-all/${tour?.title}`}
+                  className="w-full sm:w-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                >
                   Book Now
-                </button>
+                </Link>
               </div>
             </div>
           </div>

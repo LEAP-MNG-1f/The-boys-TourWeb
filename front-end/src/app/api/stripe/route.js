@@ -9,7 +9,6 @@ const host = "http://localhost:3000";
 export async function POST(request) {
   const body = await request.json();
   try {
-    // const date = new Date().toISOString();
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -34,8 +33,8 @@ export async function POST(request) {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), {
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
