@@ -17,7 +17,7 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col justify-between md:flex-row md:justify-between mb-8">
-          <div className="flex flex-col  md:w-1/3 md:mr-10 mb-8 md:mb-0">
+          <div className="flex flex-col  md:w-1/3  mb-8 md:mb-0">
             <h1 className="text-[22px] font-bold">About</h1>
             <p className="mt-5 w-full md:w-[300px]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -26,7 +26,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="flex flex-col justify-center items-center md:w-1/3 md:mr-10 mb-8 md:mb-0">
+          <div className="flex flex-col justify-center items-center md:w-1/3 mb-8 md:mb-0">
             <h1 className="text-[22px] font-bold">Quick Links</h1>
             <Link href="/">
               <h1 className="text-black hover:text-gray-500 mt-5 relative group">
@@ -54,26 +54,28 @@ const Footer = () => {
             </Link>
           </div>
 
-          <div className="flex flex-col md:w-1/3">
-            <h1 className="text-[22px] font-bold">Connect With Us</h1>
-            <div className="flex gap-5 items-center mt-5">
-              <Link href={`/`} legacyBehavior>
-                <Facebook />
-              </Link>
-              <Link href={`/`} legacyBehavior>
-                <MyIcon />
-              </Link>
-              <Link href={`/`} legacyBehavior>
-                <Youtube />
-              </Link>
-              <Link href={`/`} legacyBehavior>
-                <Watsupp />
-              </Link>
-            </div>
-            <div className="mt-10 flex flex-col gap-5">
-              <h1>Email: Ydamtour@gmail.com</h1>
-              <h1>Phone: 80640490</h1>
-              <h1>Phone: 60602106</h1>
+          <div className="flex flex-col  items-end  md:w-1/3">
+            <div className="flex flex-col w-[250px] ">
+              <h1 className="text-[22px] font-bold">Connect With Us</h1>
+              <div className="flex gap-5 items-center mt-5">
+                <Link href={`/`} legacyBehavior>
+                  <Facebook />
+                </Link>
+                <Link href={`/`} legacyBehavior>
+                  <MyIcon />
+                </Link>
+                <Link href={`/`} legacyBehavior>
+                  <Youtube />
+                </Link>
+                <Link href={`/`} legacyBehavior>
+                  <Watsupp />
+                </Link>
+              </div>
+              <div className="mt-10 flex flex-col  gap-5">
+                <h1>Email: Ydamtour@gmail.com</h1>
+                <h1>Phone: 80640490</h1>
+                <h1>Phone: 60602106</h1>
+              </div>
             </div>
           </div>
         </div>
