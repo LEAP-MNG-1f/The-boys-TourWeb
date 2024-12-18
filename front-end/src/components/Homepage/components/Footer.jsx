@@ -26,19 +26,31 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="flex flex-col md:w-1/3 md:mr-10 mb-8 md:mb-0">
+          <div className="flex flex-col justify-center items-center md:w-1/3 md:mr-10 mb-8 md:mb-0">
             <h1 className="text-[22px] font-bold">Quick Links</h1>
             <Link href="/">
-              <h1 className="text-black hover:text-gray-500 mt-5">Home</h1>
+              <h1 className="text-black hover:text-gray-500 mt-5 relative group">
+                Home
+                <span className="block absolute bottom-0 left-0 w-full h-[2px] bg-orange-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+              </h1>
+            </Link>
+            <Link href="/specialtour">
+              <h1 className="text-black hover:text-gray-500 mt-5 relative group">
+                Create Your Tour
+                <span className="block absolute bottom-0 left-0 w-full h-[2px] bg-orange-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+              </h1>
+            </Link>
+            <Link href="/event-page">
+              <h1 className="text-black hover:text-gray-500 mt-5 relative group">
+                Mongolian Event
+                <span className="block absolute bottom-0 left-0 w-full h-[2px] bg-orange-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+              </h1>
             </Link>
             <Link href="/about-us">
-              <h1 className="text-black hover:text-gray-500 mt-5">About</h1>
-            </Link>
-            <Link href="/">
-              <h1 className="text-black hover:text-gray-500 mt-5">Services</h1>
-            </Link>
-            <Link href="/">
-              <h1 className="text-black hover:text-gray-500 mt-5">Contact</h1>
+              <h1 className="text-black hover:text-gray-500 mt-5 relative group">
+                About Us
+                <span className="block absolute bottom-0 left-0 w-full h-[2px] bg-orange-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+              </h1>
             </Link>
           </div>
 
@@ -69,7 +81,7 @@ const Footer = () => {
         <div className="flex justify-center gap-6 mb-6"></div>
 
         <div className="text-center">
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-sm ">
             &copy; {new Date().getFullYear()} Company Name. All rights reserved.
           </p>
         </div>
