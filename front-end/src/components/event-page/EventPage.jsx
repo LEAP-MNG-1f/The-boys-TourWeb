@@ -56,6 +56,21 @@ const EventsPage = () => {
     <div className="bg-white min-h-screen py-16 px-4 sm:px-12 mt-[100px] lg:px-24">
       <div className="max-w-7xl mx-auto">
         <div className="space-y-6">
+          <h2 className="text-4xl font-bold mb-4">
+            Mongolian <span className="text-orange-500">Events</span>
+          </h2>
+          <h3 className="text-gray-600 text-lg mb-6">
+            Experience the magic of Mongolia through our extraordinary events!
+            From cultural festivals and adventurous tours to unique gatherings
+            amidst breathtaking landscapes, we bring you unforgettable moments.
+            Immerse yourself in the rich traditions and vibrant heritage of
+            Mongolia, blended with modern touches to create a one-of-a-kind
+            experience. Whether it's the vast steppes, majestic mountains, or
+            the heartwarming hospitality of nomadic culture, our events are
+            designed to connect you with the true essence of this remarkable
+            land. Join us and embark on a journey that will leave you inspired,
+            amazed, and forever in love with Mongolia!
+          </h3>
           {filteredEvents.map((event) => (
             <div
               key={event._id}
