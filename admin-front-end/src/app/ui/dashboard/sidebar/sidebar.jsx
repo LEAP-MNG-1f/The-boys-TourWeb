@@ -29,10 +29,7 @@ const Sidebar = () => {
             alt=""
           />
           <div className="flex flex-col justify-center">
-            <div className="text-sm ">Ydmaa</div>
-            <div className="text-xs font-extralight text-[#b7bac1] ">
-              Administrator
-            </div>
+            <div className="text-sm "> Administrator</div>
           </div>
         </div>
         <div className="flex flex-col gap-5">
@@ -49,18 +46,7 @@ const Sidebar = () => {
                   Dashboard
                 </button>
               </Link>
-              <Link href="/dashboard/users">
-                <button
-                  className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${
-                    isActive("/dashboard/users")
-                      ? "bg-slate-700 text-white"
-                      : ""
-                  }`}
-                >
-                  <Users width={22} />
-                  Users
-                </button>
-              </Link>
+
               <Link href="/dashboard/tours">
                 <button
                   className={`btn btn-ghost w-full justify-start font-normal hover:bg-slate-700 ${

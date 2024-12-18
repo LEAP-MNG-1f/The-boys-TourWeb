@@ -21,7 +21,9 @@ const GobiTourInfo = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/categories");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`
+      );
       const data = await response.json();
       setCategories(data.data);
     } catch (error) {
@@ -32,7 +34,9 @@ const GobiTourInfo = () => {
   useEffect(() => {
     const fetchTourData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/tours");
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/tours`
+        );
         const data = await response.json();
         setTourData(data);
       } catch (error) {
@@ -55,9 +59,12 @@ const GobiTourInfo = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/tours/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/tours/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
         // Remove the deleted tour from the state
@@ -83,7 +90,7 @@ const GobiTourInfo = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/categories/${id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories/${id}`,
         {
           method: "DELETE",
         }
@@ -117,10 +124,13 @@ const GobiTourInfo = () => {
     setLoading(true); // Start loading
 
     try {
-      const response = await fetch("http://localhost:8000/api/categories", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         console.log("Category created successfully");

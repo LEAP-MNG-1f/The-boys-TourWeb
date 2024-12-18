@@ -29,7 +29,9 @@ const PostTourData = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/categories");
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`
+        );
         const data = await response.json();
         setCategories(data.data);
       } catch (error) {
@@ -76,7 +78,6 @@ const PostTourData = () => {
       ?.map((item) => item.replace(/^"|"$/g, "").trim())
       .filter((item) => item !== "");
 
-    // console.log(arrayt)
     setFormData({ ...formData, [name]: arrayt });
   };
 
@@ -236,22 +237,21 @@ const PostTourData = () => {
     });
 
     // Log FormData contents
-    for (let [key, value] of formDataObj.entries()) {
-      console.log(key, value);
-    }
 
     try {
-      const response = await fetch("http://localhost:8000/api/tours", {
-        method: "POST",
-        body: formDataObj, // Use FormData directly
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/tours`,
+        {
+          method: "POST",
+          body: formDataObj, // Use FormData directly
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to submit data");
       }
 
       const data = await response.json(); // Expect a JSON response
-      console.log("Response:", data);
 
       // Clear form fields after submission
       setFormData({
