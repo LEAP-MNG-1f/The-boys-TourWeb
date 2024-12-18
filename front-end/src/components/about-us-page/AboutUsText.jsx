@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import imageSrc from "../../../public/baigal.png";
 
 const AboutUsText = () => {
   const [activeTab, setActiveTab] = useState("Company");
@@ -81,35 +82,9 @@ const AboutUsText = () => {
               }}
               className="group"
             >
-              <div
-                className="bg-white 
-                p-4 sm:p-6 
-                rounded-2xl 
-                min-h-[300px]
-                border 
-                border-gray-100 
-                shadow-lg 
-                hover:shadow-2xl 
-                hover:border-[#FC8233]/20
-                transition-all 
-                duration-300 
-                transform 
-                hover:-translate-y-2
-                space-y-4"
-              >
+              <div className="bg-white p-4 sm:p-6 rounded-2xl min-h-[300px] flex flex-col justify-between border border-gray-100 shadow-lg hover:shadow-2xl hover:border-[#FC8233]/20transition-all duration-300 transform hover:-translate-y-2 space-y-4">
                 <div className="flex items-center mb-4">
-                  <div
-                    className="w-10 h-10 sm:w-12 sm:h-12 
-                    bg-[#FC8233]/10 
-                    rounded-full 
-                    flex 
-                    items-center 
-                    justify-center 
-                    mr-3 sm:mr-4 
-                    group-hover:bg-[#FC8233]/20 
-                    transition-colors 
-                    duration-300"
-                  >
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FC8233]/10 rounded-full flex items-center justify-center mr-3 sm:mr-4 group-hover:bg-[#FC8233]/20 transition-colors duration-300">
                     <span className="text-[#FC8233] text-xl sm:text-2xl font-bold">
                       {index + 1}
                     </span>
@@ -119,33 +94,11 @@ const AboutUsText = () => {
                   </h3>
                 </div>
 
-                <p
-                  className="text-sm sm:text-base text-gray-600 
-                  leading-relaxed 
-                  opacity-80 
-                  group-hover:opacity-100 
-                  transition-opacity 
-                  duration-300"
-                >
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                   {section.description}
                 </p>
-
-                <div
-                  className="h-1 
-                  w-full 
-                  bg-[#FC8233]/10 
-                  rounded-full 
-                  overflow-hidden 
-                  mt-4"
-                >
-                  <div
-                    className="h-full 
-                    bg-[#FC8233] 
-                    w-0 
-                    group-hover:w-full 
-                    transition-all 
-                    duration-500"
-                  ></div>
+                <div className="h-1 w-full bg-[#FC8233]/10 rounded-full overflow-hidden ">
+                  <div className="h-full bg-[#FC8233] w-0 group-hover:w-full transition-all  duration-500"></div>
                 </div>
               </div>
             </motion.div>
@@ -187,12 +140,12 @@ const AboutUsText = () => {
             <CompanyDescriptionsGrid
               companyDescriptions={companyDescriptions}
             />
-            <div className="relative group overflow-hidden rounded-2xl shadow-lg max-w-4xl mx-auto transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl px-4 sm:px-0">
+            <div className=" relative group overflow-hidden rounded-2xl shadow-lg h-[700px] w-[1500px] mx-auto transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl px-4 sm:px-0">
               <motion.img
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                src="https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg"
+                src="blob:https://www.facebook.com/fb7dcfd3-8b63-40bb-a338-8c424c2058b1"
                 alt="Stepper Riders"
                 className="w-full h-auto object-cover transition-transform duration-300 group-hover:brightness-90"
               />
