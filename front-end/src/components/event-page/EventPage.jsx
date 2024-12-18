@@ -17,7 +17,6 @@ const EventsPage = () => {
       }
       const data = await response.json();
       setEvents(data);
-      console.log(data);
     } catch (err) {
       setError(`Failed to load events: ${err.message}`);
     } finally {
@@ -44,7 +43,9 @@ const EventsPage = () => {
 
   if (isLoading) {
     return (
-      <div className="text-center py-12 text-gray-500">Loading events...</div>
+      <div className="text-center py-12 text-gray-500 mt-[200px]">
+        Loading events...
+      </div>
     );
   }
 
