@@ -11,9 +11,9 @@ import * as Yup from "yup";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
 
-if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
-  throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
-}
+// if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
+//   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
+// }
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const ITEM_HEIGHT = 48;

@@ -23,7 +23,7 @@ const Footer = () => {
           <div className="space-y-4 flex flex-col items-start">
             <h2 className="text-2xl font-bold text-gray-900">About</h2>
             <p className="text-gray-600 leading-relaxed">
-              Welcome to [Your Company Name], where Mongolia's beauty and
+              Welcome to [Your Company Name], where Mongolia&apos;s beauty and
               culture come alive! Explore the vast Gobi Desert, serene valleys,
               and nomadic traditions with our personalized tours. We create
               unforgettable journeys for solo travelers, families, and groups.
