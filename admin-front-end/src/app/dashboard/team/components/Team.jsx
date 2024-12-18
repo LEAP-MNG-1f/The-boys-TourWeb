@@ -1,6 +1,26 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 
+const colors = {
+  background: {
+    dark: "#121826",
+    card: "#1E293B",
+    input: "#0F172A",
+  },
+  text: {
+    primary: "#E2E8F0",
+    secondary: "#94A3B8",
+  },
+  primary: {
+    base: "#3B82F6",
+    hover: "#2563EB",
+  },
+  error: {
+    base: "#EF4444",
+    hover: "#DC2626",
+  },
+};
+
 export const TeamPage = () => {
   const [newTeamMember, setNewTeamMember] = useState({
     name: "",
@@ -104,7 +124,7 @@ export const TeamPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-screen-xl">
+    <div className="container mx-auto px-4 py-8 max-w-screen-xl min-h-screen">
       <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
         Team Page
       </h1>
@@ -113,18 +133,29 @@ export const TeamPage = () => {
         <button
           onClick={openModal}
           className="btn btn-primary btn-md sm:btn-wide"
+          style={{
+            backgroundColor: colors.primary.base,
+            "&:hover": { backgroundColor: colors.primary.hover },
+          }}
         >
           Add New Team Member
         </button>
       </div>
 
       <dialog ref={modalRef} className="modal modal-middle sm:modal-middle">
-        <div className="modal-box w-11/12 max-w-2xl">
+        <div
+          className="modal-box w-11/12 max-w-2xl"
+          style={{
+            backgroundColor: colors.background.card,
+            color: colors.text.primary,
+          }}
+        >
           <form method="dialog">
             <button
               type="button"
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
               onClick={closeModal}
+              style={{ color: colors.text.secondary }}
             >
               ✕
             </button>
@@ -136,61 +167,28 @@ export const TeamPage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text">Name</span>
-                </div>
-                <input
-                  type="text"
-                  name="name"
-                  value={newTeamMember.name}
-                  onChange={handleChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </label>
-
-              <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text">Image URL</span>
-                </div>
-                <input
-                  type="text"
-                  name="imageTeam"
-                  value={newTeamMember.imageTeam}
-                  onChange={handleChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </label>
-
-              <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text">Languages</span>
-                </div>
-                <input
-                  type="text"
-                  name="languege"
-                  value={newTeamMember.languege}
-                  onChange={handleChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </label>
-
-              <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text">Experience</span>
-                </div>
-                <input
-                  type="text"
-                  name="exprience"
-                  value={newTeamMember.exprience}
-                  onChange={handleChange}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </label>
+              {["name", "imageTeam", "languege", "exprience"].map((field) => (
+                <label key={field} className="form-control w-full">
+                  <div className="label">
+                    <span className="label-text">
+                      {field.charAt(0).toUpperCase() +
+                        field.slice(1).replace(/([A-Z])/g, " $1")}
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    name={field}
+                    value={newTeamMember[field]}
+                    onChange={handleChange}
+                    className="input input-bordered w-full"
+                    style={{
+                      backgroundColor: colors.background.input,
+                      color: colors.text.primary,
+                    }}
+                    required
+                  />
+                </label>
+              ))}
 
               <label className="form-control w-full md:col-span-2">
                 <div className="label">
@@ -201,6 +199,10 @@ export const TeamPage = () => {
                   value={newTeamMember.introduction}
                   onChange={handleChange}
                   className="textarea textarea-bordered w-full h-24"
+                  style={{
+                    backgroundColor: colors.background.input,
+                    color: colors.text.primary,
+                  }}
                   required
                 />
               </label>
@@ -210,6 +212,10 @@ export const TeamPage = () => {
               type="submit"
               disabled={isSubmitting}
               className="btn btn-primary w-full mt-4"
+              style={{
+                backgroundColor: colors.primary.base,
+                "&:hover": { backgroundColor: colors.primary.hover },
+              }}
             >
               {isSubmitting ? "Adding..." : "Add Team Member"}
             </button>
@@ -220,13 +226,17 @@ export const TeamPage = () => {
       <div className="mt-6">
         <h2 className="text-xl md:text-2xl font-bold mb-4">Team Members</h2>
         {teamData.length === 0 ? (
-          <p className="text-center text-[25px] text-red-500 ">0 Members</p>
+          <p className="text-center text-2xl text-red-500">0 Members</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {teamData.map((teamMember) => (
               <div
                 key={teamMember._id}
-                className="card bg-base-100 shadow-md rounded-lg overflow-hidden"
+                className="card shadow-md rounded-lg overflow-hidden"
+                style={{
+                  backgroundColor: colors.background.card,
+                  color: colors.text.primary,
+                }}
               >
                 <figure className="aspect-video">
                   <img
@@ -241,19 +251,32 @@ export const TeamPage = () => {
                   </h3>
                   <div className="space-y-1 text-sm">
                     <p>
-                      <strong>Languages:</strong> {teamMember.languege}
+                      <strong style={{ color: colors.text.secondary }}>
+                        Languages:
+                      </strong>{" "}
+                      {teamMember.languege}
                     </p>
                     <p>
-                      <strong>Experience:</strong> {teamMember.exprience}
+                      <strong style={{ color: colors.text.secondary }}>
+                        Experience:
+                      </strong>{" "}
+                      {teamMember.exprience}
                     </p>
                     <p className="line-clamp-2">
-                      <strong>Introduction:</strong> {teamMember.introduction}
+                      <strong style={{ color: colors.text.secondary }}>
+                        Introduction:
+                      </strong>{" "}
+                      {teamMember.introduction}
                     </p>
                   </div>
                   <div className="mt-3 flex justify-end">
                     <button
                       onClick={() => handleDelete(teamMember._id)}
                       className="btn btn-error btn-xs sm:btn-sm"
+                      style={{
+                        backgroundColor: colors.error.base,
+                        "&:hover": { backgroundColor: colors.error.hover },
+                      }}
                     >
                       Delete
                     </button>
