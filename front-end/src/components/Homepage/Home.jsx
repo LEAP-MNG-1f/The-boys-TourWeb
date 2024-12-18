@@ -8,7 +8,12 @@ import WalkDifference from "../head/Walk";
 export default function Homepage() {
   return (
     <div>
-      <HeaderPart />
+      <HeaderPart
+        home={true}
+        customTour={false}
+        event={false}
+        aboutUs={false}
+      />
       <Carousel />
       <div className="py-[50px]">
         <Hero />

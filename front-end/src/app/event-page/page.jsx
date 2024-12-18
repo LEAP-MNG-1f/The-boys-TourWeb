@@ -5,7 +5,12 @@ import { HeaderPart } from "@/components/Homepage/components/Header";
 export default function Home() {
   return (
     <div>
-      <HeaderPart />
+      <HeaderPart
+        home={false}
+        customTour={false}
+        event={true}
+        aboutUs={false}
+      />
       <EventsPage />
       <Footer />
     </div>

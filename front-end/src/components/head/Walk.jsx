@@ -80,7 +80,6 @@ const WalkDifference = () => {
         </div>
       </div>
 
-      {/* The Walk Difference Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-12 lg:mt-[200px]">
         <div className="space-y-8 order-2 lg:order-1">
           <div className="text-center">
