@@ -5,7 +5,12 @@ import AboutUsText from "./AboutUsText";
 const AboutUs = () => {
   return (
     <div>
-      <HeaderPart />
+      <HeaderPart
+        home={false}
+        customTour={false}
+        event={false}
+        aboutUs={true}
+      />
       <div className="flex flex-col gap-[100px]">
         <AboutUsText />
         <Footer />

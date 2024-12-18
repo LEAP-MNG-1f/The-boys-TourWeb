@@ -88,7 +88,12 @@ export default function Specialtour() {
 
   return (
     <div className="flex flex-col items-center justify-center px-4 sm:px-0 sm:pr-5">
-      <HeaderPart />
+      <HeaderPart
+        home={false}
+        customTour={true}
+        event={false}
+        aboutUs={false}
+      />
       <div className="flex flex-col pt-10 mt-10 justify-center w-full md:w-1/2">
         <h2 className="text-4xl font-bold mb-4">
           Plan <span className="text-orange-500">Your Trip</span>
