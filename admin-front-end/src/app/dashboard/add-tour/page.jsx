@@ -344,6 +344,7 @@ const PostTourData = () => {
                 value={formData.location}
                 onChange={handleChange}
                 required
+                placeholder="Ulaanbator, Mongolia etc."
                 className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </label>
@@ -358,6 +359,7 @@ const PostTourData = () => {
                 value={formData.startDate}
                 onChange={handleChange}
                 required
+                placeholder="2024/12/03 etc."
                 className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </label>
@@ -369,6 +371,7 @@ const PostTourData = () => {
                 name="endDate"
                 value={formData.endDate}
                 onChange={handleChange}
+                placeholder="2030/12/03 etc."
                 required
                 className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
