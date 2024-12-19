@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h4 className="text-4xl font-extrabold text-gray-800">
-            Explore the Seasons
+            Explore the <span className="text-orange-500">Seasons</span>
           </h4>
           <p className="text-[#696A75] mt-4 text-lg">
             Embrace the beauty of each season with us.

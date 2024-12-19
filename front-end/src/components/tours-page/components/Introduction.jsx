@@ -55,33 +55,33 @@ export const Introduction = ({ tour }) => {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="max-w-[1536px] w-full flex gap-5">
-        <div className="max-w-[1048px] w-full flex flex-col gap-5">
-          <div className="w-full flex flex-col gap-6 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl">
-            <div className="flex flex-col gap-2">
+      <div className="max-w-[1536px] w-full flex md:flex-row flex-col px-2 md:p-0 gap-2 md:gap-5">
+        <div className="max-w-[1048px] w-full flex flex-col gap-2 md:gap-5">
+          <div className="w-full flex flex-col gap-3 md:gap-6 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl">
+            <div className="flex flex-col gap-1 md:gap-2">
               <div className="flex">
-                <div className="pb-3 border-b border-[#F97316]">
-                  <p className="text-black font-roboto text-2xl font-semibold leading-6">
+                <div className="pb-1 md:pb-3 border-b border-[#F97316]">
+                  <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
                     Overview
                   </p>
                 </div>
               </div>
             </div>
-            <p className="text-black font-roboto text-lg font-normal ">
+            <p className="text-black font-roboto text-base md:text-lg font-normal ">
               {tour.description}
             </p>
           </div>
-          <div className="max-w-[1048px] w-full flex flex-col gap-8 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl">
-            <div className="flex flex-col gap-2">
+          <div className="max-w-[1048px] w-full flex flex-col gap-8 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl">
+            <div className="flex flex-col gap-1 md:gap-2">
               <div className="flex">
-                <div className="pb-3 border-b border-[#F97316]">
-                  <p className="text-black font-roboto text-2xl font-semibold leading-6">
+                <div className="pb-1 md:pb-3 border-b border-[#F97316]">
+                  <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
                     Itinerary
                   </p>
                 </div>
               </div>
             </div>
-            <div className="flex gap-5 ">
+            <div className="flex gap-3 md:gap-5 ">
               <div className="w-[2px] relative h-full bg-[#F97316]">
                 <div className="absolute left-[50%] translate-x-[-50%] top-[-20px]">
                   <Location />
@@ -99,18 +99,18 @@ export const Introduction = ({ tour }) => {
                         aria-controls="panel1d-content"
                         id="panel1d-header"
                       >
-                        <div className="flex items-center gap-5">
-                          <p className="text-black font-sans text-lg font-normal">
+                        <div className="flex items-center gap-5 text-center">
+                          <p className="text-black font-sans text-base md:text-lg font-normal min-w-[44px]">
                             Day {value.day}
                           </p>
                           <div className="h-full w-[1px] bg-[#242424]"></div>
-                          <p className="text-black font-sans text-lg font-normal">
+                          <p className="text-black font-sans text-base md:text-lg font-normal">
                             {value.dayTitle}
                           </p>
                         </div>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <p className="text-black font-roboto text-lg font-medium leading-6">
+                        <p className="text-black font-roboto text-base md:text-lg font-medium leading-6">
                           Period of time
                         </p>
                         {Array.isArray(value.periodOfTime)
@@ -120,14 +120,14 @@ export const Introduction = ({ tour }) => {
                                 key={index}
                               >
                                 <div className="flex gap-2">
-                                  <p className="font-roboto text-black">
+                                  <p className="font-roboto text-black text-sm md:text-base">
                                     {activity.when} : {activity.notes}
                                   </p>
                                 </div>
                               </div>
                             ))
                           : ""}
-                        <p className="text-black font-roboto text-lg font-medium leading-6">
+                        <p className="text-black font-roboto text-base md:text-lg font-medium leading-6">
                           Activities
                         </p>
                         {Array.isArray(value.activities)
@@ -135,17 +135,17 @@ export const Introduction = ({ tour }) => {
                               <div className="flex flex-col" key={index}>
                                 <div className="flex items-center gap-2">
                                   <div className="w-[6px] h-[6px] bg-[#F97316] rounded-full"></div>
-                                  <p className="font-roboto text-black">
+                                  <p className="font-roboto text-black text-sm md:text-base">
                                     {activity.activityName}
                                   </p>
                                 </div>
-                                <p className="px-[14px] font-roboto">
+                                <p className="px-[14px] font-roboto text-sm md:text-base">
                                   {activity.notes}
                                 </p>
                               </div>
                             ))
                           : ""}
-                        <p className="text-black font-roboto text-lg font-medium leading-6">
+                        <p className="text-black font-roboto text-base md:text-lg font-medium leading-6">
                           Accommodation
                         </p>
                         {Array.isArray(value.accommodation)
@@ -153,11 +153,11 @@ export const Introduction = ({ tour }) => {
                               <div className="flex flex-col" key={index}>
                                 <div className="flex items-center gap-2">
                                   <div className="w-[6px] h-[6px] bg-[#F97316] rounded-full"></div>
-                                  <p className="font-roboto text-black">
+                                  <p className="font-roboto text-black text-sm md:text-base">
                                     {activity.accomName}
                                   </p>
                                 </div>
-                                <p className="px-[14px] font-roboto">
+                                <p className="px-[14px] font-roboto text-sm md:text-base">
                                   {activity.notes}
                                 </p>
                               </div>
@@ -170,13 +170,13 @@ export const Introduction = ({ tour }) => {
               </div>
             </div>
           </div>
-          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex">
+          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl flex">
             <div className="w-full">
-              <div className="flex">
-                <div className="flex gap-6 flex-col w-full">
+              <div className="flex gap-1">
+                <div className="flex gap-3 md:gap-6 flex-col w-full">
                   <div className="w-full flex">
-                    <div className="pb-3 border-b border-[#F97316]">
-                      <p className="text-black font-roboto  text-2xl font-semibold leading-6">
+                    <div className="pb-1 md:pb-3 border-b border-[#F97316]">
+                      <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
                         Service included
                       </p>
                     </div>
@@ -188,7 +188,7 @@ export const Introduction = ({ tour }) => {
                           <div className="w-6 h-6 flex items-center justify-center">
                             <CheckIcon />
                           </div>
-                          <p className="text-black font-sans text-lg font-normal">
+                          <p className="text-black font-sans text-base md:text-lg font-normal">
                             {value}
                           </p>
                         </div>
@@ -196,10 +196,10 @@ export const Introduction = ({ tour }) => {
                     })}
                   </div>
                 </div>
-                <div className="flex gap-6 flex-col w-full">
+                <div className="flex gap-3 md:gap-6 flex-col w-full">
                   <div className="w-full flex">
-                    <div className="pb-3 border-b border-[#F97316]">
-                      <p className="text-black font-roboto  text-2xl font-semibold leading-6">
+                    <div className="pb-1 md:pb-3 border-b border-[#F97316]">
+                      <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
                         Service not included
                       </p>
                     </div>
@@ -211,7 +211,7 @@ export const Introduction = ({ tour }) => {
                           <div className="w-6 h-6 flex items-center justify-center">
                             <NotCheckIcon />
                           </div>
-                          <p className="text-black font-sans text-lg font-normal ">
+                          <p className="text-black font-sans text-base md:text-lg font-normal ">
                             {value}
                           </p>
                         </div>
@@ -223,10 +223,10 @@ export const Introduction = ({ tour }) => {
             </div>
           </div>
           <div className="h-[500px] shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1 md:gap-2">
               <div className="flex">
-                <div className="pb-3 border-b border-[#F97316]">
-                  <p className="text-black font-roboto text-2xl font-semibold leading-6">
+                <div className="pb-1 md:pb-3 border-b border-[#F97316]">
+                  <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
                     Tour map
                   </p>
                 </div>
@@ -238,10 +238,10 @@ export const Introduction = ({ tour }) => {
           </div>
         </div>
         <div className="w-full max-w-[468px] flex flex-col gap-5">
-          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex flex-col gap-6">
+          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl flex flex-col gap-3 md:gap-6">
             <div className="flex">
-              <div className="pb-3 border-b border-[#F97316]">
-                <p className="text-black font-roboto text-2xl font-semibold leading-6">
+              <div className="pb-1 md:pb-3 border-b border-[#F97316]">
+                <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
                   Tour price
                 </p>
               </div>
@@ -264,10 +264,10 @@ export const Introduction = ({ tour }) => {
               })}
             </div>
           </div>
-          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex flex-col gap-6">
+          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl flex flex-col gap-3 md:gap-6">
             <div className="flex">
-              <div className="pb-3 border-b border-[#F97316]">
-                <p className="text-black font-roboto text-2xl font-semibold leading-6">
+              <div className="pb-1 md:pb-3 border-b border-[#F97316]">
+                <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
                   Tour schedule
                 </p>
               </div>
@@ -282,14 +282,12 @@ export const Introduction = ({ tour }) => {
               </p>
             </div>
             <div className="flex items-center gap-4">
+              <button className="w-full h-12"></button>
               <Link href="/book-now" className="w-full">
                 <button className="w-full h-12 bg-[#F97316] rounded-lg text-white font-roboto text-xl font-medium">
                   Book now
                 </button>
               </Link>
-              <button className="w-full h-12 border border-[#F97316] rounded-lg text-[#F97316] font-roboto text-xl font-medium">
-                Call
-              </button>
             </div>
           </div>
         </div>

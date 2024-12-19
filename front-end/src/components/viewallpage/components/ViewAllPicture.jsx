@@ -52,14 +52,14 @@ const ViewAllPicture = () => {
   }, [tourData]);
 
   const renderLoadingOrError = (content) => (
-    <div className="container mx-auto relative overflow-hidden rounded-2xl shadow-lg min-h-[50vh] sm:h-[65vh] mt-8 sm:mt-16 flex justify-center items-center">
+    <div className="container mx-auto relative overflow-hidden rounded-2xl shadow-lg h-[60] md:h-[75vh]flex justify-center items-center">
       {content}
     </div>
   );
 
   if (isLoading) {
     return renderLoadingOrError(
-      <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
+      <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-orange-500"></div>
     );
   }
 
@@ -69,7 +69,7 @@ const ViewAllPicture = () => {
         <p>{error}</p>
         <button
           onClick={fetchData}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="mt-4 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
         >
           Try Again
         </button>
@@ -83,7 +83,7 @@ const ViewAllPicture = () => {
         <p>No categories found</p>
         <button
           onClick={fetchData}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="mt-4 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
         >
           Refresh
         </button>
@@ -95,7 +95,7 @@ const ViewAllPicture = () => {
 
   return (
     <div
-      className="container mx-auto relative overflow-hidden rounded-2xl shadow-lg min-h-[50vh] sm:h-[65vh] mt-8 sm:mt-16"
+      className="w-full relative overflow-hidden shadow-lg md:h-[75vh] h-[60vh]"
       style={{
         backgroundImage: `url(${currentImage.imageCategory})`,
         backgroundSize: "cover",

@@ -80,25 +80,41 @@ export const Details = ({
 
     validationSchema,
     onSubmit: async (values) => {
-      const totalAmount = calculateTotalAmount();
-      const requestData = {
-        ...values,
-        totalamount: totalAmount,
-      };
-      try {
-        const response = await fetch(`http://localhost:8000/api/orders`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData),
-        });
-        const data = await response.json();
+      if (formik.isValid) {
+        // Form data is valid, continue with payment
+        const totalAmount = calculateTotalAmount();
+        const requestData = {
+          ...values,
+          totalamount: totalAmount,
+        };
+        try {
+          const response = await fetch(`http://localhost:8000/api/orders`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          });
+          if (!response.ok)
+            throw new Error(`HTTP error! status: ${response.status}`);
 
-        if (!response.ok)
-          throw new Error(`HTTP error! status: ${response.status}`);
-      } catch (error) {
-        console.error(error);
+          const stripe = await stripePromise;
+          const res = await fetch("/api/stripe", {
+            method: "POST",
+            body: JSON.stringify({
+              amount: totalAmount,
+              title: tour.title,
+              images: tour.images,
+            }),
+            headers: { "Content-Type": "application/json" },
+          });
+          const { sessionId } = await res.json();
+          await stripe.redirectToCheckout({ sessionId });
+        } catch (error) {
+          console.error("Error processing payment:", error);
+        }
+      } else {
+        console.error("Validation failed. Fix errors before submission.");
       }
     },
   });
@@ -125,38 +141,6 @@ export const Details = ({
 
     setIsFilled(isAllFieldsFilled);
   }, [formik.values, calculateTotalAmount]);
-
-  //--------------------Payment--------------------//
-
-  const handler = async () => {
-    const amount = calculateTotalAmount();
-    const title = tour.title;
-    const images = tour.images;
-    try {
-      const stripe = await stripePromise;
-      const res = await fetch("/api/stripe", {
-        method: "POST",
-        body: JSON.stringify({
-          amount,
-          title,
-          images,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-      const { sessionId } = await res.json();
-      console.log(sessionId, "front");
-
-      const { error } = await stripe.redirectToCheckout({ sessionId });
-      console.log(error);
-      if (error) {
-        console.log("errooorrrr", error);
-        // push("/error");
-      }
-    } catch (error) {
-      console.log(error);
-      // push("/error");
-    }
-  };
 
   return (
     <div className="w-full flex flex-col items-center gap-[100px] mt-[144px]">
@@ -437,12 +421,11 @@ export const Details = ({
                 Clear
               </button>
               <button
-                onClick={handler}
                 type="submit"
                 disabled={!isFilled}
-                className={`w-full h-12 rounded-lg font-roboto text-xl font-medium transition-all duration-300 hover:bg-orange-600 ${
+                className={`w-full h-12 rounded-lg font-roboto text-xl font-medium transition-all duration-300 ${
                   isFilled
-                    ? "bg-[#F97316] text-white"
+                    ? "bg-[#F97316] text-white hover:bg-orange-600"
                     : "bg-[#EEEFF2] text-[rgba(28,32,36,0.24)]"
                 }`}
               >
