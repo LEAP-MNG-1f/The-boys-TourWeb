@@ -9,6 +9,6 @@ const orderRouter = express.Router();
 
 orderRouter.get("/orders", getAllOrders);
 orderRouter.post("/orders", createOrder);
-orderRouter.delete("/orders", deleteOrder);
+orderRouter.delete("/orders/:id", deleteOrder);
 
 export default orderRouter;
