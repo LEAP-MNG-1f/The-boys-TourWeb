@@ -58,8 +58,8 @@ const Carousel = () => {
 
   if (isLoading || tourData.length === 0) {
     return (
-      <div className="container mx-auto relative overflow-hidden rounded-[15px] shadow-lg h-[65vh] mt-[100px] flex justify-center items-center">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
+      <div className="w-full mx-auto relative overflow-hidden shadow-lg h-[65vh] mt-[100px] flex justify-center items-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-orange-500"></div>
       </div>
     );
   }

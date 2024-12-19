@@ -144,12 +144,12 @@ export const Details = ({
   }, [formik.values, calculateTotalAmount]);
 
   return (
-    <div className="w-full flex flex-col items-center gap-[100px] mt-[144px]">
+    <div className="w-full flex flex-col items-center gap-20 md:gap-[100px] mt-[124px] md:mt-[144px]">
       <div className="relative max-w-[1080px] w-full">
         <div className="flex items-center justify-center">
           <div className="relative w-[33.33%] flex justify-center">
             <div className="w-12 h-12 bg-[#F97316] rounded-full"></div>
-            <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 font-roboto text-white text-3xl font-semibold">
+            <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 font-roboto text-white text-2xl md:text-3xl font-semibold">
               1
             </p>
             <p className="absolute top-[110%] left-[50%] translate-x-[-50%] text-black font-roboto text-lg font-medium">
@@ -158,7 +158,7 @@ export const Details = ({
           </div>
           <div className="relative w-[33.33%] flex justify-center">
             <div className="w-12 h-12 bg-[#F97316] rounded-full"></div>
-            <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 font-roboto text-white text-3xl font-semibold">
+            <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 font-roboto text-white text-2xl md:text-3xl font-semibold">
               2
             </p>
             <p className="absolute top-[110%] left-[50%] translate-x-[-50%] text-black font-roboto text-lg font-medium">
@@ -167,7 +167,7 @@ export const Details = ({
           </div>
           <div className="relative w-[33.33%] flex justify-center">
             <div className="w-12 h-12 bg-[#F97316] rounded-full"></div>
-            <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 font-roboto text-white text-3xl font-semibold">
+            <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 font-roboto text-white text-2xl md:text-3xl font-semibold">
               3
             </p>
             <p className="absolute top-[110%] left-[50%] translate-x-[-50%] text-black font-roboto text-lg font-medium">
@@ -179,20 +179,20 @@ export const Details = ({
       </div>
       <form
         onSubmit={formik.handleSubmit}
-        className="max-w-[1080px] w-full flex gap-20"
+        className="max-w-[1080px] w-full flex md:flex-row flex-col gap-2 md:gap-20 px-2 "
       >
-        <div className="w-full bg-white p-6 rounded-2xl shadow-[0px_0px_20px_0px_rgba(0,0,0,0.05)]">
-          <div className="w-full flex flex-col gap-6">
+        <div className="w-full bg-white p-4 md:p-6 rounded-2xl shadow-[0px_0px_20px_0px_rgba(0,0,0,0.05)]">
+          <div className="w-full flex flex-col gap-3 md:gap-6">
             <div className="flex flex-col gap-2">
               <div className="flex">
-                <div className="pb-3 border-b border-[#F97316]">
+                <div className="pb-1 md:pb-3 border-b border-[#F97316]">
                   <p className="text-black font-roboto text-2xl font-semibold leading-6">
                     Personal information
                   </p>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1 md:gap-2">
               <p className="text-black text-base font-roboto font-normal">
                 Full name
               </p>
@@ -289,18 +289,18 @@ export const Details = ({
                 name="questions"
                 type="text"
                 placeholder="Questions or comments"
-                className="h-[200px] px-4 py-3 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-5 outline-none resize-none"
+                className="h-[100px] md:h-[200px] px-4 py-3 rounded-[4px] border border-[#ECEDF0] bg-[#F7F7F8] text-black font-sans text-base font-normal leading-5 outline-none resize-none"
                 value={formik.values.questions}
                 onChange={formik.handleChange}
               />
             </div>
           </div>
         </div>
-        <div className="w-full bg-white p-6 rounded-2xl shadow-[0px_0px_20px_0px_rgba(0,0,0,0.05)]">
-          <div className="w-full flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
+        <div className="w-full bg-white p-4 md:p-6 rounded-2xl shadow-[0px_0px_20px_0px_rgba(0,0,0,0.05)]">
+          <div className="w-full flex flex-col gap-3 md:gap-6">
+            <div className="flex flex-col gap-1 md:gap-2">
               <div className="flex">
-                <div className="pb-3 border-b border-[#F97316]">
+                <div className="pb-1 md:pb-3 border-b border-[#F97316]">
                   <p className="text-black font-roboto text-2xl font-semibold leading-6">
                     Booking information
                   </p>
@@ -362,7 +362,7 @@ export const Details = ({
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex">
-                <div className="pb-3 border-b border-[#F97316]">
+                <div className="pb-1 md:pb-3 border-b border-[#F97316]">
                   <p className="text-black font-roboto text-2xl font-semibold leading-6">
                     Your selected tour: {tour.title}
                   </p>
@@ -416,7 +416,7 @@ export const Details = ({
             <div className="flex gap-4">
               <button
                 type="button"
-                className="w-full h-12 bg-white rounded-lg text-[#F97316] font-roboto text-xl font-medium border border-[#F97316]"
+                className="w-full h-12 bg-white rounded-lg text-[#F97316] hover:text-orange-600 hover:border-orange-600 transition-all duration-300 font-roboto text-xl font-medium border border-[#F97316]"
                 onClick={() => formik.resetForm()}
               >
                 Clear

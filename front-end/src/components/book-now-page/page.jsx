@@ -5,14 +5,16 @@ import Footer from "../Homepage/components/Footer";
 import { HeaderPart } from "../Homepage/components/Header";
 import { Details } from "./components/Details";
 import { BACKEND_URL } from "@/constant";
+import { useParams } from "next/navigation";
 
 const BookNowPage = () => {
+  const params = useParams();
   const [price, setprice] = useState([]);
   const [tour, setTour] = useState([]);
 
   const fetchDataTour = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/tours/Gobi-Tour`);
+      const response = await fetch(`${BACKEND_URL}/tours/${params.id}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
