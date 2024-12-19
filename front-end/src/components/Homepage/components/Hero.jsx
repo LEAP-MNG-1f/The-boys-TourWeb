@@ -100,7 +100,7 @@ export const Hero = () => {
           className={`text-black py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
             filter === "all"
               ? "bg-orange-500 text-white"
-              : "bg-gray-200 text-black hover:bg-orange-100"
+              : "bg-gray-200 text-black hover:bg-gray-300"
           }`}
         >
           all
@@ -112,7 +112,7 @@ export const Hero = () => {
             className={`text-black py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
               filter === category._id
                 ? "bg-orange-500 text-white"
-                : "bg-gray-200 text-black hover:bg-orange-100"
+                : "bg-gray-200 text-black hover:bg-gray-300"
             }`}
           >
             {category.name}

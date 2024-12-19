@@ -4,57 +4,31 @@ import React, { useState, useEffect } from "react";
 import { LeftArrow, RightArrow } from "../icons";
 
 const Carousel = ({ tour }) => {
-  const slides = [
-    {
-      title: "MONGOLIAN GOBI",
-      description:
-        "Explore the vast and mysterious landscapes of the Gobi Desert.",
-      buttonText: "Book now",
-      imageUrl:
-        "https://cdn.bookatrekking.com/data/images/2019/08/gobi-desert-new.webp",
-    },
-    {
-      title: "KHUVSGUL LAKE",
-      description:
-        "Discover the tranquility of pristine lakes and calm waters.",
-      buttonText: "Book now",
-      imageUrl:
-        "https://cdn.mongolia-guide.com/generated/aimag/yB5tmMud3F7rJsh124LfK4ML8rLIdCKXHqTaw3tX_1920_1000.jpeg",
-    },
-    {
-      title: "LUSH FORESTS",
-      description: "Escape into the wilderness of vibrant, peaceful forests.",
-      buttonText: "Book now",
-      imageUrl:
-        "https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg",
-    },
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 4000);
+    if (tour.length > 0) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % tour.length);
+      }, 5000);
 
-    return () => clearInterval(interval);
-  }, [slides.length]);
+      return () => clearInterval(interval);
+    }
+  }, [tour]);
 
-  const nextSlide = () => {
-    setCurrentIndex((currentIndex + 1) % slides.length);
-  };
+  const currentImage = tour[currentImageIndex];
 
-  const prevSlide = () => {
-    setCurrentIndex((currentIndex - 1 + slides.length) % slides.length);
-  };
+  console.log(currentImage);
 
   return (
-    <div className="relative overflow-hidden shadow-lg h-[75vh]">
+    <div className="relative overflow-hidden shadow-lg h-[60vh] md:h-[75vh]">
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="overflow-hidden shadow-lg md:h-[75vh] h-[60vh]"
         style={{
-          backgroundImage: `url(${slides[currentIndex].imageUrl})`,
+          // backgroundImage: `url(${currentImage.images})`,
           backgroundSize: "cover",
+          backgroundPosition: "center",
+          transition: "background-image 0.5s ease-in-out",
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -68,20 +42,6 @@ const Carousel = ({ tour }) => {
             </div>
           </div>
         </div>
-        <button
-          className="absolute left-10 top-[50%] translate-y-[-50%] bg-white w-10 h-10 flex justify-center items-center rounded-full shadow-md"
-          onClick={prevSlide}
-          aria-label="Previous Slide"
-        >
-          <LeftArrow />
-        </button>
-        <button
-          className="absolute right-10 top-[50%] translate-y-[-50%] bg-white w-10 h-10 flex justify-center items-center rounded-full shadow-md"
-          onClick={nextSlide}
-          aria-label="Next Slide"
-        >
-          <RightArrow />
-        </button>
       </div>
     </div>
   );

@@ -95,7 +95,7 @@ const EventsPage = () => {
                 </p>
                 <button
                   onClick={() => toggleEventDescription(event._id)}
-                  className="text-blue-600 mt-4 flex items-center"
+                  className="text-orange-500 mt-4 flex items-center"
                 >
                   {expandedEventId === event._id ? "Collapse" : "Read More"}
                 </button>
@@ -106,7 +106,7 @@ const EventsPage = () => {
                   </p>
                   <div className="flex justify-end">
                     <Link href={"/view-all"}>
-                      <button className=" text-white bg-orange-500 w-[200px] h-[40px] rounded-lg border border-orange-400">
+                      <button className=" text-white bg-orange-500 w-[200px] h-[40px] rounded-lg hover:bg-orange-600 transition-all duration-300">
                         {event.categoryId.name}
                       </button>
                     </Link>

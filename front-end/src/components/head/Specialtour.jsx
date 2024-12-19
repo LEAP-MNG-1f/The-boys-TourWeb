@@ -92,7 +92,7 @@ export default function Specialtour() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-4 sm:px-0 sm:pr-5">
+    <div className="flex flex-col items-center justify-center px-4 sm:px-4">
       <HeaderPart
         home={false}
         customTour={true}

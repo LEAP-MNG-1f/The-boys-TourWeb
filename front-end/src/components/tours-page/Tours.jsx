@@ -74,7 +74,7 @@ const TourPage = () => {
       {loading ? ( // Ачаалал явагдаж байгаа эсэхийг харуулна
         <div className="text-center">Loading...</div>
       ) : (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-2 md:gap-5">
           <Carousel tour={tour} />
           <Introduction tour={tour} />
         </div>

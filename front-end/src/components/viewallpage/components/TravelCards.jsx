@@ -116,7 +116,7 @@ const TravelCards = () => {
                 </div>
                 <Link
                   href={`/view-all/${tour?.title}`}
-                  className="w-full sm:w-auto bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-all duration-300"
+                  className="w-full sm:w-auto bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-all duration-300 text-center"
                 >
                   Book Now
                 </Link>
