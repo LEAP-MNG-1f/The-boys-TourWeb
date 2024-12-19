@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Card } from "../card/Card";
+import { BACKEND_URL } from "@/constant";
 
 export const Hero = () => {
   const [selectedSeason, setSelectedSeason] = useState(null);
@@ -12,7 +13,7 @@ export const Hero = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/categories", {
+      const response = await fetch(`${BACKEND_URL}/categories`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +41,7 @@ export const Hero = () => {
 
   const fetchTourData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/tours", {
+      const response = await fetch(`${BACKEND_URL}/tours`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 "use client";
+import { BACKEND_URL } from "@/constant";
 import React, { useState, useEffect } from "react";
 
 const ViewAllPicture = () => {
@@ -10,7 +11,7 @@ const ViewAllPicture = () => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:8000/api/categories", {
+      const response = await fetch(`${BACKEND_URL}/categories`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

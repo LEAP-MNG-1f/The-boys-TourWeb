@@ -6,18 +6,18 @@ import { HeaderPart } from "../Homepage/components/Header";
 import Carousel from "./components/Carousel";
 import { Introduction } from "./components/Introduction";
 import { useParams, useRouter } from "next/navigation";
+import { BACKEND_URL } from "@/constant";
 
 const TourPage = () => {
   // const router = useRouter();
   const params = useParams();
   const [tour, setTour] = useState([]);
   const [loading, setLoading] = useState(true); // Ачааллаж байгааг харуулах төлөв
-  const baseUrl = "http://localhost:8000/api"; // API үндсэн зам
 
   // Fetch Tour Data
   const fetchDataTour = async () => {
     try {
-      const response = await fetch(`${baseUrl}/tours/${params.id}`);
+      const response = await fetch(`${BACKEND_URL}/tours/${params.id}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -33,7 +33,7 @@ const TourPage = () => {
   // Increment Page Views
   const incrementPageView = async (pageId) => {
     try {
-      const response = await fetch(`${baseUrl}/views`, {
+      const response = await fetch(`${BACKEND_URL}/views`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

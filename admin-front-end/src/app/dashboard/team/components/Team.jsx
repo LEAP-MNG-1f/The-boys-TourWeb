@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import { Dialog } from "./Dialog";
+import { TeamMember } from "./TeamMember";
 
 export const TeamPage = () => {
   const [newTeamMember, setNewTeamMember] = useState({
@@ -110,11 +112,6 @@ export const TeamPage = () => {
       alert(`Error: ${error.message}`);
     }
   };
-
-  // bg - #1512c2
-  // bgsoft - #182237
-  // textsoft - #b7bac1
-
   return (
     <div className="container mx-auto px-4 py-8 max-w-screen-xl">
       <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
@@ -129,151 +126,20 @@ export const TeamPage = () => {
           Add New Team Member
         </button>
       </div>
-
-      <dialog ref={modalRef} className="modal modal-middle sm:modal-middle">
-        <div className="modal-box bg-[#151c2c] w-11/12 max-w-2xl">
-          <form method="dialog">
-            <button
-              type="button"
-              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-              onClick={closeModal}
-            >
-              ✕
-            </button>
-          </form>
-
-          <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center">
-            Create New Team Member
-          </h2>
-
-          <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <label className="form-control  w-full">
-                <div className="label">
-                  <span className="label-text text-white ">Name</span>
-                </div>
-                <input
-                  type="text"
-                  name="name"
-                  value={newTeamMember.name}
-                  onChange={handleChange}
-                  className="input input-bordered w-full bg-[#182237] "
-                  required
-                />
-              </label>
-
-              <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text text-white">Image URL</span>
-                </div>
-                <input
-                  type="text"
-                  name="imageTeam"
-                  value={newTeamMember.imageTeam}
-                  onChange={handleChange}
-                  className="input input-bordered w-full bg-[#182237]"
-                  required
-                />
-              </label>
-
-              <label className="form-control w-full">
-                <div className="label ">
-                  <span className="label-text text-white">Languages</span>
-                </div>
-                <input
-                  type="text"
-                  name="language"
-                  value={newTeamMember.language}
-                  onChange={handleChange}
-                  className="input input-bordered w-full bg-[#182237]"
-                  required
-                />
-              </label>
-
-              <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text text-white">Experience</span>
-                </div>
-                <input
-                  type="text"
-                  name="experience"
-                  value={newTeamMember.experience}
-                  onChange={handleChange}
-                  className="input input-bordered w-full bg-[#182237] "
-                  required
-                />
-              </label>
-
-              <label className="form-control w-full md:col-span-2">
-                <div className="label">
-                  <span className="label-text text-white">Introduction</span>
-                </div>
-                <textarea
-                  name="introduction"
-                  value={newTeamMember.introduction}
-                  onChange={handleChange}
-                  className="textarea textarea-bordered w-full h-24 bg-[#182237]"
-                  required
-                />
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn btn-primary w-full mt-4"
-            >
-              {isSubmitting ? "Adding..." : "Add Team Member"}
-            </button>
-          </form>
-        </div>
-      </dialog>
-
+      <Dialog
+        modalRef={modalRef}
+        closeModal={closeModal}
+        handleSubmit={handleSubmit}
+        newTeamMember={newTeamMember}
+        handleChange={handleChange}
+        isSubmitting={isSubmitting}
+      />
       <div className="mt-6">
         <h2 className="text-xl md:text-2xl font-bold mb-4">Team Members</h2>
         {teamData.length === 0 ? (
           <p className="text-center text-[25px] text-red-500 ">0 Members</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {teamData.map((teamMember) => (
-              <div
-                key={teamMember._id}
-                className="card bg-[#182237] shadow-md rounded-lg overflow-hidden"
-              >
-                <figure className="aspect-video">
-                  <img
-                    src={teamMember.imageTeam}
-                    alt={teamMember.name}
-                    className="w-full h-full object-cover"
-                  />
-                </figure>
-                <div className="card-body p-4">
-                  <h3 className="card-title text-base md:text-lg font-bold mb-2">
-                    {teamMember.name}
-                  </h3>
-                  <div className="space-y-1 text-sm">
-                    <p>
-                      <strong>Languages:</strong> {teamMember.language}
-                    </p>
-                    <p>
-                      <strong>Experience:</strong> {teamMember.experience}
-                    </p>
-                    <p className="line-clamp-2">
-                      <strong>Introduction:</strong> {teamMember.introduction}
-                    </p>
-                  </div>
-                  <div className="mt-3 flex justify-end">
-                    <button
-                      onClick={() => handleDelete(teamMember._id)}
-                      className="btn btn-error btn-xs sm:btn-sm"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TeamMember teamData={teamData} handleDelete={handleDelete} />
         )}
       </div>
     </div>

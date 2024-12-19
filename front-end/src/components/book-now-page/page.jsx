@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Footer from "../Homepage/components/Footer";
 import { HeaderPart } from "../Homepage/components/Header";
 import { Details } from "./components/Details";
+import { BACKEND_URL } from "@/constant";
 
 const BookNowPage = () => {
   const [price, setprice] = useState([]);
@@ -11,7 +12,7 @@ const BookNowPage = () => {
 
   const fetchDataTour = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/tours/Gobi-Tour`);
+      const response = await fetch(`${BACKEND_URL}/tours/Gobi-Tour`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

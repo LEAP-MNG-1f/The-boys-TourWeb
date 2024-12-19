@@ -4,9 +4,6 @@ import {
   Select,
   MenuItem,
   OutlinedInput,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
   Box,
   Alert,
   IconButton,
@@ -17,7 +14,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { HeaderPart } from "../Homepage/components/Header";
 import emailjs from "@emailjs/browser";
 import { countries } from "./constants";
-import Footer from "../Homepage/components/Footer";
 import { SpecialComponents } from "./components/SpecialComponents";
 import { HowMuchWould } from "./components/HowMuchWould";
 import { IfYouHaveBeen } from "./components/IfYouHaveBeen";
