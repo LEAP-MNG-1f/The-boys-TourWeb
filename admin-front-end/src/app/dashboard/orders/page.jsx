@@ -14,7 +14,7 @@ const OrderPage = () => {
         const data = await response.json();
         setOrders(data.data);
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.log("Error fetching categories:", error);
       }
     };
 

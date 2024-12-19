@@ -344,7 +344,7 @@ const PostTourData = () => {
                 value={formData.location}
                 onChange={handleChange}
                 required
-                placeholder="Ulaanbator, Mongolia etc."
+                placeholder="image URL"
                 className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </label>
@@ -447,6 +447,7 @@ const PostTourData = () => {
                     </span>
                     <input
                       type="number"
+                      placeholder="1, 2, 3 etc."
                       value={plan.day}
                       onChange={(e) =>
                         handleDailyPlanChange(planIndex, "day", e.target.value)

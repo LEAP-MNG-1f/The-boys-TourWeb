@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+// import Link from "next/navigation";
 import { getSession } from "@auth0/nextjs-auth0";
 
 const Sidebar = () => {
@@ -110,12 +111,12 @@ const Sidebar = () => {
           <div className="flex flex-col gap-4">
             <h2 className="text-[#b7bac1] text-xs font-bold">User</h2>
             <div className="flex flex-col gap-2">
-              <a href="/api/auth/logout">
+              <Link href="/api/auth/logout">
                 <button className="btn btn-ghost w-full justify-start font-normal hover:bg-slate-700">
                   <LogOut width={22} />
                   Logout
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
