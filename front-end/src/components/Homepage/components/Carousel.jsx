@@ -1,4 +1,5 @@
 "use client";
+import { BACKEND_URL } from "@/constant";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
@@ -9,31 +10,11 @@ const Carousel = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [prevImageIndex, setPrevImageIndex] = useState(null);
   const [thumbnailImages, setThumbnailImages] = useState([]);
-  // const thumbnailImages = [
-  //   "https://cdn.mongolia-guide.com/generated/aimag/yB5tmMud3F7rJsh124LfK4ML8rLIdCKXHqTaw3tX_1920_1000.jpeg",
-  //   "https://www.stepperiders.mn/public/storage/scJB23uf9SGsD1kzSparTueVnLzkzgRlOM2pyJVM.jpg",
-  //   "https://cdn.bookatrekking.com/data/images/2019/08/gobi-desert-new.webp",
-  //   "https://www.toursmongolia.com/uploads/landscape%20mongolian%20gobi%20nature%20destination.jpg",
-  // ];
-
-  // useEffect(() => {
-  //   const fetchThumbnailImages = async () => {
-  //     try {
-  //       const response = await fetch(`http://localhost:8000/api/tours`);
-  //       const data = await response.json();
-  //       setThumbnailImages(data);
-  //     } catch (error) {
-  //       console.error("Error fetching tour data:", error);
-  //     }
-  //   };
-
-  //   fetchThumbnailImages();
-  // }, []);
 
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:8000/api/tours", {
+      const response = await fetch(`${BACKEND_URL}/tours`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 "use client";
+import { BACKEND_URL } from "@/constant";
 import Link from "next/link";
 import { useState, useEffect, useMemo } from "react";
 
@@ -11,7 +12,7 @@ const EventsPage = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/events");
+      const response = await fetch(`${BACKEND_URL}/events`);
       if (!response.ok) {
         throw new Error(`HTTP Error: ${response.status}`);
       }

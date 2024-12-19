@@ -8,8 +8,11 @@ import MuiAccordionSummary, {
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import { useState } from "react";
-import { CheckIcon, Location, NotCheckIcon } from "../icons";
-import Link from "next/link";
+import { Location } from "../icons";
+import TourMapCard from "./TourIncludeMap";
+import { TourPrice } from "./TourPrice";
+import { Overview } from "./TourOverview";
+import { TourIternary } from "./TourIternary";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -57,30 +60,9 @@ export const Introduction = ({ tour }) => {
     <div className="w-full flex justify-center">
       <div className="max-w-[1536px] w-full flex md:flex-row flex-col px-2 md:p-0 gap-2 md:gap-5">
         <div className="max-w-[1048px] w-full flex flex-col gap-2 md:gap-5">
-          <div className="w-full flex flex-col gap-3 md:gap-6 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl">
-            <div className="flex flex-col gap-1 md:gap-2">
-              <div className="flex">
-                <div className="pb-1 md:pb-3 border-b border-[#F97316]">
-                  <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
-                    Overview
-                  </p>
-                </div>
-              </div>
-            </div>
-            <p className="text-black font-roboto text-base md:text-lg font-normal ">
-              {tour.description}
-            </p>
-          </div>
+          <Overview tour={tour} />
           <div className="max-w-[1048px] w-full flex flex-col gap-8 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl">
-            <div className="flex flex-col gap-1 md:gap-2">
-              <div className="flex">
-                <div className="pb-1 md:pb-3 border-b border-[#F97316]">
-                  <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
-                    Itinerary
-                  </p>
-                </div>
-              </div>
-            </div>
+            <TourIternary />
             <div className="flex gap-3 md:gap-5 ">
               <div className="w-[2px] relative h-full bg-[#F97316]">
                 <div className="absolute left-[50%] translate-x-[-50%] top-[-20px]">
@@ -170,127 +152,9 @@ export const Introduction = ({ tour }) => {
               </div>
             </div>
           </div>
-          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl flex">
-            <div className="w-full">
-              <div className="flex gap-1">
-                <div className="flex gap-3 md:gap-6 flex-col w-full">
-                  <div className="w-full flex">
-                    <div className="pb-1 md:pb-3 border-b border-[#F97316]">
-                      <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
-                        Service included
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    {tour?.serviceInclude?.map((value, id) => {
-                      return (
-                        <div className="flex items-start gap-2" key={id}>
-                          <div className="w-6 h-6 flex items-center justify-center">
-                            <CheckIcon />
-                          </div>
-                          <p className="text-black font-sans text-base md:text-lg font-normal">
-                            {value}
-                          </p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div className="flex gap-3 md:gap-6 flex-col w-full">
-                  <div className="w-full flex">
-                    <div className="pb-1 md:pb-3 border-b border-[#F97316]">
-                      <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
-                        Service not included
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    {tour?.serviceNotInclude?.map((value, id) => {
-                      return (
-                        <div className="flex items-center gap-2" key={id}>
-                          <div className="w-6 h-6 flex items-center justify-center">
-                            <NotCheckIcon />
-                          </div>
-                          <p className="text-black font-sans text-base md:text-lg font-normal ">
-                            {value}
-                          </p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="h-[500px] shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl flex">
-            <div className="flex flex-col gap-1 md:gap-2">
-              <div className="flex">
-                <div className="pb-1 md:pb-3 border-b border-[#F97316]">
-                  <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
-                    Tour map
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* <div>
-              <img src="" alt="" />
-            </div> */}
-          </div>
+          <TourMapCard tour={tour} />
         </div>
-        <div className="w-full max-w-[468px] flex flex-col gap-5">
-          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl flex flex-col gap-3 md:gap-6">
-            <div className="flex">
-              <div className="pb-1 md:pb-3 border-b border-[#F97316]">
-                <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
-                  Tour price
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col gap-4">
-              {tour?.price?.map((value, id) => {
-                return (
-                  <div
-                    key={id}
-                    className="flex items-center justify-between border-b border-[rgba(0,0,0,0.125)] pb-2"
-                  >
-                    <p className="text-black font-roboto text-base font-medium">
-                      {value.pax} pax
-                    </p>
-                    <p className="text-black font-roboto text-base font-medium">
-                      {value.perPerson}$
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-3 md:p-5 rounded-2xl flex flex-col gap-3 md:gap-6">
-            <div className="flex">
-              <div className="pb-1 md:pb-3 border-b border-[#F97316]">
-                <p className="text-black font-roboto text-xl md:text-2xl font-semibold leading-6">
-                  Tour schedule
-                </p>
-              </div>
-            </div>
-            <div className="border-b border-[rgba(0,0,0,0.125)] pb-2 flex items-center gap-1">
-              <p className="text-black font-roboto text-base font-normal">
-                {tour.startDate}
-              </p>
-              <p className="text-black font-roboto text-base font-normal">-</p>
-              <p className="text-black font-roboto text-base font-normal">
-                {tour.endDate}
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <button className="w-full h-12"></button>
-              <Link href="/book-now" className="w-full">
-                <button className="w-full h-12 bg-[#F97316] rounded-lg text-white font-roboto text-xl font-medium">
-                  Book now
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
+        <TourPrice tour={tour} />
       </div>
     </div>
   );

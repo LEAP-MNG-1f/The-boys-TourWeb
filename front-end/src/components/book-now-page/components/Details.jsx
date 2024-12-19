@@ -10,6 +10,7 @@ import * as Yup from "yup";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
+import { BACKEND_URL } from "@/constant";
 
 // if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
 //   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
@@ -88,7 +89,7 @@ export const Details = ({
           totalamount: totalAmount,
         };
         try {
-          const response = await fetch(`http://localhost:8000/api/orders`, {
+          const response = await fetch(`${BACKEND_URL}/orders`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

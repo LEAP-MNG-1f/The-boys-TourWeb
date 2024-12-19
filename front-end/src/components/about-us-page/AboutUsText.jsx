@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CompanyDescriptionsGrid } from "./CompanyDescriptions";
+import { BACKEND_URL } from "@/constant";
 
 const AboutUsText = ({ companyDescriptions }) => {
   const [activeTab, setActiveTab] = useState("Company");
@@ -12,7 +13,7 @@ const AboutUsText = ({ companyDescriptions }) => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:8000/api/teams");
+      const response = await fetch(`${BACKEND_URL}/teams`);
 
       if (!response.ok) {
         const errorText = await response.text();

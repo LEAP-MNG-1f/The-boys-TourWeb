@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import LocCateInfo from "./components/LocCateInfo";
 import DateInfo from "./components/DateInfo";
 import PriceSection from "./components/PriceSection";
 import BasicInfo from "./components/BasicInfo";
+import { TitleDescription } from "./components/TitleDescription";
+import { ServiceIncludeNot } from "./components/ServiceIncludeNot";
 
 const PostTourData = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +28,6 @@ const PostTourData = () => {
   const [dailyPlans, setDailyPlans] = useState([]);
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -292,31 +292,7 @@ const PostTourData = () => {
           className="flex flex-col items-start gap-6 w-full max-w-2xl mx-auto bg-[#1E293B] p-8 rounded-lg shadow-xl"
         >
           {/* Basic Information */}
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Title
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-                className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </label>
-          </div>
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Description
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-                className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
-              ></textarea>
-            </label>
-          </div>
+          <TitleDescription formData={formData} handleChange={handleChange} />
           <LocCateInfo
             handleChange={handleChange}
             formData={formData}
@@ -346,63 +322,11 @@ const PostTourData = () => {
           />
 
           {/* The rest of the form remains the same, with similar styling applied */}
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Service Included
-              <textarea
-                name="serviceInclude"
-                placeholder="Enter services (comma-separated)"
-                onChange={handleAddServiceI}
-                className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
-              />
-            </label>
-          </div>
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Service Not Included
-              <textarea
-                name="serviceNotInclude"
-                placeholder="Enter services (comma-separated)"
-                onChange={handleAddServiceI}
-                className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
-              />
-            </label>
-          </div>
-          <div className="w-full">
-            <label
-              htmlFor="imageUpload"
-              className="block mb-2 text-sm font-medium text-gray-300"
-            >
-              Upload Images
-            </label>
-            <input
-              type="file"
-              id="imageUpload"
-              name="images"
-              multiple
-              accept="image/*"
-              onChange={handleFileChange}
-              className="block w-full text-sm text-white
-          file:mr-4 file:py-2 file:px-4
-          file:rounded-full file:border-0
-          file:text-sm file:font-semibold
-          file:bg-violet-50 file:text-violet-700
-          hover:file:bg-violet-100"
-              required
-            />
-          </div>
-          {previews.length > 0 && (
-            <div className="flex space-x-2 mt-4">
-              {previews.map((preview, index) => (
-                <img
-                  key={index}
-                  src={preview}
-                  alt={`Preview ${index + 1}`}
-                  className="w-20 h-20 object-cover rounded"
-                />
-              ))}
-            </div>
-          )}
+          <ServiceIncludeNot
+            handleAddServiceI={handleAddServiceI}
+            handleFileChange={handleFileChange}
+            previews={previews}
+          />
           {/* Submit Button */}
           <button
             type="submit"

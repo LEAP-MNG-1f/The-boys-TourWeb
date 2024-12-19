@@ -1,4 +1,5 @@
 "use client";
+import { BACKEND_URL } from "@/constant";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ const TravelCards = () => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:8000/api/tours", {
+      const response = await fetch(`${BACKEND_URL}/tours`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
