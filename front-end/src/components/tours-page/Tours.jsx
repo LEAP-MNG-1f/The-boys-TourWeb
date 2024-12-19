@@ -55,13 +55,12 @@ const TourPage = () => {
     const fetchAndIncrement = async () => {
       try {
         await fetchDataTour();
-
-        // Increment view count with pageId
+        //pageId-eer toolno
         await incrementPageView("tour");
       } catch (error) {
         console.error("Failed to fetch data or increment views:", error);
       } finally {
-        setLoading(false); // Ачаалал дууссаны дараа false болгоно
+        setLoading(false);
       }
     };
 
@@ -71,8 +70,10 @@ const TourPage = () => {
   return (
     <div className="flex flex-col gap-5">
       <HeaderPart />
-      {loading ? ( // Ачаалал явагдаж байгаа эсэхийг харуулна
-        <div className="text-center">Loading...</div>
+      {loading ? (
+        <div className="text-center flex items-center justify-center h-screen text-[#F97316] text-[30px] ">
+          Loading...
+        </div>
       ) : (
         <div className="flex flex-col gap-2 md:gap-5">
           <Carousel tour={tour} />

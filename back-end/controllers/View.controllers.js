@@ -10,19 +10,19 @@ const deleteOldViews = async () => {
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
   try {
-    await viewModels.updateMany(
+    // 1. 30 хоногоос өмнөх огноотой `views` массив элементүүдийг устгах
+    const resultPull = await viewModels.updateMany(
       {},
       {
         $pull: {
-          views: {
-            date: { $lt: thirtyDaysAgo.toISOString().split("T")[0] },
-          },
+          views: { date: { $lt: thirtyDaysAgo.toISOString().split("T")[0] } },
         },
       }
     );
-  } catch (error) {
-    console.error("Error deleting old views:", error);
-  }
+
+    // 2. Хоосон `views` массивтай баримтуудыг устгах
+    const resultDelete = await viewModels.deleteMany({ views: { $size: 0 } });
+  } catch (error) {}
 };
 
 const createView = async (request, response) => {

@@ -11,8 +11,8 @@ import { useState } from "react";
 import { Location } from "../icons";
 import TourMapCard from "./TourIncludeMap";
 import { TourPrice } from "./TourPrice";
-import { Overview } from "./TourOverview";
 import { TourIternary } from "./TourIternary";
+import { Overview } from "./Overview";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
