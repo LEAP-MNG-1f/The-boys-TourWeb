@@ -2,6 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import LocCateInfo from "./components/LocCateInfo";
+import DateInfo from "./components/DateInfo";
+import PriceSection from "./components/PriceSection";
+import BasicInfo from "./components/BasicInfo";
 
 const PostTourData = () => {
   const [formData, setFormData] = useState({
@@ -301,7 +305,6 @@ const PostTourData = () => {
               />
             </label>
           </div>
-
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Description
@@ -314,361 +317,35 @@ const PostTourData = () => {
               ></textarea>
             </label>
           </div>
-
-          <div className="grid grid-cols-2 gap-4 w-full">
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Category
-              <select
-                name="categoryId"
-                className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={handleChange}
-                value={formData.categoryId}
-                required
-              >
-                <option value="" disabled>
-                  Select category
-                </option>
-                {categories.map((category) => (
-                  <option key={category._id} value={category._id}>
-                    {category.name}{" "}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Location
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                required
-                placeholder="image URL"
-                className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </label>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 w-full">
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Start Date
-              <input
-                type="text"
-                name="startDate"
-                value={formData.startDate}
-                onChange={handleChange}
-                required
-                placeholder="2024/12/03 etc."
-                className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </label>
-
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              End Date
-              <input
-                type="text"
-                name="endDate"
-                value={formData.endDate}
-                onChange={handleChange}
-                placeholder="2030/12/03 etc."
-                required
-                className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </label>
-          </div>
-
+          <LocCateInfo
+            handleChange={handleChange}
+            formData={formData}
+            categories={categories}
+          />
+          <DateInfo handleChange={handleChange} formData={formData} />
           {/* Price Section */}
-          <div className="w-full">
-            <h3 className="text-lg font-semibold text-white mb-4">
-              Price Details
-            </h3>
-            <div className="flex flex-col gap-4">
-              {price.map((p, index) => (
-                <div
-                  key={index}
-                  className="price-item flex items-center gap-4 bg-[#2C3E50] p-4 rounded-md"
-                >
-                  <label className="flex-1">
-                    Pax
-                    <input
-                      type="number"
-                      value={p.pax}
-                      onChange={(e) =>
-                        handlePriceChange(index, "pax", e.target.value)
-                      }
-                      required
-                      className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </label>
-                  <label className="flex-1">
-                    Per Person Price
-                    <input
-                      type="number"
-                      value={p.perPerson}
-                      onChange={(e) =>
-                        handlePriceChange(index, "perPerson", e.target.value)
-                      }
-                      required
-                      className="mt-1 block w-full bg-[#182237] border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </label>
-                  <button
-                    type="button"
-                    className="btn btn-delete bg-red-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-700 transition-colors"
-                    onClick={() => handleRemovePrice(index)}
-                  >
-                    X
-                  </button>
-                </div>
-              ))}
-            </div>
-            <button
-              type="button"
-              className="btn mt-4 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors"
-              onClick={handleAddPrice}
-            >
-              Add Price
-            </button>
-          </div>
-          <div>
-            <div onSubmit={handleSubmit}>
-              {/* Previous input fields remain the same */}
-
-              <h3 className="text-lg font-semibold text-white">Daily Plans:</h3>
-              {dailyPlans.map((plan, planIndex) => (
-                <div
-                  key={planIndex}
-                  className="w-full bg-[#283747] p-4 rounded-lg mb-4"
-                >
-                  <label className="block mb-2">
-                    <span className="text-sm font-medium text-gray-300 mb-2 block">
-                      Day:
-                    </span>
-                    <input
-                      type="number"
-                      placeholder="1, 2, 3 etc."
-                      value={plan.day}
-                      onChange={(e) =>
-                        handleDailyPlanChange(planIndex, "day", e.target.value)
-                      }
-                      required
-                      className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </label>
-
-                  <label className="block mb-2">
-                    <span className="text-sm font-medium text-gray-300 mb-2 block">
-                      Day title:
-                    </span>
-                    <input
-                      type="text"
-                      value={plan.dayTitle}
-                      onChange={(e) =>
-                        handleDailyPlanChange(
-                          planIndex,
-                          "dayTitle",
-                          e.target.value
-                        )
-                      }
-                      required
-                      className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </label>
-
-                  <h4 className="text-md font-medium text-gray-200 mt-4 mb-2">
-                    Accommodation details:
-                  </h4>
-                  <label className="block mb-2">
-                    <span className="text-sm font-medium text-gray-300 mb-2 block">
-                      Accommodation Name:
-                    </span>
-                    <input
-                      type="text"
-                      value={plan.accommodation[0]?.accomName || ""}
-                      onChange={(e) =>
-                        handleAccommoChange(
-                          planIndex,
-                          0,
-                          "accomName",
-                          e.target.value
-                        )
-                      }
-                      required
-                      className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </label>
-
-                  <label className="block mb-2">
-                    <span className="text-sm font-medium text-gray-300 mb-2 block">
-                      Accommodation Notes:
-                    </span>
-                    <textarea
-                      value={plan.accommodation[0]?.notes || ""}
-                      onChange={(e) =>
-                        handleAccommoChange(
-                          planIndex,
-                          0,
-                          "notes",
-                          e.target.value
-                        )
-                      }
-                      className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
-                    ></textarea>
-                  </label>
-
-                  <h4 className="text-md font-medium text-gray-200 mt-4 mb-2">
-                    Activities:
-                  </h4>
-                  {plan.activities.map((activity, activityIndex) => (
-                    <div
-                      key={activityIndex}
-                      className="bg-[#2C3E50] p-3 rounded mb-2"
-                    >
-                      <label className="block mb-2">
-                        <span className="text-sm font-medium text-gray-300 mb-2 block">
-                          Activity Name:
-                        </span>
-                        <input
-                          type="text"
-                          value={activity.activityName}
-                          onChange={(e) =>
-                            handleActivityChange(
-                              planIndex,
-                              activityIndex,
-                              "activityName",
-                              e.target.value
-                            )
-                          }
-                          required
-                          className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </label>
-                      <label className="block mb-2">
-                        <span className="text-sm font-medium text-gray-300 mb-2 block">
-                          Notes:
-                        </span>
-                        <textarea
-                          value={activity.notes}
-                          onChange={(e) =>
-                            handleActivityChange(
-                              planIndex,
-                              activityIndex,
-                              "notes",
-                              e.target.value
-                            )
-                          }
-                          required
-                          className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
-                        ></textarea>
-                      </label>
-                      <button
-                        type="button"
-                        className="btn btn-delete bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition-colors"
-                        onClick={() =>
-                          handleRemoveActivity(planIndex, activityIndex)
-                        }
-                      >
-                        X
-                      </button>
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    className="btn bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors mt-2"
-                    onClick={() => handleAddActivity(planIndex)}
-                  >
-                    Add Activity
-                  </button>
-
-                  {/* Similar styling for Period of Time section */}
-                  <h4 className="text-md font-medium text-gray-200 mt-4 mb-2">
-                    Period Of Time:
-                  </h4>
-                  {plan.periodOfTime.map((pofTime, periodOfIndex) => (
-                    <div
-                      key={periodOfIndex}
-                      className="bg-[#2C3E50] p-3 rounded mb-2"
-                    >
-                      <label className="block mb-2">
-                        <span className="text-sm font-medium text-gray-300 mb-2 block">
-                          When:
-                        </span>
-                        <input
-                          type="text"
-                          value={pofTime.when}
-                          onChange={(e) =>
-                            handlePeriodOfChange(
-                              planIndex,
-                              periodOfIndex,
-                              "when",
-                              e.target.value
-                            )
-                          }
-                          required
-                          className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </label>
-                      <label className="block mb-2">
-                        <span className="text-sm font-medium text-gray-300 mb-2 block">
-                          Notes:
-                        </span>
-                        <textarea
-                          value={pofTime.notes}
-                          onChange={(e) =>
-                            handlePeriodOfChange(
-                              planIndex,
-                              periodOfIndex,
-                              "notes",
-                              e.target.value
-                            )
-                          }
-                          required
-                          className="bg-[#182237] w-full px-3 py-2 rounded border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
-                        ></textarea>
-                      </label>
-                      <button
-                        type="button"
-                        className="btn btn-delete bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition-colors"
-                        onClick={() =>
-                          handleRemovePeriodOfTime(planIndex, periodOfIndex)
-                        }
-                      >
-                        X
-                      </button>
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    className="btn bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors mt-2"
-                    onClick={() => handleAddPeriodOfTime(planIndex)}
-                  >
-                    Add Period of Time
-                  </button>
-
-                  <button
-                    type="button"
-                    className="btn btn-delete bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors mt-4"
-                    onClick={() => handleRemoveDailyPlan(planIndex)}
-                  >
-                    Remove Daily Plan
-                  </button>
-                </div>
-              ))}
-              <button
-                type="button"
-                className="btn bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-                onClick={handleAddDailyPlan}
-              >
-                Add Daily Plan
-              </button>
-
-              {/* Rest of the form remains the same */}
-            </div>
-          </div>
+          <PriceSection
+            price={price}
+            handlePriceChange={handlePriceChange}
+            handleRemovePrice={handleRemovePrice}
+            handleAddPrice={handleAddPrice}
+          />
+          <BasicInfo
+            handleSubmit={handleSubmit}
+            handleDailyPlanChange={handleDailyPlanChange}
+            dailyPlans={dailyPlans}
+            handleAccommoChange={handleAccommoChange}
+            handleActivityChange={handleActivityChange}
+            handleRemoveActivity={handleRemoveActivity}
+            handleAddActivity={handleAddActivity}
+            handleAddPeriodOfTime={handleAddPeriodOfTime}
+            handleRemoveDailyPlan={handleRemoveDailyPlan}
+            handleRemovePeriodOfTime={handleRemovePeriodOfTime}
+            handleAddDailyPlan={handleAddDailyPlan}
+            handlePeriodOfChange={handlePeriodOfChange}
+          />
 
           {/* The rest of the form remains the same, with similar styling applied */}
-
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Service Included
@@ -680,7 +357,6 @@ const PostTourData = () => {
               />
             </label>
           </div>
-
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Service Not Included
@@ -692,7 +368,6 @@ const PostTourData = () => {
               />
             </label>
           </div>
-
           <div className="w-full">
             <label
               htmlFor="imageUpload"
@@ -716,7 +391,6 @@ const PostTourData = () => {
               required
             />
           </div>
-
           {previews.length > 0 && (
             <div className="flex space-x-2 mt-4">
               {previews.map((preview, index) => (
@@ -729,7 +403,6 @@ const PostTourData = () => {
               ))}
             </div>
           )}
-
           {/* Submit Button */}
           <button
             type="submit"

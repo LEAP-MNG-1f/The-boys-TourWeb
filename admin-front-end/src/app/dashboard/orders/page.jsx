@@ -1,5 +1,6 @@
 "use client";
 
+import { Trash2 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 
 const OrderPage = () => {
@@ -14,17 +15,37 @@ const OrderPage = () => {
         const data = await response.json();
         setOrders(data.data);
       } catch (error) {
-        console.log("Error fetching categories:", error);
+        console.log("Error fetching orders:", error);
       }
     };
 
     fetchOrders();
   }, []);
 
-  console.log(orders);
+  const handleDeleteOrder = async (id) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/orders/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        setOrders((prevOrders) =>
+          prevOrders.filter((order) => order._id !== id)
+        );
+        console.log("Order deleted successfully");
+      } else {
+        console.error("Failed to delete the order");
+      }
+    } catch (error) {
+      console.error("Error deleting the order:", error);
+    }
+  };
+
   return (
     <div className="w-full flex justify-center py-14">
-      {" "}
       <div className="overflow-x-auto bg-[#182237] p-3 rounded-md ">
         <table className="table">
           {/* head */}
@@ -40,13 +61,13 @@ const OrderPage = () => {
               <th>Total amount</th>
               <th>Total people</th>
               <th>Questions</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
             {orders.map((order, index) => (
               <tr key={order._id}>
-                <th>{index}</th>
+                <th>{index + 1}</th>
                 <td>{order.fullname}</td>
                 <td>{order.country}</td>
                 <td>{order.email}</td>
@@ -56,10 +77,16 @@ const OrderPage = () => {
                 <td>{order.totalamount}</td>
                 <td>{order.personNumber}</td>
                 <td className="overflow-x-scroll">{order.questions}</td>
+                <td>
+                  <button
+                    className="bg-red-500 text-white px-3 py-1 rounded-md"
+                    onClick={() => handleDeleteOrder(order._id)}
+                  >
+                    <Trash2 />
+                  </button>
+                </td>
               </tr>
             ))}
-
-            {/* row 2 */}
           </tbody>
         </table>
       </div>
