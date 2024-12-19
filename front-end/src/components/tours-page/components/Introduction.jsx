@@ -56,7 +56,7 @@ export const Introduction = ({ tour }) => {
   return (
     <div className="w-full flex justify-center">
       <div className="max-w-[1536px] w-full flex gap-5">
-        <div className="max-w-[1048px] flex flex-col gap-5">
+        <div className="max-w-[1048px] w-full flex flex-col gap-5">
           <div className="w-full flex flex-col gap-6 shadow-[-4px_-5px_14px_rgb(0,0,0,8%),5px_8px_16px_rgb(0,0,0,8%)] bg-white p-5 rounded-2xl">
             <div className="flex flex-col gap-2">
               <div className="flex">

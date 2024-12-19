@@ -47,8 +47,8 @@ const WalkDifference = () => {
       {/* First Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
         <div className="relative h-64 md:h-80 lg:h-[450px] rounded-[20px] overflow-hidden">
-          <div className="absolute inset-0 bg-orange-500 rounded-[20px] ml-[20px] sm:ml-[40px] lg:ml-[80px]"></div>
-          <div className="relative pt-[10px] sm:pt-[30px]">
+          <div className="absolute inset-0 bg-orange-500 rounded-[20px] mx-[20px] sm:mx-[40px] lg:mx-[80px]"></div>
+          <div className="relative py-[20px] sm:py-[30px]">
             <img
               src={carouselImages[currentImage]}
               alt="Carousel Image"
@@ -72,7 +72,7 @@ const WalkDifference = () => {
           </p>
           <div className="flex justify-center lg:justify-start">
             <Link href="/specialtour">
-              <button className="bg-orange-500 w-[210px] text-white px-[30px] py-[10px] text-center rounded-[20px] shadow-md hover:bg-orange-600">
+              <button className="bg-orange-500 transition-all duration-300 w-[210px] text-white px-[30px] py-[10px] text-center rounded-[20px] shadow-md hover:bg-orange-600">
                 Create your own trip
               </button>
             </Link>

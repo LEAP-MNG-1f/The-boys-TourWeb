@@ -440,7 +440,7 @@ export const Details = ({
                 onClick={handler}
                 type="submit"
                 disabled={!isFilled}
-                className={`w-full h-12 rounded-lg font-roboto text-xl font-medium transition-all duration-500 ${
+                className={`w-full h-12 rounded-lg font-roboto text-xl font-medium transition-all duration-300 hover:bg-orange-600 ${
                   isFilled
                     ? "bg-[#F97316] text-white"
                     : "bg-[#EEEFF2] text-[rgba(28,32,36,0.24)]"

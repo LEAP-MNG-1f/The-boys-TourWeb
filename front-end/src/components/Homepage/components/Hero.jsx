@@ -97,10 +97,10 @@ export const Hero = () => {
       <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-4 px-4 sm:px-0">
         <button
           onClick={() => setFilter("all")}
-          className={`border-2 text-gray-800 py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
+          className={`text-black py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
             filter === "all"
               ? "bg-orange-500 text-white"
-              : "bg-gray-200 text-gray-800 hover:bg-orange-100"
+              : "bg-gray-200 text-black hover:bg-orange-100"
           }`}
         >
           all
@@ -109,10 +109,10 @@ export const Hero = () => {
           <button
             key={category._id}
             onClick={() => setFilter(category._id)}
-            className={`border-2 text-gray-800 py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
+            className={`text-black py-2 px-4 sm:px-6 rounded-lg font-medium transition duration-300 text-sm sm:text-base ${
               filter === category._id
                 ? "bg-orange-500 text-white"
-                : "bg-gray-200 text-gray-800 hover:bg-orange-100"
+                : "bg-gray-200 text-black hover:bg-orange-100"
             }`}
           >
             {category.name}

@@ -102,7 +102,7 @@ export default function Specialtour() {
       <div className="flex flex-col pt-10 mt-10 justify-center w-full md:w-1/2">
         <PlanHeader />
       </div>
-      <div className="flex gap-10 w-full ml-5  items-center justify-center flex-col md:flex-row">
+      <div className="flex gap-10 w-full items-center justify-center flex-col md:flex-row">
         <form
           ref={form}
           onSubmit={sendEmail}

@@ -50,7 +50,7 @@ const WorkingProcess = () => {
                 {`0${index + 1}`}
               </span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
               <step.icon className="h-8 w-8 text-black mx-auto mb-4 max-sm:hidden" />
               <h4 className="text-lg font-semibold text-gray-800 mb-4">
                 {step.title}
