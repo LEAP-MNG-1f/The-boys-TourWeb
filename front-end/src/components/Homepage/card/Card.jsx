@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export const Card = ({ selectedCategory, tourData }) => {
@@ -59,12 +60,13 @@ export const Card = ({ selectedCategory, tourData }) => {
                   {tour.startDate || "Start date not available"}
                 </p>
               </div>
-              <button
+              <Link
+                href={`/view-all/${tour?.title}`}
                 onClick={() => handleBookNowClick(tour._id)}
                 className="border border-white text-white rounded-lg py-1 px-4 hover:bg-white hover:text-black transition-all duration-300"
               >
                 Book now
-              </button>
+              </Link>
             </div>
           </div>
           <div

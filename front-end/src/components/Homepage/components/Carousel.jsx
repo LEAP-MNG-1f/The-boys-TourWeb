@@ -92,8 +92,8 @@ const Carousel = () => {
   }
 
   return (
-    <div className="relative overflow-hidden shadow-lg h-[75vh]">
-      <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative overflow-hidden shadow-lg md:h-[75vh] h-[60vh]">
+      <div className="relative md:h-[75vh] h-[60vh] w-full overflow-hidden flex justify-center">
         <video
           autoPlay
           loop
@@ -103,7 +103,7 @@ const Carousel = () => {
           <source src="/landing-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="relative flex flex-col gap-7 justify-center items-center bottom-24 h-full text-white">
+        <div className="absolute px-3 flex flex-col gap-7 justify-center items-center h-full text-white">
           <div className="flex flex-col items-end">
             <h1 className="text-6xl md:text-8xl font-bold text-shadow">
               Discover Mongolia
@@ -113,7 +113,7 @@ const Carousel = () => {
           <div>
             <Link
               href="/view-all"
-              className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg shadow-lg text-white text-lg inline-block"
+              className="bg-orange-500 hover:bg-orange-600 transition-all duration-300 px-6 py-3 rounded-lg shadow-lg text-white text-lg inline-block"
               aria-label="Jump to all tours"
             >
               Ride to all tours
