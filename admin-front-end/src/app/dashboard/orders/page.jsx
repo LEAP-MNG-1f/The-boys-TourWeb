@@ -1,6 +1,5 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 
 const OrderPage = () => {
@@ -23,6 +22,12 @@ const OrderPage = () => {
   }, []);
 
   const handleDeleteOrder = async (id) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this order?"
+    );
+
+    if (!isConfirmed) return; // Хэрэв хэрэглэгч "Cancel" товчийг дарвал устгах үйлдэл хийгдэхгүй.
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/orders/${id}`,
@@ -35,12 +40,13 @@ const OrderPage = () => {
         setOrders((prevOrders) =>
           prevOrders.filter((order) => order._id !== id)
         );
-        console.log("Order deleted successfully");
+        alert("Order deleted successfully!");
       } else {
-        console.error("Failed to delete the order");
+        alert("Failed to delete the order.");
       }
     } catch (error) {
-      console.error("Error deleting the order:", error);
+      console.log("Error deleting the order:", error);
+      alert("An error occurred while deleting the order.");
     }
   };
 
@@ -82,7 +88,7 @@ const OrderPage = () => {
                     className="bg-red-500 text-white px-3 py-1 rounded-md"
                     onClick={() => handleDeleteOrder(order._id)}
                   >
-                    <Trash2 />
+                    Delete
                   </button>
                 </td>
               </tr>
