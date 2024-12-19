@@ -19,7 +19,6 @@ const Footer = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-10">
-          {/* About Section */}
           <div className="space-y-4 flex flex-col items-start">
             <h2 className="text-2xl font-bold text-gray-900">About</h2>
             <p className="text-gray-600 leading-relaxed">
@@ -32,8 +31,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Quick Links Section */}
-          <div className="space-y-4 flex flex-col md:items-center">
+          <div className="space-y-4 flex flex-col items-center justify-center md:items-center">
             <h2 className="text-2xl font-bold text-gray-900">Quick Links</h2>
             <nav className="space-y-3 flex flex-col">
               {[
@@ -54,9 +52,8 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Connect Section */}
-          <div className="space-y-4 flex flex-col md:items-center">
-            <h2 className="text-2xl font-bold text-gray-900">
+          <div className="space-y-4 flex flex-col  items-center justify-center md:items-center">
+            <h2 className="text-2xl font-bold text-gray-900 pl-[17px]">
               Connect With Us
             </h2>
             <div className="flex space-x-5 mb-6">
@@ -75,7 +72,7 @@ const Footer = () => {
                 </Link>
               ))}
             </div>
-            <div className="space-y-2 text-gray-600">
+            <div className="space-y-2 text-gray-600 pl-14">
               <p>Email: Ydamtour@gmail.com</p>
               <p>Phone: 80640490</p>
               <p>Phone: 60602106</p>
