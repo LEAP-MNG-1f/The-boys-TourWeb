@@ -11,16 +11,6 @@ export const Card = ({ selectedCategory, tourData }) => {
     setSelectedTourId(selectedTourId === tourId ? null : tourId);
   };
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="flex justify-center items-center h-screen">
-  //       <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
-  //     </div>
-  //   );
-  // }
-
-  // console.log(tourData);
-
   if (error) {
     return (
       <div className="container mx-auto mt-10 text-center text-red-500">
@@ -70,13 +60,21 @@ export const Card = ({ selectedCategory, tourData }) => {
             </div>
           </div>
           <div
-            className={`absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4 z-10 pointer-events-none ${
-              selectedTourId === tour._id ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-70 transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500 p-4 z-10 pointer-events-none ${
+              selectedTourId === tour._id
+                ? "translate-y-0"
+                : "-translate-y-full"
             }`}
           >
-            <p className="text-gray-300 text-sm text-center">
-              {tour.description || "Additional information not available"}
-            </p>
+            <div className="w-full h-full flex text-center pt-[30px]">
+              <p className="text-gray-300 text-sm ">
+                {tour.description
+                  ? tour.description.length > 150
+                    ? `${tour.description.substring(0, 150)}...`
+                    : tour.description
+                  : "Additional information not available"}
+              </p>
+            </div>
           </div>
         </div>
       ))}
