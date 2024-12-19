@@ -14,15 +14,18 @@ export const TourScheduleBook = ({ tour }) => {
         <p className="text-black font-roboto text-base font-normal">
           {tour.startDate}
         </p>
-        <p className="text-black font-roboto text-base font-normal">-</p>
-        <p className="text-black font-roboto text-base font-normal">
-          {tour.endDate}
-        </p>
+        {tour.endDate ? (
+          <p className="text-black font-roboto text-base font-normal">
+            - {tour.endDate}
+          </p>
+        ) : (
+          ""
+        )}
       </div>
       <div className="flex items-center gap-4">
         <button className="w-full h-12"></button>
-        <Link href="/book-now" className="w-full">
-          <button className="w-full h-12 bg-[#F97316] rounded-lg text-white font-roboto text-xl font-medium">
+        <Link href={`/${tour?.title}`} className="w-full">
+          <button className="w-full h-12 bg-[#F97316] hover:bg-orange-600 transition-all duration-300 rounded-lg text-white font-roboto text-xl font-medium">
             Book now
           </button>
         </Link>

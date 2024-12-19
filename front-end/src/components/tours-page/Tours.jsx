@@ -5,11 +5,10 @@ import Footer from "../Homepage/components/Footer";
 import { HeaderPart } from "../Homepage/components/Header";
 import Carousel from "./components/Carousel";
 import { Introduction } from "./components/Introduction";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { BACKEND_URL } from "@/constant";
 
 const TourPage = () => {
-  // const router = useRouter();
   const params = useParams();
   const [tour, setTour] = useState([]);
   const [loading, setLoading] = useState(true); // Ачааллаж байгааг харуулах төлөв
@@ -70,9 +69,9 @@ const TourPage = () => {
   return (
     <div className="flex flex-col gap-5">
       <HeaderPart />
-      {loading ? (
-        <div className="text-center flex items-center justify-center h-screen text-[#F97316] text-[30px] ">
-          Loading...
+      {loading ? ( // Ачаалал явагдаж байгаа эсэхийг харуулна
+        <div className="w-full mx-auto relative overflow-hidden shadow-lg h-[65vh] mt-[100px] flex justify-center items-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-orange-500"></div>
         </div>
       ) : (
         <div className="flex flex-col gap-2 md:gap-5">
