@@ -44,7 +44,7 @@ export const Card = ({ selectedCategory, tourData }) => {
             }
             alt={tour.title || "Tour Image"}
           />
-          <div className="absolute bottom-0 top-[130px] left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent text-white z-20">
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent text-white z-20">
             <h3 className="font-semibold text-lg">
               {tour.title || "Untitled Tour"}
             </h3>
@@ -61,7 +61,7 @@ export const Card = ({ selectedCategory, tourData }) => {
               </div>
               <button
                 onClick={() => handleBookNowClick(tour._id)}
-                className="border border-white text-white rounded-lg py-1 px-4 hover:bg-white hover:text-black transition-all duration-300"
+                className="border p-2 max-w-[89px] w-full border-white text-white rounded-lg hover:bg-white hover:text-black transition-all duration-300"
               >
                 Book now
               </button>
