@@ -43,7 +43,7 @@ const AboutUsText = ({ companyDescriptions }) => {
   ];
 
   return (
-    <div className="w-full min-h-screen px-4 sm:px-8 md:px-[100px] py-8 sm:py-12 md:py-[50px] mt-8 sm:mt-[100px]">
+    <div className="w-full min-h-screen px-4 sm:px-6 md:px-[100px] py-8 sm:py-12 md:py-[50px] mt-8 sm:mt-[100px]">
       <div className="container mx-auto">
         <div className="flex justify-end mb-6 sm:mb-10 space-x-4 sm:space-x-6">
           {tabItems.map((item, index) => (
@@ -54,7 +54,7 @@ const AboutUsText = ({ companyDescriptions }) => {
                 activeTab === item.text
                   ? "text-[#FC8233] underline"
                   : "text-gray-600 hover:text-[#FC8233]"
-              } hover:scale-105`}
+              }`}
             >
               {item.text}
             </button>
@@ -66,14 +66,14 @@ const AboutUsText = ({ companyDescriptions }) => {
             <CompanyDescriptionsGrid
               companyDescriptions={companyDescriptions}
             />
-            <div className="relative group overflow-hidden rounded-2xl shadow-lg h-[700px] w-[1500px] mx-auto transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl px-4 sm:px-0">
+            <div className="relative group overflow-hidden rounded-2xl shadow-lg h-[600px] md:h-[700px] sm:w-[] md:w-[] lg:w-[] w-full mx-auto transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl px-4 sm:px-0">
               <motion.img
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
                 src="https://res.cloudinary.com/dmsyul4sr/image/upload/v1734495011/465053790_9080584541981233_7124384568269687891_n_mo0dph.png"
                 alt="Stepper Riders"
-                className="w-full h-auto object-cover transition-transform duration-300 group-hover:brightness-90"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:brightness-90"
               />
             </div>
           </>
