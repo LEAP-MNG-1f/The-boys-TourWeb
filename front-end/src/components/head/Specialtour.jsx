@@ -9,6 +9,7 @@ import {
   IconButton,
   Collapse,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { HeaderPart } from "../Homepage/components/Header";
@@ -52,6 +53,7 @@ export default function Specialtour() {
   });
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -74,6 +76,7 @@ export default function Specialtour() {
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     emailjs
       .sendForm("service_jlg3mrb", "template_catf42r", form.current, {
@@ -82,8 +85,12 @@ export default function Specialtour() {
       .then(
         () => {
           setOpen(true);
+          setLoading(false);
         },
-        (error) => {}
+        (error) => {
+          console.error(error);
+          setLoading(false);
+        }
       );
   };
 
@@ -147,7 +154,11 @@ export default function Specialtour() {
                   color="primary"
                   className="py-2 px-6 rounded-lg  w-[500px]"
                 >
-                  Submit
+                  {loading ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    "Submit"
+                  )}
                 </Button>
               </Box>
               <Collapse in={open} className="mt-5">
@@ -164,8 +175,8 @@ export default function Specialtour() {
                     </IconButton>
                   }
                 >
-                  Your inquiry has been sent successfully! We&apos;ll get back
-                  to you soon.
+                  Your inquiry has been sent successfully! We'll get back to you
+                  soon.
                 </Alert>
               </Collapse>
             </div>

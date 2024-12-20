@@ -23,7 +23,7 @@ export const SpecialComponents = ({ handleChange, formData }) => {
         className="block w-full mt-5 py-1.5 pl-1 border border-gray-400 rounded-lg text-gray-900 focus:outline-indigo-600"
         required
       />
-      <h1 className="mt-5"> For how long (Minimum 5 nights) *</h1>
+      <h1 className="mt-5"> For how long </h1>
       <input
         type="text"
         id="user_duration"
@@ -37,9 +37,7 @@ export const SpecialComponents = ({ handleChange, formData }) => {
       <h1 className="mt-10 text-[22px] font-bold">
         Your group and travel plans
       </h1>
-      <h1 className="mt-5">
-        How many traveling in your group? (Minimum 4 people) *
-      </h1>
+      <h1 className="mt-5">How many traveling in your group?</h1>
       <input
         type="number"
         id="user_groupSize"
