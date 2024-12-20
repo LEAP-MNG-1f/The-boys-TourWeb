@@ -7,14 +7,10 @@ import { Minus } from "../icons/Minus";
 import { Plus } from "../icons/Plus";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { CircularProgress } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
-import { useRouter } from "next/router";
 import { BACKEND_URL } from "@/constant";
 
-// if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
-//   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
-// }
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const ITEM_HEIGHT = 48;
@@ -36,6 +32,7 @@ export const Details = ({
   price,
 }) => {
   const [isFilled, setIsFilled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const getStyles = (country, selectedCountry) => {
     return {
       fontWeight: selectedCountry === country ? 600 : 400,
@@ -81,6 +78,7 @@ export const Details = ({
 
     validationSchema,
     onSubmit: async (values) => {
+      setLoading(true);
       if (formik.isValid) {
         // Form data is valid, continue with payment
         const totalAmount = calculateTotalAmount();
@@ -113,9 +111,12 @@ export const Details = ({
           await stripe.redirectToCheckout({ sessionId });
         } catch (error) {
           console.error("Error processing payment:", error);
+        } finally {
+          setLoading(false); // Reset loading state after submission
         }
       } else {
         console.error("Validation failed. Fix errors before submission.");
+        setLoading(false);
       }
     },
   });
@@ -430,7 +431,11 @@ export const Details = ({
                     : "bg-[#EEEFF2] text-[rgba(28,32,36,0.24)]"
                 }`}
               >
-                Submit
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  "Submit"
+                )}
               </button>
             </div>
           </div>
