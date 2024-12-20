@@ -4,7 +4,7 @@ import Stripe from "stripe";
 const stripe = new Stripe(
   "sk_test_51QWJPGJAk8CP2BDJ5M9MRSWlbebnYsQpvBX6Rni3dFnOB7juTUAS108CRE6PEFCdGoz2jRC1PTAel0xg0YiyEErR00TcFhVAcm"
 );
-const host = "http://localhost:3000";
+const host = "https://front-end-two-psi.vercel.app/";
 
 export async function POST(request) {
   const body = await request.json();
