@@ -175,8 +175,8 @@ export default function Specialtour() {
                     </IconButton>
                   }
                 >
-                  Your inquiry has been sent successfully! We'll get back to you
-                  soon.
+                  Your inquiry has been sent successfully! We&apos;ll get back
+                  to you soon.
                 </Alert>
               </Collapse>
             </div>
