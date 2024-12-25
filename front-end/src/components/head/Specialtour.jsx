@@ -79,8 +79,8 @@ export default function Specialtour() {
     setLoading(true);
 
     emailjs
-      .sendForm("service_jlg3mrb", "template_catf42r", form.current, {
-        publicKey: "7QzFdmcdwTabvK-Fg",
+      .sendForm("service_zaipntc", "template_9i3qpx5", form.current, {
+        publicKey: "qnmwdSNY1CZKLPul8",
       })
       .then(
         () => {
