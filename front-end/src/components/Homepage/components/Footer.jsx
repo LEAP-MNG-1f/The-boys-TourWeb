@@ -22,7 +22,7 @@ const Footer = () => {
           <div className="space-y-4 flex flex-col items-start">
             <h2 className="text-2xl font-bold text-gray-900">About</h2>
             <p className="text-gray-600 leading-relaxed">
-              Welcome to [Your Company Name], where Mongolia&apos;s beauty and
+              Welcome to Eternal Gobi Tour, where Mongolia&apos;s beauty and
               culture come alive! Explore the vast Gobi Desert, serene valleys,
               and nomadic traditions with our personalized tours. We create
               unforgettable journeys for solo travelers, families, and groups.
@@ -56,17 +56,26 @@ const Footer = () => {
             <h2 className="text-2xl font-bold text-gray-900 pl-[17px]">
               Connect With Us
             </h2>
-            <div className="flex space-x-5 mb-6">
+            <div className="flex mb-6 items-center gap-4">
               {[
-                { icon: <Facebook />, href: "/" },
-                { icon: <MyIcon />, href: "/" },
-                { icon: <Youtube />, href: "/" },
+                {
+                  icon: <Facebook />,
+                  href: "https://www.facebook.com/profile.php?id=61570865198031",
+                },
+                {
+                  icon: <MyIcon />,
+                  href: "https://www.instagram.com/eternalgobi/",
+                },
+                {
+                  icon: <Youtube />,
+                  href: "https://www.youtube.com/@EternalGobiTour",
+                },
                 { icon: <Watsupp />, href: "/" },
               ].map((social, index) => (
                 <Link
                   key={index}
                   href={social.href}
-                  className="text-gray-700 hover:text-orange-500 transition-colors"
+                  className="text-gray-700 transition-colors"
                 >
                   {social.icon}
                 </Link>
