@@ -70,7 +70,6 @@ const Footer = () => {
                   icon: <Youtube />,
                   href: "https://www.youtube.com/@EternalGobiTour",
                 },
-                { icon: <Watsupp />, href: "/" },
               ].map((social, index) => (
                 <Link
                   key={index}
@@ -91,7 +90,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-200 mt-12 pt-6 text-center">
           <p className="text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} Company Name. All rights reserved.
+            &copy; {new Date().getFullYear()} Eternal Gobi. All rights reserved.
           </p>
         </div>
       </div>
