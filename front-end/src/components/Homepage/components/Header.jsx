@@ -11,7 +11,7 @@ export const HeaderPart = ({ home, customTour, event, aboutUs }) => {
         <div className="container mx-auto px-6 flex justify-between items-center">
           <Link href="/">
             <div className="text-white text-2xl font-bold tracking-wide">
-              <img className="w-16 rounded-xl " src="favicon.ico" alt="" />
+              <img className="w-12 rounded-xl " src="favicon.ico" alt="" />
             </div>
           </Link>
 
